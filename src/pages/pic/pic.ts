@@ -113,7 +113,7 @@ export class PicPage {
 
   // Copy the image to a local folder
   private copyFileToLocalDir(namePath, currentName, newFileName) {
-    this.file.copyFile(namePath, currentName, cordova.file.dataDirectory, newFileName).then(success => {
+    this.file.copyFile(namePath, currentName, this.file.dataDirectory, newFileName).then(success => {
       this.lastImage = newFileName;
     }, error => {
       this.presentToast('Error while storing file.');
@@ -134,7 +134,7 @@ export class PicPage {
     if (img === null) {
       return '';
     } else {
-      return cordova.file.dataDirectory + img;
+      return this.file.dataDirectory + img;
     }
   }
 
