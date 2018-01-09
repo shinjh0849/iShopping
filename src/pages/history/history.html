@@ -1,0 +1,35 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>내가 찜&#62;&#60;한옷</ion-title>
+  </ion-navbar>
+
+  <ion-toolbar>
+    <ion-searchbar [(ngModel)]="searchQuery" (ionInput)="getItems($event)" (ionClear)="resetList($event)">
+    </ion-searchbar>
+  </ion-toolbar>
+
+</ion-header>
+
+
+<ion-content>
+
+  <ion-list>
+    <ion-item *ngFor="let dl of dataList">
+
+      <ion-card>
+        <ion-card-header>
+          {{dl.name}}
+        </ion-card-header>
+        <ion-card-content>
+          <p>{{dl.price}}</p>
+          {{dl.location}} <button ion-button>
+              <ion-icon (click)="deleteMember(dl)" name="trash"></ion-icon>
+            </button>
+        </ion-card-content>
+      </ion-card>
+
+    </ion-item>
+  </ion-list>
+
+</ion-content>

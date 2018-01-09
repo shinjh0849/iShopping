@@ -1,6 +1,8 @@
 {
   "name": "iShopping",
-  "app_id": "",
+  "app_id": "15642d4a",
   "type": "ionic-angular",
-  "integrations": {}
+  "integrations": {
+    "cordova": {}
+  }
 }
