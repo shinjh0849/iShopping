@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
+import { HistoryPage } from '../history/history';
 
 
 @Component({
@@ -29,6 +29,8 @@ export class PicPage {
       let base64Image = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
       console.log("error occourred during getPicture");
+    }).then((sth) => {
+      this.navCtrl.push(HistoryPage, {}, { animate: false });
     })
   }
 
