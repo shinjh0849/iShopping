@@ -21,15 +21,18 @@ export class PicPage {
   loading: Loading;
 
   constructor(private camera: Camera, private fileTransfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
-
   }
 
-  // options: CameraOptions = {
-  //   quality: 100,
-  //   destinationType: this.camera.DestinationType.DATA_URL,
-  //   encodingType: this.camera.EncodingType.JPEG,
-  //   mediaType: this.camera.MediaType.PICTURE
-  // }
+  options: CameraOptions = {
+    quality: 100,
+    // destinationType: this.camera.DestinationType.DATA_URL,
+    // encodingType: this.camera.EncodingType.JPEG,
+    // mediaType: this.camera.MediaType.PICTURE,
+    destinationType: this.camera.DestinationType.FILE_URI,
+    sourceType: this.camera.PictureSourceType.CAMERA,
+    saveToPhotoAlbum: false,
+    correctOrientation: true
+  }
 
   // ionViewDidLoad() {
   //   console.log('ionViewDidLoad PicPage');
@@ -71,15 +74,15 @@ export class PicPage {
 
   public takePicture(sourceType) {
     // Create options for the Camera Dialog
-    var options = {
-      quality: 100,
-      sourceType: sourceType,
-      saveToPhotoAlbum: false,
-      correctOrientation: true
-    };
+    // var options = {
+    //   quality: 100,
+    //   sourceType: sourceType,
+    //   saveToPhotoAlbum: false,
+    //   correctOrientation: true
+    // };
 
     // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
+    this.camera.getPicture(this.options).then((imagePath) => {
       // Special handling for Android library
       if (this.platform.is('android') && sourceType === this.camera.PictureSourceType.PHOTOLIBRARY) {
         this.filePath.resolveNativePath(imagePath)
@@ -140,28 +143,28 @@ export class PicPage {
   public uploadImage() {
     // Destination URL 여기만 제대로 바꾸면 저장될 것으로 사료됨
     var url = "http://yoururl/upload.php";
-   
+
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
-   
+
     // File name only
     var filename = this.lastImage;
-   
+
     var options = {
       fileKey: "file",
       fileName: filename,
       chunkedMode: false,
       mimeType: "multipart/form-data",
-      params : {'fileName': filename}
+      params: { 'fileName': filename }
     };
-   
+
     const fileTransfer: FileTransferObject = this.fileTransfer.create();
-   
+
     this.loading = this.loadingCtrl.create({
       content: 'Uploading...',
     });
     this.loading.present();
-   
+
     // Use the FileTransfer to upload the image
     fileTransfer.upload(targetPath, url, options).then(data => {
       this.loading.dismissAll()
@@ -171,4 +174,6 @@ export class PicPage {
       this.presentToast('Error while uploading file.');
     });
   }
+
+
 }
