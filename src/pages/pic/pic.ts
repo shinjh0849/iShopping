@@ -78,7 +78,8 @@ export class PicPage {
       quality: 100,
       sourceType: sourceType,
       saveToPhotoAlbum: false,
-      correctOrientation: true
+      correctOrientation: true,
+      destinationType: this.camera.DestinationType.FILE_URI,
     };
 
     // Get the data of an image
