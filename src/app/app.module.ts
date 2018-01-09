@@ -16,9 +16,12 @@ import { SalePage } from '../pages/sale/sale';
 import { MemberDataProvider } from '../providers/member-data/member-data';
 import { MemberServiceProvider } from '../providers/member-service/member-service';
 
-//modules & native plugins
+//native plugins
 import { SplashScreen } from '@ionic-native/splash-screen';
 import { StatusBar } from '@ionic-native/status-bar';
+import { File } from '@ionic-native/file';
+import { FileTransfer } from '@ionic-native/file-transfer';
+import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 
 
@@ -52,6 +55,10 @@ import { Camera } from '@ionic-native/camera';
     MemberDataProvider,
     MemberServiceProvider, 
     Camera,
+    File,
+    FileTransfer,
+    FilePath,
   ]
 })
+
 export class AppModule {}
