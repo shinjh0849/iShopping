@@ -1,10 +1,5 @@
-import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Observable, BehaviorSubject } from 'rxjs/Rx';
-
-
-import { HomePage } from '../../pages/home/home';
-
 
 export class MemberServiceProvider {
 
