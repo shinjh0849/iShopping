@@ -1,13 +1,12 @@
 import { Component } from '@angular/core';
-import { HistoryPage } from '../history/history';
 import { NavController, ActionSheetController, ToastController, Platform, LoadingController, Loading, NavParams } from 'ionic-angular';
 
-import { Camera, CameraOptions } from '@ionic-native/camera';
+import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 
-declare var cordova: any;
+//declare var cordova: any;
 
 @Component({
   selector: 'page-pic',
