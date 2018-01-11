@@ -3,7 +3,6 @@
     <name>MyApp</name>
     <description>An awesome Ionic/Cordova app.</description>
     <author email="hi@ionicframework" href="http://ionicframework.com/">Ionic Framework Team</author>
-    <content src="index.html" />
     <access origin="*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
@@ -11,6 +10,7 @@
     <allow-intent href="sms:*" />
     <allow-intent href="mailto:*" />
     <allow-intent href="geo:*" />
+    <preference name="loadUrlTimeoutValue" value="700000" />
     <preference name="ScrollEnabled" value="false" />
     <preference name="android-minSdkVersion" value="16" />
     <preference name="BackupWebStorage" value="none" />
@@ -82,7 +82,8 @@
     <plugin name="cordova-plugin-splashscreen" spec="~4.0.1" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.11" />
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
+    <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
     <plugin name="cordova-plugin-file" spec="^6.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
-    <plugin name="cordova-plugin-filepath" spec="^1.1.0" />
+    <allow-navigation href="http://172.17.218.72:8100" />
 </widget>
