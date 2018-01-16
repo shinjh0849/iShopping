@@ -11,7 +11,7 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 */
 @Injectable()
 export class ImagesProvider {
-  apiURL = 'http://localhost:3000/';
+  apiURL = 'ec2-13-124-2-58.ap-northeast-2.compute.amazonaws.com/:80';
 
   constructor(public http: Http, private transfer: FileTransfer) {
     console.log('Hello ImagesProvider Provider');
