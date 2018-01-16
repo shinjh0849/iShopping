@@ -4,6 +4,7 @@ import { MapPage } from '../map/map';
 import { PicPage } from '../pic/pic';
 import { SalePage } from '../sale/sale';
 import { HistoryPage } from '../history/history';
+import { PicHttpPage } from '../pic-http/pic-http';
 
 @Component({
   selector: 'page-home',
@@ -26,7 +27,7 @@ export class HomePage {
   }
 
   toPicPage(){
-    this.navCtrl.push(PicPage, {}, { animate: false });
+    this.navCtrl.push(PicHttpPage, {}, { animate: false });
   }
 
   toSalePage(){

@@ -87,4 +87,9 @@
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
     <allow-navigation href="http://172.17.218.72:8100" />
     <plugin name="cordova-plugin-indooratlas" spec="https://github.com/IndoorAtlas/cordova-plugin.git" />
+    <content src="index.html" />
+    <allow-navigation href="http://172.17.218.46:8100" />
+    <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCWDRqwCeusX6ur-rU2rtG8Z4DxBSu936Q" />
+    </plugin>
 </widget>
