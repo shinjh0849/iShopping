@@ -19,6 +19,7 @@ export class UploadModalPage {
     this.imagesProvider.uploadImage(this.imageData, this.desc).then(res => {
       this.viewCtrl.dismiss({reload: true});
     }, err => {
+      alert('uploading image failed!');
       this.dismiss();
     });
   }
