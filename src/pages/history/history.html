@@ -3,7 +3,9 @@
   <ion-navbar>
     <ion-title>내가 찜&#62;&#60;한옷</ion-title>
     <ion-buttons end>
-      <button ion-button icon-only (click)="zzim()"><ion-icon name="add"> </ion-icon></button>
+      <button ion-button icon-only (click)="zzim()">
+        <ion-icon name="add"> </ion-icon>
+      </button>
     </ion-buttons>
   </ion-navbar>
 
@@ -18,20 +20,25 @@
 <ion-content>
 
   <ion-list no-lines>
-    <ion-item *ngFor="let cloth of clothes">
-      <ion-card>
-        <ion-card-header>
-          {{cloth.name}}
-        </ion-card-header>
-        <ion-card-content>
-          <p>{{cloth.price}}</p>
-          {{cloth.location}} <button ion-button>
+    <ion-card *ngFor="let cloth of clothes">
+      <img src="assets/imgs/testCloth1.png"/>
+      <ion-card-header>
+        {{cloth.name}}
+      </ion-card-header>
+      <ion-card-content>
+        <ion-row no-padding>
+          <ion-col>
+            <p>{{cloth.price}}원 </p>
+            {{cloth.spot}}에 있어요!
+          </ion-col>
+          <ion-col>
+            <button ion-button small float-right>
               <ion-icon (click)="deleteMember(cloth)" name="trash"></ion-icon>
             </button>
-        </ion-card-content>
-      </ion-card>
-
-    </ion-item>
+          </ion-col>
+        </ion-row>
+      </ion-card-content>
+    </ion-card>
   </ion-list>
 
 </ion-content>
