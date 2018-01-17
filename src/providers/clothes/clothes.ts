@@ -11,7 +11,7 @@ export class ClothesProvider {
   ServerUrl: string;
   
   constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-78-150-124.ap-northeast-2.compute.amazonaws.com:80/history'; // 매일 바뀐다 .. (눈물을 닦으며)
+    this.ServerUrl = 'http://ec2-13-125-138-255.ap-northeast-2.compute.amazonaws.com:80/history'; // 매일 바뀐다 .. (눈물을 닦으며)
     console.log('Hello ClothesProvider Provider');
     this.data = null;
   }
