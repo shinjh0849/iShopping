@@ -15,6 +15,8 @@ export class HistoryPage {
   dataList: Array<{ name: any, price: any, location: any }> = [];
   clothes: any;
 
+  searchQuery: string = '';
+
   constructor(public ms: MemberServiceProvider, public memberData: MemberDataProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public clothService: ClothesProvider) {
     /*
     memberData.getMembers().then(theResult => {
@@ -28,47 +30,25 @@ export class HistoryPage {
 
     console.log('ionViewDidLoad HistoryPage');
     this.clothService.getClothes().then((data) => {
-      console.log(data);
+      //console.log(data);
       this.clothes = data;
     })
 
   }
-/*
-  init() {
-    this.dataList = [
-      {
-        name: '사우스페이스 패딩', price: '100,000원',
-        location: '@뉴턴 아울렛'
-      },
-      {
-        name: '어디 어그부츠', price: '30,000원',
-        location: '@어디'
-      },
-      {
-        name: '어디옷', price: '00원',
-        location: '@어디'
-      },
-      {
-        name: '이런 옷', price: '000원',
-        location: '@어디'
-      }
-    ];
-  }
-*/
+
 
   getItems(ev) {
-    this.memberData.getMembers().then(theResult => {
-      this.dataList = theResult;
+    this.clothService.getClothes().then(data => {
+      this.clothes = data;
     })
 
     let queryString = ev.target.value;
 
     if (queryString !== undefined) {
-
       if (queryString.trim() == '') { return; }
-      this.memberData.getFilteredMembers(queryString).then
+      this.clothService.getFilteredItems(queryString).then
         (theResult => {
-          this.dataList = theResult;
+          this.clothes = theResult;
         })
     }
   }
@@ -99,5 +79,11 @@ export class HistoryPage {
 
    modal.present();
 
+  }
+
+  resetList(ev) {
+    this.clothService.getClothes().then(theResult => {
+      this.clothes = theResult;
+    })
   }
 }

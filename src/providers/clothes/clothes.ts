@@ -6,12 +6,12 @@ import 'rxjs/add/operator/map';
 @Injectable()
 export class ClothesProvider {
 
-  data: any; 
+  data: any = null; 
 
   ServerUrl: string;
   
   constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-78-150-124.ap-northeast-2.compute.amazonaws.com:80/history'; // 매일 바뀐다 .. (눈물을 닦으며)
+    this.ServerUrl = 'http://ec2-13-125-138-255.ap-northeast-2.compute.amazonaws.com:80/history'; // 매일 바뀐다 .. (눈물을 닦으며)
     console.log('Hello ClothesProvider Provider');
     this.data = null;
   }
@@ -34,6 +34,12 @@ export class ClothesProvider {
  
   }
  
+  getSearch() {
+    return this.getClothes().then(data => {
+      return data;
+  });
+  }
+
   createCloth(cloth){
  
     let headers = new Headers();
@@ -52,5 +58,19 @@ export class ClothesProvider {
       console.log(res.json());
     });   
  
+  }
+
+  getFilteredItems(queryString) {
+    return this.getSearch().then(Items => {
+      let theFilteredItems: any = [];
+      for (let theItem of Items) {
+        
+        if(theItem.name.toLowerCase().indexOf(queryString.toLowerCase()) > -1) {
+          theFilteredItems.push(theItem);
+        }
+        
+      }
+      return theFilteredItems;
+    });
   }
 }
