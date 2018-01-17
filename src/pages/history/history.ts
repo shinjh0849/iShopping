@@ -1,8 +1,10 @@
 import { Component } from '@angular/core';
-import { NavController, NavParams } from 'ionic-angular';
+import { NavController, NavParams, ModalController } from 'ionic-angular';
 
 import { MemberDataProvider } from '../../providers/member-data/member-data';
 import { MemberServiceProvider } from '../../providers/member-service/member-service';
+import { AddClothPage } from '../add-cloth/add-cloth';
+import { ClothesProvider } from '../../providers/clothes/clothes';
 
 @Component({
   selector: 'page-history',
@@ -11,17 +13,27 @@ import { MemberServiceProvider } from '../../providers/member-service/member-ser
 export class HistoryPage {
 
   dataList: Array<{ name: any, price: any, location: any }> = [];
+  clothes: any;
 
-  constructor(public ms: MemberServiceProvider, public memberData: MemberDataProvider, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public ms: MemberServiceProvider, public memberData: MemberDataProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public clothService: ClothesProvider) {
+    /*
     memberData.getMembers().then(theResult => {
       this.dataList = theResult;
     })
+    */
+
   }
 
   ionViewDidLoad() {
-    console.log('ionViewDidLoad HistoryPage');
-  }
 
+    console.log('ionViewDidLoad HistoryPage');
+    this.clothService.getClothes().then((data) => {
+      console.log(data);
+      this.clothes = data;
+    })
+
+  }
+/*
   init() {
     this.dataList = [
       {
@@ -42,6 +54,7 @@ export class HistoryPage {
       }
     ];
   }
+*/
 
   getItems(ev) {
     this.memberData.getMembers().then(theResult => {
@@ -61,12 +74,30 @@ export class HistoryPage {
   }
 
 
-  deleteMember(dl) {
+  deleteMember(cloth) {
+
     console.log('deleteMember clicked')
-    let index = this.dataList.indexOf(dl);
+
+    let index = this.clothes.indexOf(cloth);
     if (index > -1) {
-      this.dataList.splice(index, 1)
+      this.clothes.splice(index, 1)
     }
+
+    this.clothService.deleteCloth(cloth._id);
+
+  }
+
+  zzim() {
+   let modal = this.modalCtrl.create(AddClothPage);
+
+   modal.onDidDismiss(cloth => {
+     if(cloth) {
+       this.clothes.push(cloth);
+       this.clothService.createCloth(cloth);
+     }
+   })
+
+   modal.present();
 
   }
 }

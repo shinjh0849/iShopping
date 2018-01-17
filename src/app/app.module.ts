@@ -23,6 +23,8 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { ClothesProvider } from '../providers/clothes/clothes';
+import { AddClothPage } from '../pages/add-cloth/add-cloth';
 
 
 @NgModule({
@@ -33,6 +35,7 @@ import { Camera } from '@ionic-native/camera';
     PicPage,
     SalePage,
     HistoryPage,
+    AddClothPage
   ],
   imports: [
     BrowserModule,
@@ -47,6 +50,7 @@ import { Camera } from '@ionic-native/camera';
     PicPage,
     SalePage,
     HistoryPage,
+    AddClothPage
   ],
   providers: [
     StatusBar,
@@ -58,6 +62,7 @@ import { Camera } from '@ionic-native/camera';
     File,
     FileTransfer,
     FilePath,
+    ClothesProvider,
   ]
 })
 
