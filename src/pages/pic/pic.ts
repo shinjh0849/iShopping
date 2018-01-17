@@ -144,7 +144,7 @@ export class PicPage {
 
   public uploadImage() {
     // Destination URL 여기만 제대로 바꾸면 저장될 것으로 사료됨
-    var url = "http://yoururl/upload.php";
+    var url = "ec2-13-125-149-161.ap-northeast-2.compute.amazonaws.com/";
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
@@ -173,9 +173,9 @@ export class PicPage {
       this.presentToast('Image succesful uploaded.');
     }, err => {
       this.loading.dismissAll()
-      this.presentToast('Error while uploading file.');
+      //this.presentToast('Error while uploading file.');
+      this.presentToast("err.message: " + err.message + "\n" + "err.code: " + err.code);
     });
   }
-
 
 }

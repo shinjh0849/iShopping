@@ -10,11 +10,13 @@ import { HomePage } from '../pages/home/home';
 import { HistoryPage } from '../pages/history/history';
 import { MapPage } from '../pages/map/map';
 import { PicPage } from '../pages/pic/pic';
+import { PicHttpPage } from '../pages/pic-http/pic-http';
 import { SalePage } from '../pages/sale/sale';
 
 //providers
 import { MemberDataProvider } from '../providers/member-data/member-data';
 import { MemberServiceProvider } from '../providers/member-service/member-service';
+import { ImagesProvider } from '../providers/images/images'; 
 
 //native plugins
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -23,6 +25,9 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
+import { ClothesProvider } from '../providers/clothes/clothes';
+import { AddClothPage } from '../pages/add-cloth/add-cloth';
+import { GoogleMaps }from '@ionic-native/google-maps';
 
 
 @NgModule({
@@ -31,8 +36,10 @@ import { Camera } from '@ionic-native/camera';
     HomePage,
     MapPage,
     PicPage,
+    PicHttpPage,
     SalePage,
     HistoryPage,
+    AddClothPage
   ],
   imports: [
     BrowserModule,
@@ -45,8 +52,10 @@ import { Camera } from '@ionic-native/camera';
     HomePage,
     MapPage,
     PicPage,
+    PicHttpPage,
     SalePage,
     HistoryPage,
+    AddClothPage
   ],
   providers: [
     StatusBar,
@@ -58,6 +67,9 @@ import { Camera } from '@ionic-native/camera';
     File,
     FileTransfer,
     FilePath,
+    ClothesProvider,
+    GoogleMaps,
+    ImagesProvider, 
   ]
 })
 

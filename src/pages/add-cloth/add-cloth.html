@@ -1,0 +1,36 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>옷 추가하긔</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="close()"><ion-icon name="close"></ion-icon></button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list no-lines>
+    <ion-item>
+      <ion-label floating> 이름 </ion-label>
+      <ion-input [(ngModel)]="name" type="text"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating> 가격 </ion-label>
+      <ion-textarea [(ngModel)]="price"></ion-textarea>
+    </ion-item>
+
+    <ion-item>
+      <ion-label floating> 위치 </ion-label>
+      <ion-textarea [(ngModel)]="spot" type="text"></ion-textarea>
+    </ion-item>
+
+  </ion-list>
+
+  <button ion-button full color="secondary" (click)="save()">옷 저장!</button>
+
+</ion-content>

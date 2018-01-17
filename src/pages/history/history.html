@@ -2,6 +2,9 @@
 
   <ion-navbar>
     <ion-title>내가 찜&#62;&#60;한옷</ion-title>
+    <ion-buttons end>
+      <button ion-button icon-only (click)="zzim()"><ion-icon name="add"> </ion-icon></button>
+    </ion-buttons>
   </ion-navbar>
 
   <ion-toolbar>
@@ -14,17 +17,16 @@
 
 <ion-content>
 
-  <ion-list>
-    <ion-item *ngFor="let dl of dataList">
-
+  <ion-list no-lines>
+    <ion-item *ngFor="let cloth of clothes">
       <ion-card>
         <ion-card-header>
-          {{dl.name}}
+          {{cloth.name}}
         </ion-card-header>
         <ion-card-content>
-          <p>{{dl.price}}</p>
-          {{dl.location}} <button ion-button>
-              <ion-icon (click)="deleteMember(dl)" name="trash"></ion-icon>
+          <p>{{cloth.price}}</p>
+          {{cloth.location}} <button ion-button>
+              <ion-icon (click)="deleteMember(cloth)" name="trash"></ion-icon>
             </button>
         </ion-card-content>
       </ion-card>
