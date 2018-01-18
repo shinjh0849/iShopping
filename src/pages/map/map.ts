@@ -1,8 +1,6 @@
 import { Component, ViewChild, ElementRef } from '@angular/core';
 import { NavController } from 'ionic-angular';
-
 import { Geolocation } from '@ionic-native/geolocation';
-import { PACKAGE_ROOT_URL } from '@angular/core/src/application_tokens';
 
 declare let IndoorAtlas: any;
 declare var google;
