@@ -1,8 +1,5 @@
 import { Component } from '@angular/core';
 import { NavController, NavParams, ModalController } from 'ionic-angular';
-
-import { MemberDataProvider } from '../../providers/member-data/member-data';
-import { MemberServiceProvider } from '../../providers/member-service/member-service';
 import { AddClothPage } from '../add-cloth/add-cloth';
 import { ClothesProvider } from '../../providers/clothes/clothes';
 
@@ -17,7 +14,7 @@ export class HistoryPage {
 
   searchQuery: string = '';
 
-  constructor(public ms: MemberServiceProvider, public memberData: MemberDataProvider, public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public clothService: ClothesProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, public modalCtrl: ModalController, public clothService: ClothesProvider) {
     /*
     memberData.getMembers().then(theResult => {
       this.dataList = theResult;

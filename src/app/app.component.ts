@@ -4,6 +4,7 @@ import { StatusBar }from '@ionic-native/status-bar';
 import { SplashScreen }from '@ionic-native/splash-screen'; 
 import { HomePage }from '../pages/home/home'; 
 import { ClothesProvider } from '../providers/clothes/clothes';
+import { LoginPage } from '../pages/login/login';
 
 @Component({
   templateUrl: 'app.html',
@@ -11,7 +12,7 @@ import { ClothesProvider } from '../providers/clothes/clothes';
 })
 
 export class MyApp {
-  rootPage:any = HomePage; 
+  rootPage:any = LoginPage; 
 
   constructor(platform:Platform, statusBar:StatusBar, splashScreen:SplashScreen) {
     platform.ready().then(() =>  {

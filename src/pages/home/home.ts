@@ -5,6 +5,8 @@ import { PicPage } from '../pic/pic';
 import { SalePage } from '../sale/sale';
 import { HistoryPage } from '../history/history';
 import { PicHttpPage } from '../pic-http/pic-http';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { LoginPage } from '../login/login';
 
 @Component({
   selector: 'page-home',
@@ -13,11 +15,21 @@ import { PicHttpPage } from '../pic-http/pic-http';
 export class HomePage {
 
   currentLocation: String;
+  username = '';
+  email = '';
 
-  constructor(public navCtrl: NavController) {
+  constructor(public navCtrl: NavController, private auth: AuthServiceProvider) {
     this.currentLocation = "뉴턴 아울렛";
+    let info = this.auth.getUserInfo();
+    this.username = info['name'];
+    this.email = info['email'];
   }
 
+  public logout() {
+    this.auth.logout().subscribe(succ => {
+      this.navCtrl.setRoot(LoginPage)
+    });
+  }
   ionViewDidLoad(){
     console.log("ionViewDidLoad HomePage");
   }
