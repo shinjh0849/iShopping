@@ -6,6 +6,8 @@ import { HomePage }from '../pages/home/home';
 import { ClothesProvider } from '../providers/clothes/clothes';
 import { LoginPage } from '../pages/login/login';
 
+declare let IndoorAtlas: any;
+
 @Component({
   templateUrl: 'app.html',
   providers: [ ClothesProvider ]
@@ -19,17 +21,17 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
       statusBar.styleDefault(); 
-      splashScreen.hide(); 
-      // try {
-      //   IndoorAtlas.initialize(this.onSuccess, this.onError,  {
-      //     key:'694725c5-ee99-4df8-bdca-5a99acd97ced', 
-      //     secret:'vGysPwqifKc8lNXtclLALN8BXKNLXeRrugroW3aDdGA0XYRRt1rfNlnBtSfid3KBCoVVBRtbPvI5Jb7qJg0cS4XvtSleQHm1NoP/adLNxx1Oe0DFve1hkGdiTxAh6w=='
-      //   }
-      // )
-      // }
-      // catch(e) {
-      //   console.log(e); 
-      // }
+      splashScreen.hide();
+      
+      try {
+        IndoorAtlas.initialize(this.onSuccess, this.onError,  {
+          key:'694725c5-ee99-4df8-bdca-5a99acd97ced', 
+          secret:'vGysPwqifKc8lNXtclLALN8BXKNLXeRrugroW3aDdGA0XYRRt1rfNlnBtSfid3KBCoVVBRtbPvI5Jb7qJg0cS4XvtSleQHm1NoP/adLNxx1Oe0DFve1hkGdiTxAh6w=='
+        })
+      }
+      catch(e) {
+        console.log(e); 
+      }
 
     }); 
   }

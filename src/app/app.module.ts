@@ -1,4 +1,4 @@
-//modules
+//generals & modules
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -28,7 +28,8 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
-import { GoogleMaps }from '@ionic-native/google-maps';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -77,4 +78,4 @@ import { GoogleMaps }from '@ionic-native/google-maps';
   ]
 })
 
-export class AppModule {}
+export class AppModule { }
