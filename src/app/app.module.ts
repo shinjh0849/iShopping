@@ -16,7 +16,7 @@ import { AddClothPage } from '../pages/add-cloth/add-cloth';
 
 //providers
 import { MemberDataProvider } from '../providers/member-data/member-data';
-import { ImagesProvider } from '../providers/images/images'; 
+import { ImagesProvider } from '../providers/images/images';
 import { ClothesProvider } from '../providers/clothes/clothes';
 
 //native plugins
@@ -26,7 +26,8 @@ import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
-import { GoogleMaps }from '@ionic-native/google-maps';
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -59,7 +60,8 @@ import { GoogleMaps }from '@ionic-native/google-maps';
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    Geolocation,
+    { provide: ErrorHandler, useClass: IonicErrorHandler },
     MemberDataProvider,
     Camera,
     File,
@@ -67,8 +69,8 @@ import { GoogleMaps }from '@ionic-native/google-maps';
     FilePath,
     ClothesProvider,
     GoogleMaps,
-    ImagesProvider, 
+    ImagesProvider,
   ]
 })
 
-export class AppModule {}
+export class AppModule { }

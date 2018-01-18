@@ -7,5 +7,9 @@
 </ion-header>
  
 <ion-content>
-  <div #map id="map"></div> 
+    <button ion-button round large (click)="getPosition()"> Get Position </button>
+    <button ion-button round large (click)="addMarker()"> Add Marker </button>
+    <div #map id="map"></div>
+  
+
 </ion-content>
