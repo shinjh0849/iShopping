@@ -23,6 +23,7 @@ export class HomePage {
     let info = this.auth.getUserInfo();
     this.username = info['name'];
     this.email = info['email'];
+    console.log('username:'+this.username + '/ email:'+this.email);
   }
 
   public logout() {

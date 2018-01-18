@@ -1,7 +1,7 @@
 <ion-header>
 
   <ion-navbar>
-    <ion-title>HomePage!!!!!!!</ion-title>
+    <ion-title color="primary" center><img class="logo" src="assets/imgs/iSh.png"/></ion-title>
     <ion-buttons end>
         <button ion-button (click)="logout()">
           <ion-icon name="log-out"></ion-icon>
@@ -11,10 +11,11 @@
 
 </ion-header>
 
-<ion-content>
 
+<ion-content>
+    
   <div>
-    <h1>안녕하세요, 지호님!!!!!</h1>
+    <h1>안녕하세요, {{username}}님!!!!!</h1>
     <h1>즐거운 쇼핑하세요 :)</h1>
 
     <br />
