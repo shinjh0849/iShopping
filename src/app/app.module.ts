@@ -68,6 +68,7 @@ import { Geolocation } from '@ionic-native/geolocation';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
+    Geolocation,
     File,
     FileTransfer,
     FilePath,
