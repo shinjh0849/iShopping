@@ -5,8 +5,34 @@ import { Geolocation } from '@ionic-native/geolocation';
 declare let IndoorAtlas: any;
 declare var google;
 
+var map: any;
+
 var curLat;
 var curLng;
+var watchID;
+
+function addMarker(){
+  let marker = new google.maps.Marker({
+    map: map,
+    animation: google.maps.Animation.DROP,
+    position: {
+      lat: curLat,
+      lng: curLng
+    }
+  });
+
+  let content = "<h4> Me! </h4>";
+  this.addInfoWindow(marker, content);
+}
+
+function addInfoWindow(marker, content) {
+  let infoWindow = new google.maps.InfoWindow({
+    content: content
+  });
+  google.map.event.addListener(marker, 'click', () => {
+    infoWindow.open(this.map, marker);
+  });
+}
 
 @Component({
   selector: 'page-map',
@@ -16,14 +42,20 @@ var curLng;
 export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  map: any;
-
+  
   constructor(public geolocation: Geolocation, public navCtrl: NavController) {
-
+    
   }
 
   ionViewDidEnter() {
     this.loadMap();
+
+    try{
+      IndoorAtlas.fetchFloorPlanWithId('09b2f61e-224b-415c-81b1-7f86dee65486', this.successCallback, this.onError);
+    }
+    catch(e){
+      alert('catch error: ' + e);
+    }
   }
 
   loadMap() {
@@ -36,7 +68,7 @@ export class MapPage {
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
 
-      this.map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
+      map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
       alert(err);
     });
@@ -44,16 +76,30 @@ export class MapPage {
 
   getPosition() {
     try {
-      IndoorAtlas.getCurrentPosition(this.onSuccess, this.onError)
+      IndoorAtlas.getCurrentPosition(this.onGetPositionSuccess, this.onError)
     }
     catch (e) {
       console.log(e);
     }
   }
 
-  
+  watchPosition() {
+    try {
+      watchID = IndoorAtlas.watchPosition(this.onWatchPositionSuccess, this.onError, { timeout: 30000 })
+    }
+    catch (e) {
+      console.log(e);
+    }
+  }
 
-  onSuccess(position){
+  onWatchPositionSuccess(position) {
+    curLat = position.coords.latitude;
+    curLng = position.coords.longitude;
+
+    addMarker();
+  }
+
+  onGetPositionSuccess(position) {
 
     curLat = position.coords.latitude;
     curLng = position.coords.longitude;
@@ -66,8 +112,6 @@ export class MapPage {
       'Floor: ' + position.coords.floor + '\n' +
       'Timestamp: ' + position.timestamp
     );
-
-    return position
   }
 
   // onError Callback receives a PositionError object
@@ -76,27 +120,32 @@ export class MapPage {
       'Message: ' + error.message);
   }
 
-  addMarker() {
-    let marker = new google.maps.Marker({
-      map: this.map,
-      animation: google.maps.Animation.DROP,
-      position: {
-        lat: curLat,
-        lng: curLng
-      }
-    });
-
-    
-    let content = "<h4> Me! </h4>";
-    this.addInfoWindow(marker, content);
+  successCallback(floorplan) {
+    alert("Floor plan url: " + floorplan.url);
   }
 
-  addInfoWindow(marker, content) {
-    let infoWindow = new google.maps.InfoWindow({
-      content: content
-    });
-    google.map.event.addListener(marker, 'click', () => {
-      infoWindow.open(this.map, marker);
-    });
-  }
+  // addMarker() {
+  //   let marker = new google.maps.Marker({
+  //     map: map,
+  //     animation: google.maps.Animation.DROP,
+  //     position: {
+  //       lat: curLat,
+  //       lng: curLng
+  //     }
+  //   });
+
+
+  //   let content = "<h4> Me! </h4>";
+  //   this.addInfoWindow(marker, content);
+  // }
+
+  // addInfoWindow(marker, content) {
+  //   let infoWindow = new google.maps.InfoWindow({
+  //     content: content
+  //   });
+  //   google.map.event.addListener(marker, 'click', () => {
+  //     infoWindow.open(map, marker);
+  //   });
+  // }
+
 }
