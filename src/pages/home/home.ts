@@ -21,15 +21,20 @@ export class HomePage {
   constructor(public navCtrl: NavController, private auth: AuthServiceProvider) {
     this.currentLocation = "뉴턴 아울렛";
     let info = this.auth.getUserInfo();
-    this.username = info['name'];
+    //this.username = info['name'];
     this.email = info['email'];
-    console.log('username:'+this.username + '/ email:'+this.email);
+    this.username = info['name'];
+    console.log('email:'+this.email);
   }
 
   public logout() {
+    /*
     this.auth.logout().subscribe(succ => {
       this.navCtrl.setRoot(LoginPage)
     });
+    */
+    this.auth.logout();
+    this.navCtrl.setRoot(LoginPage);
   }
   ionViewDidLoad(){
     console.log("ionViewDidLoad HomePage");

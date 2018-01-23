@@ -4,6 +4,7 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
+//import { IonicStorageModule } from '@ionic/storage';
 
 //pages
 import { HomePage } from '../pages/home/home';
@@ -48,6 +49,7 @@ import { GoogleMaps }from '@ionic-native/google-maps';
     BrowserModule,
     IonicModule.forRoot(MyApp),
     HttpModule,
+    //IonicStorageModule.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [

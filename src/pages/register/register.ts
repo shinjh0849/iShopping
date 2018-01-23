@@ -1,6 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, IonicPage } from 'ionic-angular';
+import { NavController, AlertController, IonicPage, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
  
 //@IonicPage()
 @Component({
@@ -9,11 +11,44 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class RegisterPage {
   createSuccess = false;
-  registerCredentials = { email: '', password: '' };
+  registerCredentials = { 
+    email: '', 
+    password: '' 
+  };
  
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController) { 
+  loading: any;
+  
+  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, public loadingCtrl: LoadingController) { 
+  }
+
+  register(){
+    console.log("register");
+
+    this.showLoader();
+ 
+    this.auth.register(this.registerCredentials).then((result) => {
+      console.log("inRegi");
+      this.loading.dismiss();
+      console.log(result);
+      this.nav.popToRoot();
+    }, (err) => {
+        this.loading.dismiss();
+    });
+ 
   }
  
+  showLoader(){
+ 
+    this.loading = this.loadingCtrl.create({
+      content: 'Authenticating...'
+    });
+ 
+    this.loading.present();
+ 
+  }
+ 
+
+ /*
   public register() {
     this.auth.register(this.registerCredentials).subscribe(success => {
       if (success) {
@@ -46,4 +81,5 @@ export class RegisterPage {
     });
     alert.present();
   }
+  */
 }
