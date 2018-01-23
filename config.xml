@@ -89,6 +89,7 @@
     <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCWDRqwCeusX6ur-rU2rtG8Z4DxBSu936Q" />
     </plugin>
+    <allow-navigation href="http://172.17.218.72:8100" />
     <content src="index.html" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1">
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
