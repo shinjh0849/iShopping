@@ -2,14 +2,16 @@
   <ion-navbar color="primary">
     <ion-title>
       Map
-    </ion-title> 
+    </ion-title>
   </ion-navbar>
 </ion-header>
- 
+
 <ion-content>
-    <button ion-button round large (click)="getPosition()"> Get Position </button>
-    <button ion-button round large (click)="addMarker()"> Add Marker </button>
-    <div #map id="map"></div>
-  
+<!--
+  <button ion-button round (click)="getPosition()"> Get Position </button>
+  <button ion-button round (click)="addMarker()"> Add Marker </button>
+-->
+  <button ion-button round (click)="watchPosition()">Watch Position</button>
+  <div #map id="map"></div>
 
 </ion-content>

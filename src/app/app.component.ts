@@ -1,8 +1,8 @@
-import { Component }from '@angular/core'; 
-import { Platform }from 'ionic-angular'; 
-import { StatusBar }from '@ionic-native/status-bar'; 
-import { SplashScreen }from '@ionic-native/splash-screen'; 
-import { HomePage }from '../pages/home/home'; 
+import { Component } from '@angular/core';
+import { Platform } from 'ionic-angular';
+import { StatusBar } from '@ionic-native/status-bar';
+import { SplashScreen } from '@ionic-native/splash-screen';
+import { HomePage } from '../pages/home/home';
 import { ClothesProvider } from '../providers/clothes/clothes';
 import { LoginPage } from '../pages/login/login';
 
@@ -10,40 +10,40 @@ declare let IndoorAtlas: any;
 
 @Component({
   templateUrl: 'app.html',
-  providers: [ ClothesProvider ]
+  providers: [ClothesProvider]
 })
 
 export class MyApp {
-  rootPage:any = LoginPage; 
+  rootPage: any = LoginPage;
 
-  constructor(platform:Platform, statusBar:StatusBar, splashScreen:SplashScreen) {
-    platform.ready().then(() =>  {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+    platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
-      statusBar.styleDefault(); 
+      statusBar.styleDefault();
       splashScreen.hide();
-      
+
       try {
-        IndoorAtlas.initialize(this.onSuccess, this.onError,  {
-          key:'694725c5-ee99-4df8-bdca-5a99acd97ced', 
-          secret:'vGysPwqifKc8lNXtclLALN8BXKNLXeRrugroW3aDdGA0XYRRt1rfNlnBtSfid3KBCoVVBRtbPvI5Jb7qJg0cS4XvtSleQHm1NoP/adLNxx1Oe0DFve1hkGdiTxAh6w=='
+        IndoorAtlas.initialize(this.onSuccess, this.onError, {
+          key: '554846d6-302c-4e66-ba6c-a3d576fd4c39',
+          secret: 'QQ2Annx4hBH/Hf2/CHhRUDW49ImXnYE79n0tTTz6alTTFmy9aH8HNzwYkbs88M1zUJq32dxA4CPedJ4KCOpw4AvLzJebCZxHJzLQeyEWO5gMoQ+bu80XPu5lRqkhbg=='
         })
       }
-      catch(e) {
-        console.log(e); 
+      catch (e) {
+        alert('catch error: ' + e);
       }
-
-    }); 
+    });
   }
 
   // onSuccess Callback
   onSuccess() {
-    alert('IndoorAtlas was successfully initialized'); 
-  }; 
+    alert('IndoorAtlas was successfully initialized');
+  };
 
   // onError Callback receives a PositionError object
   onError(error) {
-    alert('Code: ' + error.code + '\n' + 
-      'Message: ' + error.message); 
-  }; 
+    alert('Code: ' + error.code + '\n' +
+      'Message: ' + error.message);
+  };
+
 }
