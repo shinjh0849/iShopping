@@ -65,7 +65,15 @@ export class LoginPage {
         this.nav.setRoot(HomePage);
     }, (err) => {
         this.loading.dismiss();
+        switch(err.statusText) {
+          case "Unauthorized": 
+          {
+            this.showError("회원 정보가 없어요!");
+            break;
+          }
+        }
         console.log(err);
+    
     });
   }
  
@@ -78,13 +86,14 @@ export class LoginPage {
   }
  
   showError(text) {
-    this.loading.dismiss();
+    //this.loading.dismiss();
  
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
       buttons: ['OK']
-    });
-    alert.present();
+    }).present();
+
+    
   }
 }
