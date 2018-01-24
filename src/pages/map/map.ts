@@ -1,6 +1,8 @@
-import { Component, ViewChild, ElementRef } from '@angular/core';
+import { Component, ViewChild, ElementRef, } from '@angular/core';
 import { NavController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Geofence } from '@ionic-native/geofence';
+import { HomePage } from '../home/home';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -11,7 +13,7 @@ var curLat;
 var curLng;
 var watchID;
 
-function addMarker(){
+function addMarker() {
   let marker = new google.maps.Marker({
     map: map,
     animation: google.maps.Animation.DROP,
@@ -21,18 +23,18 @@ function addMarker(){
     }
   });
 
-  let content = "<h4> Me! </h4>";
-  this.addInfoWindow(marker, content);
+  // let content = "<h4> Me! </h4>";
+  // addInfoWindow(marker, content);
 }
 
-function addInfoWindow(marker, content) {
-  let infoWindow = new google.maps.InfoWindow({
-    content: content
-  });
-  google.map.event.addListener(marker, 'click', () => {
-    infoWindow.open(this.map, marker);
-  });
-}
+// function addInfoWindow(marker, content) {
+//   let infoWindow = new google.maps.InfoWindow({
+//     content: content
+//   });
+//   google.map.event.addListener(marker, 'click', () => {
+//     infoWindow.open(this.map, marker);
+//   });
+// }
 
 @Component({
   selector: 'page-map',
@@ -42,20 +44,51 @@ function addInfoWindow(marker, content) {
 export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
-  
-  constructor(public geolocation: Geolocation, public navCtrl: NavController) {
-    
+
+  constructor(public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+
   }
 
   ionViewDidEnter() {
+
     this.loadMap();
 
-    try{
+    try {
       IndoorAtlas.fetchFloorPlanWithId('09b2f61e-224b-415c-81b1-7f86dee65486', this.successCallback, this.onError);
     }
-    catch(e){
-      alert('catch error: ' + e);
+    catch (e) {
+      alert('indoor floorplan fetch catch error: ' + e);
     }
+  }
+
+  setGeofence(){
+    this.geolocation.getCurrentPosition({
+      enableHighAccuracy: true
+    }).then((resp) => {
+      var longitude = resp.coords.longitude;
+      var latitude = resp.coords.latitude;
+      var radius = 5;
+
+      let fence = {
+        id: "NTH 314",
+        latitude: latitude,
+        longitude: longitude,
+        radius: radius,
+        transitionType: 1
+      }
+
+      this.geofence.addOrUpdate(fence).then(
+        () => function(){ console.log('geofence add success!')},
+        (err) => function(){ alert('geofence add failed')}
+      );
+
+      this.geofence.onTransitionReceived().subscribe(resp => {
+        alert('You entered NTH 314!');
+      });
+
+    }).catch((error) => {
+      alert('getting high accuracy location failed: ' + error);
+    });
   }
 
   loadMap() {
@@ -70,8 +103,18 @@ export class MapPage {
 
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
-      alert(err);
+      alert('loadMap, getcurrentPosition failed: ' + err);
     });
+  }
+
+  clearWatch() {
+    try {
+      IndoorAtlas.clearWatch(watchID);
+    }
+    catch (e) {
+      alert('indoor clearwatch catch code: ' + e);
+    }
+
   }
 
   getPosition() {
@@ -79,7 +122,7 @@ export class MapPage {
       IndoorAtlas.getCurrentPosition(this.onGetPositionSuccess, this.onError)
     }
     catch (e) {
-      console.log(e);
+      alert('indoor getpostion catch code: ' + e);
     }
   }
 
@@ -88,7 +131,7 @@ export class MapPage {
       watchID = IndoorAtlas.watchPosition(this.onWatchPositionSuccess, this.onError, { timeout: 30000 })
     }
     catch (e) {
-      console.log(e);
+      alert('indoor watch catch code: ' + e);
     }
   }
 
@@ -121,7 +164,8 @@ export class MapPage {
   }
 
   successCallback(floorplan) {
-    alert("Floor plan url: " + floorplan.url);
+    console.log('Floor plan url:' + floorplan.url);
+    // alert("Floor plan url: " + floorplan.url);
   }
 
   // addMarker() {
@@ -148,4 +192,8 @@ export class MapPage {
   //   });
   // }
 
+  onSuccess() {
+    console.log('IndoorAtlas was successfully initialized');
+    // alert('IndoorAtlas was successfully initialized');
+  };
 }

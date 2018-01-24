@@ -4,7 +4,6 @@ import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
 import { MyApp } from './app.component';
 import { HttpModule } from '@angular/http';
-//import { IonicStorageModule } from '@ionic/storage';
 
 //pages
 import { HomePage } from '../pages/home/home';
@@ -31,6 +30,7 @@ import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Geofence } from '@ionic-native/geofence';
 
 
 @NgModule({
@@ -70,12 +70,14 @@ import { Geolocation } from '@ionic-native/geolocation';
     SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
-    Geolocation,
     File,
-    FileTransfer,
     FilePath,
-    ClothesProvider,
+    FileTransfer,
+    Geofence,
+    Geolocation,
     GoogleMaps,
+
+    ClothesProvider,
     ImagesProvider,
     AuthServiceProvider, 
   ]

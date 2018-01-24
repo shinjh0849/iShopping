@@ -7,10 +7,10 @@
 </ion-header>
 
 <ion-content>
-<!--
+  
+  <button ion-button round (click)="setGeofence()"> Set Geofence </button>
   <button ion-button round (click)="getPosition()"> Get Position </button>
-  <button ion-button round (click)="addMarker()"> Add Marker </button>
--->
+  <button ion-button round (click)="clearWatch()"> Clear Watch </button>
   <button ion-button round (click)="watchPosition()">Watch Position</button>
   <div #map id="map"></div>
 

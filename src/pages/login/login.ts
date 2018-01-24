@@ -72,7 +72,7 @@ export class LoginPage {
             break;
           }
         }
-        console.log(err);
+        alert(err);
     
     });
   }
