@@ -144,7 +144,7 @@ export class PicPage {
 
   public uploadImage() {
     // Destination URL 여기만 제대로 바꾸면 저장될 것으로 사료됨
-    var url = "ec2-13-125-149-161.ap-northeast-2.compute.amazonaws.com:3000/";
+    var url = "http://ec2-52-79-58-177.ap-northeast-2.compute.amazonaws.com:3000/";
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);
