@@ -21,7 +21,7 @@ export class AuthServiceProvider {
   ServerUrl: string;
 
   constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000'; // 매일 바뀐다 .. (눈물을 닦으며)
+    this.ServerUrl = 'http://ec2-52-79-58-177.ap-northeast-2.compute.amazonaws.com:3000'; // 매일 바뀐다 .. (눈물을 닦으며)
     console.log('Hello AuthServiceProvider Provider');
   }
 
@@ -114,7 +114,7 @@ export class AuthServiceProvider {
             resolve(data);
  
           }, (err) => {
-            reject(err);
+            alert(err);
           });
  
     });

@@ -29,8 +29,8 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
-import { Geolocation } from '@ionic-native/geolocation';
 import { Geofence } from '@ionic-native/geofence';
+import { Geolocation } from '@ionic-native/geolocation';
 
 
 @NgModule({
@@ -73,9 +73,9 @@ import { Geofence } from '@ionic-native/geofence';
     File,
     FilePath,
     FileTransfer,
+    GoogleMaps,
     Geofence,
     Geolocation,
-    GoogleMaps,
 
     ClothesProvider,
     ImagesProvider,

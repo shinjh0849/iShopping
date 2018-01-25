@@ -1,11 +1,13 @@
 import { Component, ViewChild, ElementRef, } from '@angular/core';
 import { NavController } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
+
 import { Geofence } from '@ionic-native/geofence';
+import { Geolocation } from '@ionic-native/geolocation';
 import { HomePage } from '../home/home';
 
 declare let IndoorAtlas: any;
 declare var google;
+
 
 var map: any;
 
@@ -13,28 +15,16 @@ var curLat;
 var curLng;
 var watchID;
 
-function addMarker() {
+function addMarker(latitude, longitude) {
   let marker = new google.maps.Marker({
     map: map,
     animation: google.maps.Animation.DROP,
     position: {
-      lat: curLat,
-      lng: curLng
-    }
+      lat: latitude,
+      lng: longitude
+    } 
   });
-
-  // let content = "<h4> Me! </h4>";
-  // addInfoWindow(marker, content);
 }
-
-// function addInfoWindow(marker, content) {
-//   let infoWindow = new google.maps.InfoWindow({
-//     content: content
-//   });
-//   google.map.event.addListener(marker, 'click', () => {
-//     infoWindow.open(this.map, marker);
-//   });
-// }
 
 @Component({
   selector: 'page-map',
@@ -46,12 +36,16 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
 
   constructor(public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+    this.loadMap();
+
+    geofence.initialize().then(
+      () => alert('Geofence Initialized!'),
+      (err) => alert('Geofence Fail Code: ' + err)
+    )
 
   }
 
   ionViewDidEnter() {
-
-    this.loadMap();
 
     try {
       IndoorAtlas.fetchFloorPlanWithId('09b2f61e-224b-415c-81b1-7f86dee65486', this.successCallback, this.onError);
@@ -59,36 +53,46 @@ export class MapPage {
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
     }
+
+    addMarker(36.10337052095497, 129.38652623754345);
   }
 
-  setGeofence(){
-    this.geolocation.getCurrentPosition({
-      enableHighAccuracy: true
-    }).then((resp) => {
-      var longitude = resp.coords.longitude;
-      var latitude = resp.coords.latitude;
-      var radius = 5;
+  setGeofence() {
+    var latitude = 36.10337052095497;
+    var longitude = 129.38652623754345;
 
-      let fence = {
-        id: "NTH 314",
-        latitude: latitude,
-        longitude: longitude,
-        radius: radius,
-        transitionType: 1
+    let enterFence1 = {
+      id: "NTH 314",
+      latitude: latitude,
+      longitude: longitude,
+      radius: 3,
+      transitionType: 1, //1은 Enter
+      notification: {
+        id:                1,
+        title:            'you crossed a fence',
+        text:             'you just arrived to SeeSun area',
+        openAppOnClick:   true
       }
+    }
 
-      this.geofence.addOrUpdate(fence).then(
-        () => function(){ console.log('geofence add success!')},
-        (err) => function(){ alert('geofence add failed')}
-      );
+    let leaveFence1 = {
+      id: "ANH",
+      latitude: latitude,
+      longitude: longitude,
+      radius: 3,
+      transitionType: 2 //2는 Leave    3은 둘다
+    }
 
-      this.geofence.onTransitionReceived().subscribe(resp => {
-        alert('You entered NTH 314!');
-      });
+    this.geofence.addOrUpdate(enterFence1).then(
+      () => alert('Geofence add successful!'),
+      (err) => alert('Geofence add failed: ' + err)
+    );
 
-    }).catch((error) => {
-      alert('getting high accuracy location failed: ' + error);
+    this.geofence.onTransitionReceived().subscribe(resp => {
+      alert('You entered NTH 314!');
     });
+
+
   }
 
   loadMap() {
@@ -100,7 +104,7 @@ export class MapPage {
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
-
+      
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
       alert('loadMap, getcurrentPosition failed: ' + err);
@@ -139,7 +143,7 @@ export class MapPage {
     curLat = position.coords.latitude;
     curLng = position.coords.longitude;
 
-    addMarker();
+    addMarker(curLat, curLng);
   }
 
   onGetPositionSuccess(position) {
@@ -164,7 +168,7 @@ export class MapPage {
   }
 
   successCallback(floorplan) {
-    console.log('Floor plan url:' + floorplan.url);
+    alert('Floor plan url:' + floorplan.url);
     // alert("Floor plan url: " + floorplan.url);
   }
 
@@ -193,7 +197,7 @@ export class MapPage {
   // }
 
   onSuccess() {
-    console.log('IndoorAtlas was successfully initialized');
+    alert('IndoorAtlas was successfully initialized');
     // alert('IndoorAtlas was successfully initialized');
   };
 }

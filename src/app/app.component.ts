@@ -18,16 +18,12 @@ declare let IndoorAtlas: any;
 export class MyApp {
   rootPage: any = LoginPage;
 
-  constructor(public geofence: Geofence, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
       statusBar.styleDefault();
       splashScreen.hide();
-      this.geofence.initialize().then(
-        () => console.log('Geofence Plugin Ready'),
-        (err) => alert('Geofence Failed: ' + err)
-      );
 
       try {
         IndoorAtlas.initialize(this.onSuccess, this.onError, {
@@ -44,7 +40,7 @@ export class MyApp {
 
   // onSuccess Callback
   onSuccess() {
-    console.log('IndoorAtlas was successfully initialized');
+    alert('IndoorAtlas was successfully initialized');
     // alert('IndoorAtlas was successfully initialized');
   };
 
