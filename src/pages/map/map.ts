@@ -1,9 +1,11 @@
 import { Component, ViewChild, ElementRef, } from '@angular/core';
-import { NavController } from 'ionic-angular';
-
-import { Geofence } from '@ionic-native/geofence';
+import { NavController, ModalController } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
+import { Geofence } from '@ionic-native/geofence';
 import { HomePage } from '../home/home';
+
+// For camera module
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -35,7 +37,7 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
 
-  constructor(public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+  constructor(private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
     this.loadMap();
 
     geofence.initialize().then(
@@ -200,4 +202,29 @@ export class MapPage {
     alert('IndoorAtlas was successfully initialized');
     // alert('IndoorAtlas was successfully initialized');
   };
+
+  public takePicture() {
+    let sourceType = this.camera.PictureSourceType.CAMERA;
+    // Create options for the Camera Dialog
+    var options = {
+      quality: 100,
+      destinationType: this.camera.DestinationType.FILE_URI,
+      sourceType: sourceType,
+      saveToPhotoAlbum: false,
+      correctOrientation: true
+    };
+
+    // Get the data of an image
+    this.camera.getPicture(options).then((imagePath) => {
+      let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
+      modal.present();
+      modal.onDidDismiss(data => {
+        if (data && data.reload) {
+          //this.reloadImages();
+        }
+      });
+    }, (err) => {
+      console.log('Error: ', err);
+    });
+  }
 }

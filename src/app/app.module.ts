@@ -15,6 +15,7 @@ import { SalePage } from '../pages/sale/sale';
 import { AddClothPage } from '../pages/add-cloth/add-cloth';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
+import { TabsPage } from '../pages/tabs/tabs';
 
 //providers
 import { ImagesProvider } from '../providers/images/images'; 
@@ -33,6 +34,7 @@ import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -44,7 +46,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     HistoryPage,
     AddClothPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    TabsPage
   ],
   imports: [
     BrowserModule,
@@ -63,7 +66,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     HistoryPage,
     AddClothPage,
     LoginPage,
-    RegisterPage
+    RegisterPage,
+    TabsPage
   ],
   providers: [
     StatusBar,

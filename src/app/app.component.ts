@@ -7,8 +7,10 @@ import { ClothesProvider } from '../providers/clothes/clothes';
 import { LoginPage } from '../pages/login/login';
 import { Geofence } from '@ionic-native/geofence';
 import { MapPage } from '../pages/map/map';
+import { TabsPage } from '../pages/tabs/tabs';
 
 declare let IndoorAtlas: any;
+declare let SERVER_URL: 'http://ec2-52-79-58-177.ap-northeast-2.compute.amazonaws.com:3000/';
 
 @Component({
   templateUrl: 'app.html',
