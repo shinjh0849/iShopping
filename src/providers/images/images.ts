@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
 import { Http } from '@angular/http';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { ServerAddressProvider } from '../server-address/server-address';
  
 /*
   Generated class for the ImagesProvider provider.
@@ -11,24 +12,23 @@ import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-nati
 */
 @Injectable()
 export class ImagesProvider {
-  apiURL = 'http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000/'; // 매일 바뀐다 .. (눈물을 닦으며)
 
-  constructor(public http: Http, private transfer: FileTransfer) {
+  constructor(public http: Http, private transfer: FileTransfer, public serverAddr: ServerAddressProvider) {
     console.log('Hello ImagesProvider Provider');
   }
 
   getImages() {
-    return this.http.get(this.apiURL + 'images').map(res => res.json());
+    return this.http.get(this.serverAddr.serverURL + '/images').map(res => res.json());
   }
 
   deleteImage(img){
-    return this.http.delete(this.apiURL + 'images/' + img._id);
+    return this.http.delete(this.serverAddr.serverURL + '/images/' + img._id);
   }
 
   uploadImage(img, desc){
     
     // Destination URL
-    let url = this.apiURL + 'images';
+    let url = this.serverAddr.serverURL + '/images';
 
     // File for Upload
     var targetPath = img;

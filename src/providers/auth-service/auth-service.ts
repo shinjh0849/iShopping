@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ServerAddressProvider } from '../server-address/server-address';
 
 // storage
 
@@ -20,16 +21,21 @@ export class AuthServiceProvider {
 
   currentUser: User;
   public token: any;
-  ServerUrl: string;
   _id: any;
+  _email: any;
 
-  constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000'; // 매일 바뀐다 .. (눈물을 닦으며)
+  constructor(public http: Http, public serverAddr: ServerAddressProvider) {
     console.log('Hello AuthServiceProvider Provider');
   }
 
   getId() {
+    if(!this._email) return 'id not found';
     return this._id;
+  }
+
+  getEmail() { 
+    if(!this._email) return 'email not found';
+    return this._email;
   }
 
   //morony
@@ -43,7 +49,7 @@ export class AuthServiceProvider {
         let headers = new Headers();
         headers.append('Authorization', this.token);
 
-        this.http.get(this.ServerUrl+ '/api/auth/protected', { headers: headers })
+        this.http.get(this.serverAddr.serverURL+ '/api/auth/protected', { headers: headers })
           .subscribe(res => {
             resolve(res);
           }, (err) => {
@@ -72,7 +78,7 @@ export class AuthServiceProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
  
-        this.http.post(this.ServerUrl + '/api/auth/login', JSON.stringify(credentials), {headers: headers})
+        this.http.post(this.serverAddr.serverURL + '/api/auth/login', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
  
             let data = res.json();
@@ -82,9 +88,10 @@ export class AuthServiceProvider {
             //console.log("auth Token:" + this.token);
             //console.log("user:" + data.user.email);
             //console.log("user Id: "+ data.user._id);
-            this.currentUser = new User(data.user.email, data.user.email);
+            //this.currentUser = new User(data.user.email, data.user.email);
             this._id = data.user._id;
-            
+            this._email = data.user.email;
+
             resolve(data); 
             resolve(res.json());
           }, (err) => {
@@ -112,7 +119,7 @@ export class AuthServiceProvider {
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
  
-        this.http.post(this.ServerUrl + '/api/auth/register', JSON.stringify(credentials), {headers: headers})
+        this.http.post(this.serverAddr.serverURL + '/api/auth/register', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
  
             let data = res.json();

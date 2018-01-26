@@ -5,6 +5,7 @@ import { Camera } from '@ionic-native/camera';
 import { File } from '@ionic-native/file';
 import { FileTransfer, FileTransferObject } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
+import { ServerAddressProvider } from '../../providers/server-address/server-address';
 
 //declare var cordova: any;
 
@@ -19,7 +20,7 @@ export class PicPage {
   lastImage: string = null;
   loading: Loading;
 
-  constructor(private camera: Camera, private fileTransfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(private camera: Camera, private fileTransfer: FileTransfer, private file: File, private filePath: FilePath, public actionSheetCtrl: ActionSheetController, public toastCtrl: ToastController, public platform: Platform, public loadingCtrl: LoadingController, public navCtrl: NavController, public navParams: NavParams, public serverAddr: ServerAddressProvider) {
   }
 
   // options: CameraOptions = {
@@ -144,7 +145,7 @@ export class PicPage {
 
   public uploadImage() {
     // Destination URL 여기만 제대로 바꾸면 저장될 것으로 사료됨
-    var url = "http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000/";
+    var url = this.serverAddr.serverURL+'/';
 
     // File for Upload
     var targetPath = this.pathForImage(this.lastImage);

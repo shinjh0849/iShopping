@@ -11,10 +11,12 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 })
 export class PicHttpPage {
   images: any = [];
- 
+  username = '';
+
   constructor(private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
     this.reloadImages();
-    console.log(this.auth.token);
+    console.log('this.auth.token: ', this.auth.token);
+    this.username = this.auth.getEmail();
   }
  
   reloadImages() {

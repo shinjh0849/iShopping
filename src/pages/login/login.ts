@@ -64,7 +64,7 @@ export class LoginPage {
         console.log(result);
         this.data = result;
         localStorage.setItem('token', this.data.access_token);
-        this.nav.setRoot(TesttodoPage);//next page
+        this.nav.setRoot(TabsPage);//next page
     }, (err) => {
         this.loading.dismiss();
         switch(err.statusText) {

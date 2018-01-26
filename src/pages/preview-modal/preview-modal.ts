@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Http } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ServerAddressProvider } from '../../providers/server-address/server-address';
  
 @IonicPage()
 @Component({
@@ -12,7 +13,7 @@ export class PreviewModalPage {
   img: any;
   res: any;
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public serverAddr: ServerAddressProvider) {
     this.img = this.navParams.get('img');
     //this.getRecomm(this.img);
     alert("response: " + this.getRecomm(this.img));
@@ -25,7 +26,7 @@ export class PreviewModalPage {
 
   getRecomm(img) {
     console.log('id: ' + img._id);
-    return this.http.get('http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000/images');
+    return this.http.get(this.serverAddr.serverURL+'/images');
   }
  
 }

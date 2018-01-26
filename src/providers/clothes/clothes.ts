@@ -2,6 +2,7 @@
 import { Injectable } from '@angular/core';
 import { Http, HttpModule, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
+import { ServerAddressProvider } from '../server-address/server-address';
 
 @Injectable()
 export class ClothesProvider {
@@ -10,8 +11,8 @@ export class ClothesProvider {
 
   ServerUrl: string;
   
-  constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000/history'; // 매일 바뀐다 .. (눈물을 닦으며)
+  constructor(public http: Http, public serverAddr: ServerAddressProvider) {
+    this.ServerUrl = this.serverAddr.serverURL+'/history'; // 매일 바뀐다 .. (눈물을 닦으며)
     console.log('Hello ClothesProvider Provider');
     this.data = null;
   }

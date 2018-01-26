@@ -1,10 +1,20 @@
-<ion-header>
+<!--<ion-header>
   <ion-navbar color="primary">
     <ion-title>Images</ion-title>
   </ion-navbar>
 </ion-header>
- 
+-->
+<ion-header>
+
+</ion-header>
 <ion-content>
+    <ion-card text-center class="hide-card">
+        <img src="http://placehold.it/300x200" class="custom-avatar"/>
+        <h2>{{username}}</h2>
+        <p>즐거운 쇼핑 하세영</p>
+    </ion-card>
+    
+    <hr>
   <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
  
   <ion-list>

@@ -34,6 +34,7 @@ import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
 import { HistorysProvider } from '../providers/historys/historys';
 import { TesttodoPage } from '../pages/testtodo/testtodo';
+import { ServerAddressProvider } from '../providers/server-address/server-address';
 
 
 
@@ -88,7 +89,8 @@ import { TesttodoPage } from '../pages/testtodo/testtodo';
     ClothesProvider,
     ImagesProvider,
     AuthServiceProvider,
-    HistorysProvider, 
+    HistorysProvider,
+    ServerAddressProvider, 
   ]
 })
 
