@@ -6,6 +6,9 @@ import { HomePage } from '../home/home';
 
 // For camera module
 import { Camera, CameraOptions } from '@ionic-native/camera';
+import { NavParams } from 'ionic-angular/navigation/nav-params';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { LoginPage } from '../login/login';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -37,7 +40,7 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
 
-  constructor(private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+  constructor(public auth: AuthServiceProvider, public navParams: NavParams, private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
     this.loadMap();
 
     geofence.initialize().then(
@@ -57,8 +60,20 @@ export class MapPage {
     }
 
     addMarker(36.10337052095497, 129.38652623754345);
+
+    console.log(this.auth.token);
   }
 
+  public logout() {
+    /*
+    this.auth.logout().subscribe(succ => {
+      this.navCtrl.setRoot(LoginPage)
+    });
+    */
+    this.auth.logout();
+    this.navCtrl.setRoot(LoginPage);
+  }
+  
   setGeofence() {
     var latitude = 36.10337052095497;
     var longitude = 129.38652623754345;

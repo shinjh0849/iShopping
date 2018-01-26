@@ -4,6 +4,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
+import { TesttodoPage } from '../testtodo/testtodo';
  
 //@IonicPage()
 @Component({
@@ -63,7 +64,7 @@ export class LoginPage {
         console.log(result);
         this.data = result;
         localStorage.setItem('token', this.data.access_token);
-        this.nav.setRoot(TabsPage);
+        this.nav.setRoot(TesttodoPage);//next page
     }, (err) => {
         this.loading.dismiss();
         switch(err.statusText) {

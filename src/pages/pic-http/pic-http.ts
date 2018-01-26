@@ -3,6 +3,7 @@ import { Component } from '@angular/core';
 import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Http } from '@angular/http';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
  
 @Component({
   selector: 'page-pic-http',
@@ -11,8 +12,9 @@ import { Http } from '@angular/http';
 export class PicHttpPage {
   images: any = [];
  
-  constructor(public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
+  constructor(private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
     this.reloadImages();
+    console.log(this.auth.token);
   }
  
   reloadImages() {

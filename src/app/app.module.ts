@@ -32,6 +32,8 @@ import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
+import { HistorysProvider } from '../providers/historys/historys';
+import { TesttodoPage } from '../pages/testtodo/testtodo';
 
 
 
@@ -47,7 +49,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     AddClothPage,
     LoginPage,
     RegisterPage,
-    TabsPage
+    TabsPage,
+    TesttodoPage
   ],
   imports: [
     BrowserModule,
@@ -67,7 +70,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     AddClothPage,
     LoginPage,
     RegisterPage,
-    TabsPage
+    TabsPage,
+    TesttodoPage
   ],
   providers: [
     StatusBar,
@@ -83,7 +87,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 
     ClothesProvider,
     ImagesProvider,
-    AuthServiceProvider, 
+    AuthServiceProvider,
+    HistorysProvider, 
   ]
 })
 

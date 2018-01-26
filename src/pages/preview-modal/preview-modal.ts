@@ -25,7 +25,7 @@ export class PreviewModalPage {
 
   getRecomm(img) {
     console.log('id: ' + img._id);
-    return this.http.get('http://ec2-52-79-58-177.ap-northeast-2.compute.amazonaws.com:3000/images');
+    return this.http.get('http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000/images');
   }
  
 }

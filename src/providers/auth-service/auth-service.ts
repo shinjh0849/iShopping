@@ -3,6 +3,8 @@ import { Observable } from 'rxjs/Observable';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 
+// storage
+
 export class User {
   name: string;
   email: string;
@@ -19,10 +21,15 @@ export class AuthServiceProvider {
   currentUser: User;
   public token: any;
   ServerUrl: string;
+  _id: any;
 
   constructor(public http: Http) {
-    this.ServerUrl = 'http://ec2-52-79-58-177.ap-northeast-2.compute.amazonaws.com:3000'; // 매일 바뀐다 .. (눈물을 닦으며)
+    this.ServerUrl = 'http://ec2-52-79-125-168.ap-northeast-2.compute.amazonaws.com:3000'; // 매일 바뀐다 .. (눈물을 닦으며)
     console.log('Hello AuthServiceProvider Provider');
+  }
+
+  getId() {
+    return this._id;
   }
 
   //morony
@@ -71,11 +78,13 @@ export class AuthServiceProvider {
             let data = res.json();
             this.token = data.token;
             //this.storage.set('token', data.token);
-            localStorage.setItem('token', data.token);
-            console.log("auth Token:" + this.token);
-            console.log("user:" + data.user.email);
+            //localStorage.setItem('token', data.token); // 거의 안되는거나 다를바 없는거 아닌가..
+            //console.log("auth Token:" + this.token);
+            //console.log("user:" + data.user.email);
+            //console.log("user Id: "+ data.user._id);
             this.currentUser = new User(data.user.email, data.user.email);
-
+            this._id = data.user._id;
+            
             resolve(data); 
             resolve(res.json());
           }, (err) => {
@@ -122,9 +131,7 @@ export class AuthServiceProvider {
   
 
   public getUserInfo() {
-    return this.currentUser;
-   
-    /*
+   /*
     return new Promise((resolve, reject) => {
  
       let headers = new Headers();
@@ -139,7 +146,7 @@ export class AuthServiceProvider {
           reject(err);
         });
     });
-    */
+*/
 
   }
 

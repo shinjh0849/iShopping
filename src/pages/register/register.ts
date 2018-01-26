@@ -13,7 +13,8 @@ export class RegisterPage {
   createSuccess = false;
   registerCredentials = { 
     email: '', 
-    password: '' 
+    password: '' ,
+    role: 'editor'
   };
  
   loading: any;
