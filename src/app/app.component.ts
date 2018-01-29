@@ -29,8 +29,8 @@ export class MyApp {
 
       try {
         IndoorAtlas.initialize(this.onSuccess, this.onError, {
-          key: '554846d6-302c-4e66-ba6c-a3d576fd4c39',
-          secret: 'QQ2Annx4hBH/Hf2/CHhRUDW49ImXnYE79n0tTTz6alTTFmy9aH8HNzwYkbs88M1zUJq32dxA4CPedJ4KCOpw4AvLzJebCZxHJzLQeyEWO5gMoQ+bu80XPu5lRqkhbg=='
+          key: '7c7a357e-cb5d-4e5c-a7f9-8062a371488d',
+          secret: 'sYAbkVh3rn/zMujKQJSPxgBLCRxhEaA+aV6WviRiag21xRNACmQpitf6zKOSQtAD3BJj0sQazilwq85I1QXLRei5YXCjjVFY7oJePaisI7U0Cv7DHJ4QvOaaHW0nqw=='
         })
       }
       catch (e) {

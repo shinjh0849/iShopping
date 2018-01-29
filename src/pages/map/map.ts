@@ -41,17 +41,6 @@ var markImage = {
   anchor: new google.maps.Point(0, 32)
 };
 
-function addListMarker(latitude, longitude) {
-  let marker = new google.maps.Marker({
-    map: map,
-    //animation: google.maps.Animation.DROP,
-    position: {
-      lat: latitude,
-      lng: longitude
-    },
-    icon: markImage
-  });
-}
 
 @Component({
   selector: 'page-map',
@@ -68,7 +57,7 @@ export class MapPage {
     this.loadMap();
 
     geofence.initialize().then(
-      () => alert('Geofence Initialized!'),
+      () => console.log('Geofence Initialized!'),
       (err) => alert('Geofence Fail Code: ' + err)
     )
 
@@ -77,7 +66,7 @@ export class MapPage {
   ionViewDidEnter() {
 
     try {
-      IndoorAtlas.fetchFloorPlanWithId('09b2f61e-224b-415c-81b1-7f86dee65486', this.successCallback, this.onError);
+      IndoorAtlas.fetchFloorPlanWithId('425f8c06-b1ac-4859-ab03-97976b785ec8', this.successCallback, this.onError);
     }
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
@@ -97,7 +86,7 @@ export class MapPage {
     this.auth.logout();
     this.navCtrl.setRoot(LoginPage);
   }
-  
+
   setGeofence() {
     var latitude = 36.10337052095497;
     var longitude = 129.38652623754345;
@@ -109,10 +98,10 @@ export class MapPage {
       radius: 3,
       transitionType: 3, //1은 Enter
       notification: {
-        id:                1,
-        title:            'you crossed a fence',
-        text:             'you just arrived to SeeSun area',
-        openAppOnClick:   true
+        id: 1,
+        title: 'you crossed a fence',
+        text: 'you just arrived to SeeSun area',
+        openAppOnClick: true
       }
     }
 
@@ -145,7 +134,7 @@ export class MapPage {
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
-      
+
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
       alert('loadMap, getcurrentPosition failed: ' + err);
