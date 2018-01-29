@@ -269,8 +269,8 @@ export class MapPage {
       var mLng = obj.lng;
 
       var infowindow = new google.maps.InfoWindow({
-        content: '<div>'+'<h3>'+ obj.desc +'</h3>'+'<img [src]=\"'+obj.url+'\">'+
-        +'<p>'+'color:'+obj.color+'shape:'+obj.shape+'</div>'
+        content: '<div>'+'<h3>'+ obj.desc +'</h3>'+'<p><img src="'+obj.url+'" height="50" width="50"/>'+
+        +'<p><br>'+'color:'+obj.color+'shape:'+obj.shape+'</div>'
       });
 
       var listMarker = new google.maps.Marker({
@@ -283,7 +283,7 @@ export class MapPage {
       });
       listMarker.addListener('click', function() {
         infowindow.open(map, listMarker);
-      })
+      });
 
     }
   }
