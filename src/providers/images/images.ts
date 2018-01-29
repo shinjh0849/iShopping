@@ -4,13 +4,12 @@ import { Http } from '@angular/http';
 import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
 import { ServerAddressProvider } from '../server-address/server-address';
 import { AuthServiceProvider } from '../auth-service/auth-service';
- 
-/*
-  Generated class for the ImagesProvider provider.
 
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
+declare let IndoorAtlas: any;
+
+var curLat: number;
+var curLng: number;
+
 @Injectable()
 export class ImagesProvider {
 
@@ -20,31 +19,61 @@ export class ImagesProvider {
 
   getImages() {
     console.log(this.serverAddr.serverURL);
-    return this.http.get(this.serverAddr.serverURL + '/api/users/'+ this.auth._id +'/images').map(res => res.json());
+    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images').map(res => res.json());
   }
 
-  deleteImage(img){
-    return this.http.delete(this.serverAddr.serverURL + '/api/users/'+ this.auth._id + '/images/' + img._id);
+  deleteImage(img) {
+    return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
   }
 
-  uploadImage(img, desc){
-    
+  uploadImage(img, desc) {
+
     // Destination URL
-    let url = this.serverAddr.serverURL + '/api/users/'+ this.auth._id + '/images';
+    let url = this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images';
 
     // File for Upload
     var targetPath = img;
 
-    var options : FileUploadOptions = {
+    this.getPosition();
+
+    var options: FileUploadOptions = {
       fileKey: 'image',
       chunkedMode: false,
       mimeType: 'multipart/form-data',
-      params: { 'desc': desc , 'lat': 36.10337052095497, 'lon': 129.38652623754345}
+      params: { 'desc': desc, 'lat': curLat, 'lng': curLng }
     };
 
     const fileTransfer: FileTransferObject = this.transfer.create();
 
     // Use the FileTransfer to upload the image
     return fileTransfer.upload(targetPath, url, options);
+  }
+
+  getPosition() {
+    try {
+      IndoorAtlas.getCurrentPosition(this.onGetPositionSuccess, this.onError)
+    }
+    catch (e) {
+      alert('indoor getpostion catch code: ' + e);
+    }
+  }
+
+  onGetPositionSuccess(position) {
+    curLat = position.coords.latitude;
+    curLng = position.coords.longitude;
+
+    alert('Latitude: ' + position.coords.latitude + '\n' +
+      'Longitude: ' + position.coords.longitude + '\n' +
+      'Altitude: ' + position.coords.altitude + '\n' +
+      'Accuracy: ' + position.coords.accuracy + '\n' +
+      'Heading: ' + position.coords.heading + '\n' +
+      'Floor: ' + position.coords.floor + '\n' +
+      'Timestamp: ' + position.timestamp
+    );
+  }
+
+  onError(error) {
+    alert('Code: ' + error.code + '\n' +
+      'Message: ' + error.message);
   }
 }
