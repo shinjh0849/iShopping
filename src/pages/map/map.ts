@@ -66,7 +66,7 @@ export class MapPage {
       latitude: latitude,
       longitude: longitude,
       radius: 3,
-      transitionType: 1, //1은 Enter
+      transitionType: 3, //1은 Enter
       notification: {
         id:                1,
         title:            'you crossed a fence',
