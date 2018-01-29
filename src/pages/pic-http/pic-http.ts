@@ -19,6 +19,10 @@ export class PicHttpPage {
     this.username = this.auth.getEmail();
   }
  
+  refresh() {
+    this.reloadImages();
+  }
+  
   reloadImages() {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;

@@ -9,6 +9,7 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { LoginPage } from '../login/login';
+import { ImagesProvider } from '../../providers/images/images';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -27,7 +28,28 @@ function addMarker(latitude, longitude) {
     position: {
       lat: latitude,
       lng: longitude
-    } 
+    }
+  });
+}
+var markImage = {
+  url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+  // This marker is 20 pixels wide by 32 pixels high.
+  size: new google.maps.Size(20, 32),
+  // The origin for this image is (0, 0).
+  origin: new google.maps.Point(0, 0),
+  // The anchor for this image is the base of the flagpole at (0, 32).
+  anchor: new google.maps.Point(0, 32)
+};
+
+function addListMarker(latitude, longitude) {
+  let marker = new google.maps.Marker({
+    map: map,
+    //animation: google.maps.Animation.DROP,
+    position: {
+      lat: latitude,
+      lng: longitude
+    },
+    icon: markImage
   });
 }
 
@@ -40,7 +62,9 @@ export class MapPage {
 
   @ViewChild('map') mapElement: ElementRef;
 
-  constructor(public auth: AuthServiceProvider, public navParams: NavParams, private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+  images: any = [];
+
+  constructor(private imagesProvider: ImagesProvider, public auth: AuthServiceProvider, public navParams: NavParams, private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
     this.loadMap();
 
     geofence.initialize().then(
@@ -241,5 +265,37 @@ export class MapPage {
     }, (err) => {
       console.log('Error: ', err);
     });
+  }
+
+  viewData() {
+    this.imagesProvider.getImages().subscribe(data => {
+      this.images = data;
+    });
+
+    for(var i = 0; i < this.images.length; i++) {
+      var obj = this.images[i];
+      console.log(obj.desc);
+
+      var mLat = obj.lat;
+      var mLng = obj.lng;
+
+      var infowindow = new google.maps.InfoWindow({
+        content: '<div>'+'<h3>'+ obj.desc +'</h3>'+'<img [src]=\"'+obj.url+'\">'+
+        +'<p>'+'color:'+obj.color+'shape:'+obj.shape+'</div>'
+      });
+
+      var listMarker = new google.maps.Marker({
+        map: map,
+        position: {
+          lat: mLat,
+          lng: mLng
+        },
+        icon: markImage
+      });
+      listMarker.addListener('click', function() {
+        infowindow.open(map, listMarker);
+      })
+
+    }
   }
 }

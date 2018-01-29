@@ -5,7 +5,21 @@
 </ion-header>
 -->
 <ion-header>
-
+  <ion-navbar color="primary">
+      <ion-buttons start>
+          <button ion-button (click)="refresh()">
+            <ion-icon name="refresh"></ion-icon>
+          </button>
+        </ion-buttons>
+    <ion-title>
+      iShopping
+    </ion-title>
+    <ion-buttons end>
+    <button ion-button (click)="logout()">
+      <ion-icon name="log-out"></ion-icon>
+    </button>
+  </ion-buttons>
+  </ion-navbar>
 </ion-header>
 <ion-content>
     <ion-card text-center class="hide-card">
@@ -17,7 +31,11 @@
     <hr>
   <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
  
+
   <ion-list>
+    <ion-list-header>
+      내가 촬영한 의류
+    </ion-list-header>
     <ion-item-sliding *ngFor="let img of images">
  
       <ion-item tappable (click)="openImage(img)">
@@ -25,6 +43,7 @@
           <img [src]="img.url">
         </ion-thumbnail>
         <h2>{{ img.desc }}</h2>
+        <h3>색깔: {{img.color}}, 종류: {{img.shape}}</h3>
         <button ion-button clear icon-only item-end> <ion-icon name="arrow-forward"></ion-icon></button>
       </ion-item>
  
@@ -36,9 +55,5 @@
  
     </ion-item-sliding>
   </ion-list>
- 
-  <ion-fab right bottom>
-    <button ion-fab (click)="presentActionSheet()"><ion-icon name="camera"></ion-icon></button>
-  </ion-fab>
- 
+
 </ion-content>

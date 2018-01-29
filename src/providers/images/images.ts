@@ -19,7 +19,7 @@ export class ImagesProvider {
   }
 
   getImages() {
-    console.log(this.serverAddr.serverURL);
+    //console.log(this.serverAddr.serverURL);
     return this.http.get(this.serverAddr.serverURL + '/api/users/'+ this.auth._id +'/images').map(res => res.json());
   }
 
