@@ -18,7 +18,7 @@ declare let IndoorAtlas: any;
 })
 
 export class MyApp {
-  rootPage: any = PicHttpPage;
+  rootPage: any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
