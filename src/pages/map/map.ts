@@ -94,25 +94,17 @@ export class MapPage {
   setGeofence() {
 
     let enterORleaveFence1 = {
-      id: "NTH 314",
-      latitude: latGF,
-      longitude: lngGF,
-      radius: 3,
-      transitionType: 3, //1은 Enter
-      notification: {
-        id: 1,
-        title: 'you crossed a fence',
-        text: 'you just arrived to SeeSun area',
-        openAppOnClick: true
-      }
-    }
-
-    let leaveFence1 = {
       id: "ANH",
       latitude: latGF,
       longitude: lngGF,
-      radius: 3,
-      transitionType: 2 //2는 Leave    3은 둘다
+      radius: 5,
+      transitionType: 3, //1은 Enter 2는 Leave 3은 Both
+      notification: {
+        id: 1,
+        title: 'you crossed a fence',
+        text: 'you just arrived to Newton Hall',
+        openAppOnClick: true
+      }
     }
 
     this.geofence.addOrUpdate(enterORleaveFence1).then(
