@@ -21,6 +21,10 @@ var curLat;
 var curLng;
 var watchID;
 
+//화장실쪽 쯤 Geofence 좌표
+var latGF = '36.103428706187714';
+var lngGF = '129.38643780396947';
+
 function addMarker(latitude, longitude) {
   let marker = new google.maps.Marker({
     map: map,
@@ -53,7 +57,7 @@ export class MapPage {
 
   images: any = [];
 
-  constructor(private imagesProvider: ImagesProvider, public auth: AuthServiceProvider, public navParams: NavParams, private modalCtrl: ModalController, private camera:Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
+  constructor(private imagesProvider: ImagesProvider, public auth: AuthServiceProvider, public navParams: NavParams, private modalCtrl: ModalController, private camera: Camera, public geofence: Geofence, public geolocation: Geolocation, public navCtrl: NavController) {
     this.loadMap();
 
     geofence.initialize().then(
@@ -72,7 +76,7 @@ export class MapPage {
       alert('indoor floorplan fetch catch error: ' + e);
     }
 
-    addMarker(36.10337052095497, 129.38652623754345);
+    addMarker(latGF, lngGF);
 
     console.log(this.auth.token);
   }
@@ -88,13 +92,11 @@ export class MapPage {
   }
 
   setGeofence() {
-    var latitude = 36.10337052095497;
-    var longitude = 129.38652623754345;
 
-    let enterFence1 = {
+    let enterORleaveFence1 = {
       id: "NTH 314",
-      latitude: latitude,
-      longitude: longitude,
+      latitude: latGF,
+      longitude: lngGF,
       radius: 3,
       transitionType: 3, //1은 Enter
       notification: {
@@ -107,19 +109,19 @@ export class MapPage {
 
     let leaveFence1 = {
       id: "ANH",
-      latitude: latitude,
-      longitude: longitude,
+      latitude: latGF,
+      longitude: lngGF,
       radius: 3,
       transitionType: 2 //2는 Leave    3은 둘다
     }
 
-    this.geofence.addOrUpdate(enterFence1).then(
+    this.geofence.addOrUpdate(enterORleaveFence1).then(
       () => alert('Geofence add successful!'),
       (err) => alert('Geofence add failed: ' + err)
     );
 
     this.geofence.onTransitionReceived().subscribe(resp => {
-      alert('You entered NTH 314!');
+      alert('You entered/leaved NTH 314! : ' + resp);
     });
 
 
@@ -261,7 +263,7 @@ export class MapPage {
       this.images = data;
     });
 
-    for(var i = 0; i < this.images.length; i++) {
+    for (var i = 0; i < this.images.length; i++) {
       var obj = this.images[i];
       console.log(obj.desc);
 
@@ -269,8 +271,8 @@ export class MapPage {
       var mLng = obj.lng;
 
       var infowindow = new google.maps.InfoWindow({
-        content: '<div>'+'<h3>'+ obj.desc +'</h3>'+'<img [src]=\"'+obj.url+'\">'+
-        +'<p>'+'color:'+obj.color+'shape:'+obj.shape+'</div>'
+        content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<img [src]=\"' + obj.url + '\">' +
+          +'<p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
       });
 
       var listMarker = new google.maps.Marker({
@@ -281,7 +283,7 @@ export class MapPage {
         },
         icon: markImage
       });
-      listMarker.addListener('click', function() {
+      listMarker.addListener('click', function () {
         infowindow.open(map, listMarker);
       })
 
