@@ -221,6 +221,9 @@ export class MapPage {
     else if(google.maps.geometry.poly.containsLocation({curLat, curLng}, polygon2)){
       myLocation = 'maejang2';
     }
+    else{
+      myLocation = '찾을수 없는 매장';
+    }
     
   }
 
