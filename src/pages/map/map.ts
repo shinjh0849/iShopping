@@ -11,6 +11,9 @@ import { LoginPage } from '../login/login';
 import { ImagesProvider } from '../../providers/images/images';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
+
+
+
 declare let IndoorAtlas: any;
 declare var google;
 
@@ -91,7 +94,7 @@ export class MapPage {
 
   images: any = [];
   loading: Loading;
-  
+
   constructor(
     private imagesProvider: ImagesProvider,
     public auth: AuthServiceProvider,
@@ -188,7 +191,7 @@ export class MapPage {
     curLat = position.coords.latitude;
     curLng = position.coords.longitude;
 
-    alert('Latitude: ' + position.coords.latitude + '\n' +
+    console.log('Latitude: ' + position.coords.latitude + '\n' +
       'Longitude: ' + position.coords.longitude + '\n' +
       'Altitude: ' + position.coords.altitude + '\n' +
       'Accuracy: ' + position.coords.accuracy + '\n' +
@@ -196,6 +199,7 @@ export class MapPage {
       'Floor: ' + position.coords.floor + '\n' +
       'Timestamp: ' + position.timestamp
     );
+
   }
 
   onError(error) {
@@ -205,26 +209,26 @@ export class MapPage {
 
   successCallback(floorplan) {
     console.log('Floor plan url:' + floorplan.url);
-    // alert("Floor plan url: " + floorplan.url);
   }
 
 
   onSuccess() {
-    alert('IndoorAtlas was successfully initialized');
+    console.log('IndoorAtlas was successfully initialized');
   }
 
-  getMaeJang(){
-    
-    if(google.maps.geometry.poly.containsLocation({curLat, curLng}, polygon1)){
-      myLocation = 'maejang1';
+  getMaeJang() {
+    this.showLoading('finding maejang..');
+    if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
+      myLocation = 'Mae Jang 1';
     }
-    else if(google.maps.geometry.poly.containsLocation({curLat, curLng}, polygon2)){
-      myLocation = 'maejang2';
+    else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon2)) {
+      myLocation = 'Mae Jang 2';
     }
-    else{
+    else {
       myLocation = '찾을수 없는 매장';
     }
-    
+
+    this.loading.dismiss();
   }
 
   public takePicture() {
@@ -238,68 +242,70 @@ export class MapPage {
       correctOrientation: true
     };
 
-    //Gets the current location
+    //Gets the current store in strings
     this.getMaeJang();
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
-    //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
-    //   modal.present();
-    //   modal.onDidDismiss(data => {
-    //     if (data && data.reload) {
-    //       //this.reloadImages();
-    //     }
-    //   });
-    // }, (err) => {
-    //   console.log('Error: ', err);
-    //});
-    this.showLoading();
-    this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res=> {
-      this.loading.dismiss();
-      alert('uploading success!');
-    }, err => {
-      alert('uploading image failed!');
-    })
+      //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
+      //   modal.present();
+      //   modal.onDidDismiss(data => {
+      //     if (data && data.reload) {
+      //       //this.reloadImages();
+      //     }
+      //   });
+      // }, (err) => {
+      //   console.log('Error: ', err);
+      //});
+      this.showLoading('uploading image..');
+      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
+        this.loading.dismiss();
+        alert('uploading image success!');
+      }, err => {
+        alert('uploading image failed!');
+      })
     }
-  )
+    )
   }
 
   viewData() {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-    
 
-    for (var i = 0; i < this.images.length; i++) {
-      var obj = this.images[i];
-      console.log(obj.desc);
 
-      var mLat = obj.lat;
-      var mLng = obj.lng;
+      for (var i = 0; i < this.images.length; i++) {
+        var obj = this.images[i];
+        console.log(obj.desc);
 
-      var infowindow = new google.maps.InfoWindow({
-        content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
-          +'</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
-      });
+        var mLat = obj.lat;
+        var mLng = obj.lng;
 
-      var listMarker = new google.maps.Marker({
-        position: {
-          lat: mLat,
-          lng: mLng
-        },
-        map: map,
-        icon: 'assets/imgs/shirt2.png'
-      });
-      listMarker.addListener('click', function () {
-        infowindow.open(map, listMarker);
-      });
-    }
+        var infowindow = new google.maps.InfoWindow({
+          content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
+            + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
+        });
+
+        var listMarker = new google.maps.Marker({
+          position: {
+            lat: mLat,
+            lng: mLng
+          },
+          map: map,
+          icon: 'assets/imgs/shirt2.png'
+        });
+        listMarker.addListener('click', function () {
+          infowindow.open(map, listMarker);
+        });
+      }
     });
   }
 
-  showLoading() {
+  showLoading(text) {
     this.loading = this.loadingCtrl.create({
-      content: 'Uploading Image..'
+      content: text
     });
     this.loading.present();
   }
 }
+
+

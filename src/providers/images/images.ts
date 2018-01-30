@@ -13,7 +13,11 @@ var curLng: number;
 @Injectable()
 export class ImagesProvider {
 
-  constructor(public http: Http, public auth: AuthServiceProvider, private transfer: FileTransfer, public serverAddr: ServerAddressProvider) {
+  constructor(public http: Http,
+    public auth: AuthServiceProvider,
+    private transfer: FileTransfer,
+    public serverAddr: ServerAddressProvider
+  ) {
     console.log('Hello ImagesProvider Provider');
   }
 
@@ -34,8 +38,6 @@ export class ImagesProvider {
     // File for Upload
     var targetPath = img;
 
-    this.getPosition();
-
     var options: FileUploadOptions = {
       fileKey: 'image',
       chunkedMode: false,
@@ -47,33 +49,5 @@ export class ImagesProvider {
 
     // Use the FileTransfer to upload the image
     return fileTransfer.upload(targetPath, url, options);
-  }
-
-  getPosition() {
-    try {
-      IndoorAtlas.getCurrentPosition(this.onGetPositionSuccess, this.onError)
-    }
-    catch (e) {
-      alert('indoor getpostion catch code: ' + e);
-    }
-  }
-
-  onGetPositionSuccess(position) {
-    curLat = position.coords.latitude;
-    curLng = position.coords.longitude;
-
-    alert('Latitude: ' + position.coords.latitude + '\n' +
-      'Longitude: ' + position.coords.longitude + '\n' +
-      'Altitude: ' + position.coords.altitude + '\n' +
-      'Accuracy: ' + position.coords.accuracy + '\n' +
-      'Heading: ' + position.coords.heading + '\n' +
-      'Floor: ' + position.coords.floor + '\n' +
-      'Timestamp: ' + position.timestamp
-    );
-  }
-
-  onError(error) {
-    alert('Code: ' + error.code + '\n' +
-      'Message: ' + error.message);
   }
 }
