@@ -29,13 +29,14 @@
     </ion-card>
     
     <hr>
-  <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
- 
+
 
   <ion-list>
     <ion-list-header>
       내가 촬영한 의류
     </ion-list-header>
+    <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
+ 
     <ion-item-sliding *ngFor="let img of images">
  
       <ion-item tappable (click)="openImage(img)">

@@ -24,7 +24,7 @@ export class LoginPage {
   }
  
   ionViewDidLoad() {
-/* 
+
     this.showLoading();
 
     //Check if already authenticated
@@ -36,7 +36,7 @@ export class LoginPage {
         console.log("Not already authorized");
         this.loading.dismiss();
     });
-    */
+
 
 }
 
@@ -59,9 +59,10 @@ export class LoginPage {
         this.showError(error);
       });
       */
+
       this.auth.login(this.registerCredentials).then((result) => {
         this.loading.dismiss();
-        console.log(result);
+        console.log("login page result: " + result);
         this.data = result;
         localStorage.setItem('token', this.data.access_token);
         this.nav.setRoot(TabsPage);//next page
@@ -74,7 +75,7 @@ export class LoginPage {
             break;
           }
         }
-        alert(err);
+        //alert(err);
     
     });
   }

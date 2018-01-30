@@ -4,6 +4,7 @@ import { NavController, ModalController, ActionSheetController, LoadingControlle
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Http } from '@angular/http';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+import { LoginPage } from '../login/login';
  
 @Component({
   selector: 'page-pic-http',
@@ -15,6 +16,7 @@ export class PicHttpPage {
   loading: Loading;
 
   constructor(public loadingCtrl: LoadingController, private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
+    console.log('loading');
     this.showLoading();
     this.reloadImages();
     console.log('this.auth.token: ', this.auth.token);
@@ -23,8 +25,8 @@ export class PicHttpPage {
 
   showLoading() {
     this.loading = this.loadingCtrl.create({
-      content: 'Please wait...',
-      dismissOnPageChange: true
+      content: 'Please wait...'
+      //,dismissOnPageChange: true
     });
     this.loading.present();
   }
@@ -37,10 +39,7 @@ export class PicHttpPage {
   reloadImages() {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-      if(this.loading) {
-        console.log("dismissing..");
-        this.loading.dismiss();
-      }
+      this.loading.dismiss();
       });
   }
  
@@ -104,5 +103,14 @@ export class PicHttpPage {
     }, (err) => {
       console.log('Error: ', err);
     });
+  }
+    public logout() {
+    /*
+    this.auth.logout().subscribe(succ => {
+      this.navCtrl.setRoot(LoginPage)
+    });
+    */
+    this.auth.logout();
+    this.navCtrl.setRoot(LoginPage);
   }
 }
