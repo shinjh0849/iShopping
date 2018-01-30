@@ -1,6 +1,6 @@
 import { ImagesProvider } from './../../providers/images/images';
 import { Component } from '@angular/core';
-import { NavController, ModalController, ActionSheetController } from 'ionic-angular';
+import { NavController, ModalController, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { Http } from '@angular/http';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
@@ -12,24 +12,40 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 export class PicHttpPage {
   images: any = [];
   username = '';
+  loading: Loading;
 
-  constructor(private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
+  constructor(public loadingCtrl: LoadingController, private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
+    this.showLoading();
     this.reloadImages();
     console.log('this.auth.token: ', this.auth.token);
     this.username = this.auth.getEmail();
   }
- 
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Please wait...',
+      dismissOnPageChange: true
+    });
+    this.loading.present();
+  }
+
   refresh() {
+    this.showLoading();
     this.reloadImages();
   }
   
   reloadImages() {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-    });
+      if(this.loading) {
+        console.log("dismissing..");
+        this.loading.dismiss();
+      }
+      });
   }
  
   deleteImage(img) {
+    this.showLoading();
     this.imagesProvider.deleteImage(img).subscribe(data => {
       this.reloadImages();
     });
@@ -80,6 +96,7 @@ export class PicHttpPage {
       let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
       modal.present();
       modal.onDidDismiss(data => {
+        this.showLoading();
         if (data && data.reload) {
           this.reloadImages();
         }

@@ -38,11 +38,11 @@ function addMarker(latitude, longitude) {
   });
 }
 var markImage = {
-  url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
+  url: 'assets/imgs/shirt.png',
   // This marker is 20 pixels wide by 32 pixels high.
   size: new google.maps.Size(20, 32),
   // The origin for this image is (0, 0).
-  origin: new google.maps.Point(0, 0),
+  //origin: new google.maps.Point(0, 0),
   // The anchor for this image is the base of the flagpole at (0, 32).
   anchor: new google.maps.Point(0, 32)
 };
@@ -287,7 +287,7 @@ export class MapPage {
   viewData() {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-    });
+    
 
     for (var i = 0; i < this.images.length; i++) {
       var obj = this.images[i];
@@ -297,22 +297,22 @@ export class MapPage {
       var mLng = obj.lng;
 
       var infowindow = new google.maps.InfoWindow({
-        content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50"/>' +
-          +'<p><br>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
+        content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
+          +'</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
       });
 
       var listMarker = new google.maps.Marker({
-        map: map,
         position: {
           lat: mLat,
           lng: mLng
         },
-        icon: markImage
+        map: map,
+        icon: 'assets/imgs/shirt2.png'
       });
       listMarker.addListener('click', function () {
         infowindow.open(map, listMarker);
       });
-
     }
+    });
   }
 }
