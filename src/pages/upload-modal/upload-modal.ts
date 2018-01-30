@@ -19,7 +19,7 @@ export class UploadModalPage {
   saveImage() {
 
     this.showLoading();
-    this.imagesProvider.uploadImage(this.imageData, this.desc).then(res => {
+    this.imagesProvider.uploadImage(this.imageData, this.desc, 1, 2, 'storeA').then(res => {
       this.loading.dismiss();
       this.viewCtrl.dismiss({reload: true});
     }, err => {

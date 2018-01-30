@@ -26,7 +26,7 @@ export class ImagesProvider {
     return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
   }
 
-  uploadImage(img, desc) {
+  uploadImage(img, desc, curLat, curLng, store) {
 
     // Destination URL
     let url = this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images';
@@ -40,7 +40,7 @@ export class ImagesProvider {
       fileKey: 'image',
       chunkedMode: false,
       mimeType: 'multipart/form-data',
-      params: { 'desc': desc, 'lat': curLat, 'lng': curLng }
+      params: { 'desc': desc, 'lat': curLat, 'lng': curLng, 'store': store }
     };
 
     const fileTransfer: FileTransferObject = this.transfer.create();
