@@ -1,7 +1,7 @@
 <ion-header>
   <ion-navbar color="primary">
     <ion-title>
-      Map 456
+      Map
     </ion-title>
     <ion-buttons end>
     <button ion-button (click)="logout()">
@@ -17,6 +17,7 @@
   <button ion-button round (click)="watchPosition()"> Watch Position </button>
   <button ion-button round (click)="clearWatch()"> Clear Watch </button>
   <button ion-button round (click)="setGeofence()"> Set Geofence </button>
+  <button ion-button round (click)="watchGeofence()"> Watch Geofence </button>
   <button ion-button round (click)="viewData()"> View Data </button>
 
   <div #map id="map"></div>

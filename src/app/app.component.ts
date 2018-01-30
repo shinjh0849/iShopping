@@ -9,6 +9,7 @@ import { Geofence } from '@ionic-native/geofence';
 import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PicHttpPage } from '../pages/pic-http/pic-http';
+import { HomeTestPage } from '../pages/home-test/home-test';
 
 declare let IndoorAtlas: any;
 
@@ -18,7 +19,7 @@ declare let IndoorAtlas: any;
 })
 
 export class MyApp {
-  rootPage: any = LoginPage;
+  rootPage: any = HomeTestPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {

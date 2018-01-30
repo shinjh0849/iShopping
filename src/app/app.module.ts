@@ -35,6 +35,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { HistorysProvider } from '../providers/historys/historys';
 import { TesttodoPage } from '../pages/testtodo/testtodo';
 import { ServerAddressProvider } from '../providers/server-address/server-address';
+import { HomeTestPage } from '../pages/home-test/home-test';
 
 
 
@@ -51,7 +52,8 @@ import { ServerAddressProvider } from '../providers/server-address/server-addres
     LoginPage,
     RegisterPage,
     TabsPage,
-    TesttodoPage
+    TesttodoPage, 
+    HomeTestPage
   ],
   imports: [
     BrowserModule,
@@ -72,7 +74,8 @@ import { ServerAddressProvider } from '../providers/server-address/server-addres
     LoginPage,
     RegisterPage,
     TabsPage,
-    TesttodoPage
+    TesttodoPage,
+    HomeTestPage
   ],
   providers: [
     StatusBar,
