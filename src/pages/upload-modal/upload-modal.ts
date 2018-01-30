@@ -16,7 +16,7 @@ export class UploadModalPage {
   }
  
   saveImage() {
-    this.imagesProvider.uploadImage(this.imageData, this.desc).then(res => {
+    this.imagesProvider.uploadImage(this.imageData, this.desc, 1,2,'a').then(res => {
       alert('saving image..');
       this.viewCtrl.dismiss({reload: true});
     }, err => {

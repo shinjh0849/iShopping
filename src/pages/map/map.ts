@@ -1,7 +1,6 @@
 import { Component, ViewChild, ElementRef, } from '@angular/core';
-import { NavController, ModalController } from 'ionic-angular';
+import { NavController, ModalController, Loading } from 'ionic-angular';
 import { Geolocation } from '@ionic-native/geolocation';
-import { Geofence } from '@ionic-native/geofence';
 import { HomePage } from '../home/home';
 
 // For camera module
@@ -10,10 +9,10 @@ import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { LoginPage } from '../login/login';
 import { ImagesProvider } from '../../providers/images/images';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 declare let IndoorAtlas: any;
 declare var google;
-
 
 var map: any;
 
@@ -21,11 +20,43 @@ var curLat: number;
 var curLng: number;
 var watchID;
 
+var myLocation: any;
+
 //화장실쪽 쯤 Geofence 좌표  , 
-var latGF = 36.103428706187714;
-var lngGF = 129.38643780396947;
 
+var maejang1 = [
+  { lat: 36.10347, lng: 129.38645 },
+  { lat: 36.10347, lng: 129.38653 },
+  { lat: 36.10339, lng: 129.38653 },
+  { lat: 36.10339, lng: 129.38645 },
+  { lat: 36.10347, lng: 129.38645 },
+];
 
+var maejang2 = [
+  { lat: 36.10341, lng: 129.38665 },
+  { lat: 36.10341, lng: 129.38673 },
+  { lat: 36.10333, lng: 129.38673 },
+  { lat: 36.10333, lng: 129.38665 },
+  { lat: 36.10341, lng: 129.38665 },
+];
+
+var polygon1 = new google.maps.Polygon({
+  paths: maejang1,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
+
+var polygon2 = new google.maps.Polygon({
+  paths: maejang2,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
 
 function addMarker(latitude, longitude) {
   let marker = new google.maps.Marker({
@@ -37,6 +68,7 @@ function addMarker(latitude, longitude) {
     }
   });
 }
+
 var markImage = {
   url: 'https://developers.google.com/maps/documentation/javascript/examples/full/images/beachflag.png',
   // This marker is 20 pixels wide by 32 pixels high.
@@ -58,23 +90,19 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
 
   images: any = [];
-
+  loading: Loading;
+  
   constructor(
     private imagesProvider: ImagesProvider,
     public auth: AuthServiceProvider,
     public navParams: NavParams,
     private modalCtrl: ModalController,
     private camera: Camera,
-    public geofence: Geofence,
     public geolocation: Geolocation,
-    public navCtrl: NavController
+    public navCtrl: NavController,
+    public loadingCtrl: LoadingController
   ) {
     this.loadMap();
-
-    geofence.initialize().then(
-      () => console.log('Geofence Initialized!'),
-      (err) => alert('Geofence Fail Code: ' + err)
-    )
   }
 
   ionViewDidEnter() {
@@ -85,8 +113,6 @@ export class MapPage {
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
     }
-
-    addMarker(latGF, lngGF);
 
     console.log(this.auth.token);
   }
@@ -101,42 +127,6 @@ export class MapPage {
     this.navCtrl.setRoot(LoginPage);
   }
 
-  watchGeofence() {
-    this.geofence.getWatched().then(function (geofenceJSON) {
-      alert(geofenceJSON);
-    })
-  }
-
-  setGeofence() {
-
-    let enterORleaveFence1 = {
-      id: "ANH",
-      latitude: latGF,
-      longitude: lngGF,
-      radius: 10,
-      transitionType: 3, //1은 Enter 2는 Leave 3은 Both
-    }
-
-    this.geofence.addOrUpdate(enterORleaveFence1).then(
-      () => alert('Geofence add successful!'),
-      (err) => alert('Geofence add failed: ' + err)
-    );
-
-    // this.geofence.onTransitionReceived().subscribe((res) => {
-    //   alert('You entered/leaved NTH 314!');
-    // });
-
-    this.geofence.onTransitionReceived().subscribe((res) => {
-
-      res.forEach(function (geo) {
-        alert(geo);
-      });
-    },
-      (err) => alert(err),
-      () => alert("done !"),
-    );
-
-  }
 
   loadMap() {
     this.geolocation.getCurrentPosition().then((position) => {
@@ -152,19 +142,8 @@ export class MapPage {
     }, (err) => {
       alert('loadMap, getcurrentPosition failed: ' + err);
     }).then(() => {
-      var geofenceCircle = new google.maps.Circle({
-        strokeColor: '#FF0000',
-        strokeOpacity: 0.8,
-        strokeWeight: 2,
-        fillColor: '#FF0000',
-        fillOpacity: 0.35,
-        map: map,
-        center: {
-          lat: latGF,
-          lng: lngGF
-        },
-        radius: 10
-      });
+      polygon1.setMap(map);
+      polygon2.setMap(map);
     })
 
   }
@@ -219,45 +198,31 @@ export class MapPage {
     );
   }
 
-  // onError Callback receives a PositionError object
   onError(error) {
     alert('Code: ' + error.code + '\n' +
       'Message: ' + error.message);
   }
 
   successCallback(floorplan) {
-    alert('Floor plan url:' + floorplan.url);
+    console.log('Floor plan url:' + floorplan.url);
     // alert("Floor plan url: " + floorplan.url);
   }
 
-  // addMarker() {
-  //   let marker = new google.maps.Marker({
-  //     map: map,
-  //     animation: google.maps.Animation.DROP,
-  //     position: {
-  //       lat: curLat,
-  //       lng: curLng
-  //     }
-  //   });
-
-
-  //   let content = "<h4> Me! </h4>";
-  //   this.addInfoWindow(marker, content);
-  // }
-
-  // addInfoWindow(marker, content) {
-  //   let infoWindow = new google.maps.InfoWindow({
-  //     content: content
-  //   });
-  //   google.map.event.addListener(marker, 'click', () => {
-  //     infoWindow.open(map, marker);
-  //   });
-  // }
 
   onSuccess() {
     alert('IndoorAtlas was successfully initialized');
-    // alert('IndoorAtlas was successfully initialized');
-  };
+  }
+
+  getMaeJang(){
+    
+    if(google.maps.geometry.poly.containsLocation({curLat, curLng}, polygon1)){
+      myLocation = 'maejang1';
+    }
+    else if(google.maps.geometry.poly.containsLocation({curLat, curLng}, polygon2)){
+      myLocation = 'maejang2';
+    }
+    
+  }
 
   public takePicture() {
     let sourceType = this.camera.PictureSourceType.CAMERA;
@@ -270,18 +235,30 @@ export class MapPage {
       correctOrientation: true
     };
 
+    //Gets the current location
+    this.getMaeJang();
+
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
-      let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
-      modal.present();
-      modal.onDidDismiss(data => {
-        if (data && data.reload) {
-          //this.reloadImages();
-        }
-      });
-    }, (err) => {
-      console.log('Error: ', err);
-    });
+    //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
+    //   modal.present();
+    //   modal.onDidDismiss(data => {
+    //     if (data && data.reload) {
+    //       //this.reloadImages();
+    //     }
+    //   });
+    // }, (err) => {
+    //   console.log('Error: ', err);
+    //});
+    this.showLoading();
+    this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res=> {
+      this.loading.dismiss();
+      alert('uploading success!');
+    }, err => {
+      alert('uploading image failed!');
+    })
+    }
+  )
   }
 
   viewData() {
@@ -314,5 +291,12 @@ export class MapPage {
       });
 
     }
+  }
+
+  showLoading() {
+    this.loading = this.loadingCtrl.create({
+      content: 'Uploading Image..'
+    });
+    this.loading.present();
   }
 }

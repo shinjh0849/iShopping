@@ -19,7 +19,7 @@ declare let IndoorAtlas: any;
 })
 
 export class MyApp {
-  rootPage: any = HomeTestPage;
+  rootPage: any = LoginPage;
 
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
     platform.ready().then(() => {
@@ -43,7 +43,7 @@ export class MyApp {
 
   // onSuccess Callback
   onSuccess() {
-    alert('IndoorAtlas was successfully initialized');
+    console.log('IndoorAtlas was successfully initialized');
     // alert('IndoorAtlas was successfully initialized');
   };
 
