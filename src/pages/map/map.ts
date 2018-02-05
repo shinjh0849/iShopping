@@ -124,8 +124,7 @@ export class MapPage {
     this.loadMap();
   }
 
-  ionViewDidEnter() {
-
+  ionViewDidLoad() {
     try {
       IndoorAtlas.fetchFloorPlanWithId('425f8c06-b1ac-4859-ab03-97976b785ec8', this.successCallback, this.onError);
     }
@@ -134,11 +133,14 @@ export class MapPage {
     }
 
     console.log('auth token: ' + this.auth.token);
+  }
 
+  ionViewDidEnter() {
+    this.viewData();
     this.watchPosition();
   }
 
-  ionViewDidLeave(){
+  ionViewDidLeave() {
     this.clearWatch();
   }
 
@@ -295,40 +297,44 @@ export class MapPage {
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
 
-
       for (var i = 0; i < this.images.length; i++) {
-        var obj = this.images[i];
-        console.log(obj.desc);
-
-        var mLat = obj.lat;
-        var mLng = obj.lng;
-
-        var infowindow = new google.maps.InfoWindow({
-          content: '<div>' + '<h3>' + obj.desc + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
-            + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
-        });
-
-        var listMarker = new google.maps.Marker({
-          position: {
-            lat: mLat,
-            lng: mLng
-          },
-          map: map,
-          icon: 'assets/imgs/shirt2.png'
-        });
-        listMarker.addListener('click', function () {
-          infowindow.open(map, listMarker);
-        });
+        var object = this.images[i];
+        this.addMarkerList(object);
       }
     });
   }
 
+  addInfoWindowList(marker, obj){
+        let infoWindow = new google.maps.InfoWindow({
+          content: '<div>' + '<h3>' + obj.store + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
+            + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
+        });
+
+        google.maps.event.addListener(marker, 'click', () => {
+          infoWindow.open(map, marker);
+        })
+      }
+
+  addMarkerList(obj){
+        let marker = new google.maps.Marker({
+          map: map,
+          position: {
+            lat: obj.lat,
+            lng: obj.lng
+          },
+          icon: 'assets/imgs/shirt2.png'
+        });
+        this.addInfoWindowList(marker, obj);
+      }
+
+
+
   showLoading(text) {
-    this.loading = this.loadingCtrl.create({
-      content: text
-    });
-    this.loading.present();
-  }
+        this.loading = this.loadingCtrl.create({
+          content: text
+        });
+        this.loading.present();
+      }
 }
 
 

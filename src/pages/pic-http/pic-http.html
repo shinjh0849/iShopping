@@ -6,29 +6,29 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-      <ion-buttons start>
-          <button ion-button (click)="refresh()">
-            <ion-icon name="refresh"></ion-icon>
-          </button>
-        </ion-buttons>
+    <ion-buttons start>
+      <button ion-button (click)="refresh()">
+        <ion-icon name="refresh"></ion-icon>
+      </button>
+    </ion-buttons>
     <ion-title>
       iShopping
     </ion-title>
     <ion-buttons end>
-    <button ion-button (click)="logout()">
-      <ion-icon name="log-out"></ion-icon>
-    </button>
-  </ion-buttons>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 <ion-content>
-    <ion-card text-center class="hide-card">
-        <img src="http://placehold.it/300x200" class="custom-avatar"/>
-        <h2>{{username}}</h2>
-        <p>즐거운 쇼핑 하세영</p>
-    </ion-card>
-    
-    <hr>
+  <ion-card text-center class="hide-card">
+    <img src="http://placehold.it/300x200" class="custom-avatar" />
+    <h2>{{username}}</h2>
+    <p>즐거운 쇼핑 하세영</p>
+  </ion-card>
+
+  <hr>
 
 
   <ion-list>
@@ -36,24 +36,26 @@
       내가 촬영한 의류
     </ion-list-header>
     <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
- 
+
     <ion-item-sliding *ngFor="let img of images">
- 
+
       <ion-item tappable (click)="openImage(img)">
         <ion-thumbnail item-start>
           <img [src]="img.url">
         </ion-thumbnail>
         <h2>{{ img.store }} 매장</h2>
         <h3>색깔: {{img.color}}, 종류: {{img.shape}}</h3>
-        <button ion-button clear icon-only item-end> <ion-icon name="arrow-forward"></ion-icon></button>
+        <button ion-button clear icon-only item-end>
+          <ion-icon name="arrow-forward"></ion-icon>
+        </button>
       </ion-item>
- 
+
       <ion-item-options side="right">
         <button ion-button icon-only color="danger" (click)="deleteImage(img)">
-        <ion-icon name="trash"></ion-icon>
-      </button>
+          <ion-icon name="trash"></ion-icon>
+        </button>
       </ion-item-options>
- 
+
     </ion-item-sliding>
   </ion-list>
 

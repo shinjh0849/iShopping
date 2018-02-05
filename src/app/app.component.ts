@@ -10,6 +10,8 @@ import { MapPage } from '../pages/map/map';
 import { TabsPage } from '../pages/tabs/tabs';
 import { PicHttpPage } from '../pages/pic-http/pic-http';
 import { HomeTestPage } from '../pages/home-test/home-test';
+import { AuthServiceProvider } from '../providers/auth-service/auth-service';
+
 
 declare let IndoorAtlas: any;
 
@@ -22,10 +24,11 @@ export class MyApp {
   @ViewChild(Nav) nav: Nav;
   rootPage: any = LoginPage;
 
-  pages: Array<{title: string, component: any}>;
+  username = '';
+  pages: Array<{ title: string, component: any }>;
 
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
-    
+  constructor(private auth: AuthServiceProvider, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
@@ -41,12 +44,17 @@ export class MyApp {
       catch (e) {
         alert('catch error: ' + e);
       }
-      
     });
 
     this.pages = [
-      { title: 'Home', component: MapPage}
+      { title: 'Home', component: MapPage },
+      { title: 'History', component: PicHttpPage }
     ];
+
+
+    
+    this.username = auth.getEmail();
+
   }
 
   // onSuccess Callback
