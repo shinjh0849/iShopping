@@ -4,28 +4,26 @@
       Map
     </ion-title>
     <ion-buttons end>
-    <button ion-button (click)="logout()">
-      <ion-icon name="log-out"></ion-icon>
-    </button>
-  </ion-buttons>
+      <button ion-button (click)="logout()">
+        <ion-icon name="log-out"></ion-icon>
+      </button>
+    </ion-buttons>
   </ion-navbar>
 </ion-header>
 
 <ion-content>
-  
-  <button ion-button round (click)="getPosition()"> Get Position </button>
-  <button ion-button round (click)="watchPosition()"> Watch Position </button>
-  <button ion-button round (click)="clearWatch()"> Clear Watch </button>
-  <button ion-button round (click)="viewData()"> View Data </button>
-  <button ion-button round (click)="getMaeJang()"> get maejang </button>
 
+  <!--
+  <button ion-button (click)="getPosition()">Get Pos</button>
+  <button ion-button (click)="viewData()">View Data</button>
+  -->
+  
   <div #map id="map"></div>
 
   <ion-fab right bottom>
-    <button ion-fab (click)="takePicture()"><ion-icon name="camera"></ion-icon></button>
+    <button ion-fab (click)="takePicture()">
+      <ion-icon name="camera"></ion-icon>
+    </button>
   </ion-fab>
 
 </ion-content>
-
-
-

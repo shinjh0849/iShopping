@@ -12,7 +12,13 @@ export class UploadModalPage {
   imageData: any;
   desc: string;
  
-  constructor(public loadingCtrl: LoadingController, public navCtrl: NavController, private navParams: NavParams, private viewCtrl: ViewController, private imagesProvider: ImagesProvider) {
+  constructor(
+    public loadingCtrl: LoadingController, 
+    public navCtrl: NavController, 
+    private navParams: NavParams, 
+    private viewCtrl: ViewController, 
+    private imagesProvider: ImagesProvider
+  ) {
     this.imageData = this.navParams.get('data');
   }
  

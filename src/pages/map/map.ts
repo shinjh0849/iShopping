@@ -1,29 +1,28 @@
 import { Component, ViewChild, ElementRef, } from '@angular/core';
 import { NavController, ModalController, Loading } from 'ionic-angular';
-import { Geolocation } from '@ionic-native/geolocation';
-import { HomePage } from '../home/home';
-
-// For camera module
-import { Camera, CameraOptions } from '@ionic-native/camera';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
-import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { LoginPage } from '../login/login';
-import { ImagesProvider } from '../../providers/images/images';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
+import { Geolocation } from '@ionic-native/geolocation';
+import { Camera, CameraOptions } from '@ionic-native/camera';
 
+import { ImagesProvider } from '../../providers/images/images';
+import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
+
+import { HomePage } from '../home/home';
+import { LoginPage } from '../login/login';
 
 
 declare let IndoorAtlas: any;
 declare var google;
-
 var map: any;
 
 var curLat: number;
 var curLng: number;
 var watchID;
-
 var myLocation: any;
+
+var markers = [];
 
 //화장실쪽 쯤 Geofence 좌표  , 
 
@@ -61,15 +60,32 @@ var polygon2 = new google.maps.Polygon({
   fillOpacity: 0.35
 });
 
+// Adds a marker to the map and push to the array.
 function addMarker(latitude, longitude) {
   let marker = new google.maps.Marker({
     map: map,
-    animation: google.maps.Animation.DROP,
     position: {
       lat: latitude,
       lng: longitude
-    }
+    },
+    icon: 'assets/icon/mapCursor.png'
   });
+  markers.push(marker);
+}
+
+function setMapOnAll(map) {
+  for (var i = 0; i < markers.length; i++) {
+    markers[i].setMap(map);
+  }
+}
+
+function clearMarkers() {
+  setMapOnAll(null);
+}
+
+function deleteMarkers() {
+  clearMarkers();
+  markers = [];
 }
 
 var markImage = {
@@ -117,7 +133,13 @@ export class MapPage {
       alert('indoor floorplan fetch catch error: ' + e);
     }
 
-    console.log(this.auth.token);
+    console.log('auth token: ' + this.auth.token);
+
+    this.watchPosition();
+  }
+
+  ionViewDidLeave(){
+    this.clearWatch();
   }
 
   public logout() {
@@ -172,7 +194,7 @@ export class MapPage {
 
   watchPosition() {
     try {
-      watchID = IndoorAtlas.watchPosition(this.onWatchPositionSuccess, this.onError, { timeout: 30000 })
+      watchID = IndoorAtlas.watchPosition(this.onWatchPositionSuccess, this.onError)
     }
     catch (e) {
       alert('indoor watch catch code: ' + e);
@@ -183,6 +205,7 @@ export class MapPage {
     curLat = position.coords.latitude;
     curLng = position.coords.longitude;
 
+    deleteMarkers();
     addMarker(curLat, curLng);
   }
 
