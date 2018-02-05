@@ -15,7 +15,15 @@ export class PicHttpPage {
   username = '';
   loading: Loading;
 
-  constructor(public loadingCtrl: LoadingController, private auth: AuthServiceProvider, public navCtrl: NavController, private imagesProvider: ImagesProvider, private camera: Camera, private actionSheetCtrl: ActionSheetController, private modalCtrl: ModalController) {
+  constructor(
+    public loadingCtrl: LoadingController, 
+    private auth: AuthServiceProvider, 
+    public navCtrl: NavController, 
+    private imagesProvider: ImagesProvider, 
+    private camera: Camera, 
+    private actionSheetCtrl: ActionSheetController, 
+    private modalCtrl: ModalController
+  ) {
     console.log('loading');
     this.showLoading();
     this.reloadImages();

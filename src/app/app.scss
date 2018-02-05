@@ -23,3 +23,19 @@
 * {
     font-family: nanumGothic;
 }
+
+
+.hide-card {
+    -webkit-box-shadow: none!important;
+  }
+  
+.custom-avatar {
+    height: 30vw;
+    width: 30vw;
+    border: 1px solid #fff;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+  }

@@ -16,11 +16,15 @@ import { AddClothPage } from '../pages/add-cloth/add-cloth';
 import { LoginPage } from '../pages/login/login';
 import { RegisterPage } from '../pages/register/register';
 import { TabsPage } from '../pages/tabs/tabs';
+import { HomeTestPage } from '../pages/home-test/home-test';
+import { TesttodoPage } from '../pages/testtodo/testtodo';
 
 //providers
 import { ImagesProvider } from '../providers/images/images'; 
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { ClothesProvider } from '../providers/clothes/clothes';
+import { ServerAddressProvider } from '../providers/server-address/server-address';
+import { HistorysProvider } from '../providers/historys/historys';
 
 //native plugins
 import { SplashScreen } from '@ionic-native/splash-screen';
@@ -32,10 +36,11 @@ import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
-import { HistorysProvider } from '../providers/historys/historys';
-import { TesttodoPage } from '../pages/testtodo/testtodo';
-import { ServerAddressProvider } from '../providers/server-address/server-address';
-import { HomeTestPage } from '../pages/home-test/home-test';
+import { NavController } from 'ionic-angular/navigation/nav-controller';
+
+
+
+
 
 
 
