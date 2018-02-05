@@ -6,7 +6,7 @@ import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { TesttodoPage } from '../testtodo/testtodo';
 import { MapPage } from '../map/map';
- 
+
 //@IonicPage()
 @Component({
   selector: 'page-login',
@@ -14,37 +14,37 @@ import { MapPage } from '../map/map';
 })
 export class LoginPage {
   loading: Loading;
-  registerCredentials = { 
-    email: '', 
-    password: '' 
+  registerCredentials = {
+    email: '',
+    password: ''
   };
   data: any;
- 
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) { 
+
+  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, private loadingCtrl: LoadingController) {
 
   }
- 
+
   ionViewDidLoad() {
 
     this.showLoading();
 
     //Check if already authenticated
     this.auth.checkAuthentication().then((res) => {
-        console.log("Already authorized");
-        this.loading.dismiss();
-        this.nav.setRoot(HomePage);
+      console.log("Already authorized");
+      this.loading.dismiss();
+      this.nav.setRoot(HomePage);
     }, (err) => {
-        console.log("Not already authorized");
-        this.loading.dismiss();
+      console.log("Not already authorized");
+      this.loading.dismiss();
     });
 
-
-}
+    this.nav.push(, this.registerCredentials.email)
+  }
 
   public createAccount() {
     this.nav.push(RegisterPage); // 이거 막 페이지 컨트롤 잘 모르겠다.. 공부하자
   }
- 
+
   public login() {
     this.showLoading()
 
@@ -61,26 +61,26 @@ export class LoginPage {
       });
       */
 
-      this.auth.login(this.registerCredentials).then((result) => {
-        this.loading.dismiss();
-        console.log("login page result: " + result);
-        this.data = result;
-        localStorage.setItem('token', this.data.access_token);
-        this.nav.setRoot(MapPage);//next page
+    this.auth.login(this.registerCredentials).then((result) => {
+      this.loading.dismiss();
+      console.log("login page result: " + result);
+      this.data = result;
+      localStorage.setItem('token', this.data.access_token);
+      this.nav.setRoot(MapPage);//next page
     }, (err) => {
-        this.loading.dismiss();
-        switch(err.statusText) {
-          case "Unauthorized": 
+      this.loading.dismiss();
+      switch (err.statusText) {
+        case "Unauthorized":
           {
             this.showError("회원 정보가 없어요!");
             break;
           }
-        }
-        //alert(err);
-    
+      }
+      //alert(err);
+
     });
   }
- 
+
   showLoading() {
     this.loading = this.loadingCtrl.create({
       content: 'Please wait...',
@@ -88,16 +88,16 @@ export class LoginPage {
     });
     this.loading.present();
   }
- 
+
   showError(text) {
     //this.loading.dismiss();
- 
+
     let alert = this.alertCtrl.create({
       title: 'Fail',
       subTitle: text,
       buttons: ['OK']
     }).present();
 
-    
+
   }
 }
