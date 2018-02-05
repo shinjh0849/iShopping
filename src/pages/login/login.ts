@@ -5,6 +5,7 @@ import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
 import { TabsPage } from '../tabs/tabs';
 import { TesttodoPage } from '../testtodo/testtodo';
+import { MapPage } from '../map/map';
  
 //@IonicPage()
 @Component({
@@ -65,7 +66,7 @@ export class LoginPage {
         console.log("login page result: " + result);
         this.data = result;
         localStorage.setItem('token', this.data.access_token);
-        this.nav.setRoot(TabsPage);//next page
+        this.nav.setRoot(MapPage);//next page
     }, (err) => {
         this.loading.dismiss();
         switch(err.statusText) {
