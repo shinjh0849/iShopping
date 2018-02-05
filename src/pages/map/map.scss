@@ -1,4 +1,11 @@
 page-map {
+  ::-webkit-scrollbar {
+    display: none;
+    }
+    .no-scroll .scroll-content{
+      overflow: hidden;
+ }
+ 
   .scroll {
     height: 100%
   }
@@ -7,5 +14,12 @@ page-map {
     width: 100%;
     height: 50%;
   }
+
+  .card {
+    width: 33%;
+    float: left;
+    height: 20%;
+  }
+
 }
   

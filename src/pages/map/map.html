@@ -1,8 +1,8 @@
 <ion-header>
   <ion-navbar color="primary">
-      <button ion-button menuToggle>
-          <ion-icon name="menu"></ion-icon>
-        </button>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>
       Map
     </ion-title>
@@ -14,14 +14,53 @@
   </ion-navbar>
 </ion-header>
 
-<ion-content>
+<ion-content class="no-scroll">
 
   <!--
   <button ion-button (click)="getPosition()">Get Pos</button>
   <button ion-button (click)="viewData()">View Data</button>
   -->
-  
+
   <div #map id="map"></div>
+
+  <ion-list-header class="list-header"> 내가 본 상품 리스트 </ion-list-header>
+
+  <ion-item class="card" *ngFor="let i of [1, 2, 3, 4, 5]">
+
+    <img src="assets/imgs/testCloth1.png" />
+<!--
+    <ion-card-content>
+      <ion-card-title>
+        image {{i}}
+      </ion-card-title>
+      <p>
+        뭐 색깔이나 가격 넣을 수 있겠지..
+      </p>
+    </ion-card-content>
+  -->
+
+    <!-- <ion-row no-padding>
+      <ion-col>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='star'></ion-icon>
+          Favorite
+        </button>
+      </ion-col>
+      <ion-col text-center>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='musical-notes'></ion-icon>
+          Listen
+        </button>
+      </ion-col>
+      <ion-col text-right>
+        <button ion-button clear small color="danger" icon-start>
+          <ion-icon name='share-alt'></ion-icon>
+          Share
+        </button>
+      </ion-col>
+    </ion-row> -->
+
+  </ion-item>
 
   <ion-fab right bottom>
     <button ion-fab (click)="takePicture()">
