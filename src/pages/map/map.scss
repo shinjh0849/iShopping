@@ -19,6 +19,12 @@ page-map {
     width: 33%;
     float: left;
     height: 20%;
+    padding-right: 8px;
+    border-bottom: 0px;
+  }
+
+  .item-ios.item-block .item-inner{
+    border-bottom: 0px;
   }
 
 }
