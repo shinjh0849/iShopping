@@ -25,7 +25,7 @@ export class MyApp {
   rootPage: any = LoginPage;
 
   username = '';
-  pages: Array<{ title: string, component: any }>;
+  //pages: Array<{ title: string, component: any }>;
 
   constructor(private auth: AuthServiceProvider, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
 
@@ -45,11 +45,6 @@ export class MyApp {
         alert('catch error: ' + e);
       }
     });
-
-    this.pages = [
-      { title: 'Home', component: MapPage },
-      { title: 'History', component: PicHttpPage }
-    ];
 
 
     

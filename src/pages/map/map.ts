@@ -11,6 +11,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
+import { PicHttpPage } from '../pic-http/pic-http';
 
 
 declare let IndoorAtlas: any;
@@ -109,7 +110,9 @@ export class MapPage {
   @ViewChild('map') mapElement: ElementRef;
 
   images: any = [];
+  showimg: any = [];
   loading: Loading;
+  imgLoading: Loading;
 
   constructor(
     private imagesProvider: ImagesProvider,
@@ -131,13 +134,13 @@ export class MapPage {
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
     }
-
     console.log('auth token: ' + this.auth.token);
   }
 
   ionViewDidEnter() {
     this.viewData();
     this.watchPosition();
+    //this.reloadImages();
   }
 
   ionViewDidLeave() {
@@ -294,47 +297,71 @@ export class MapPage {
   }
 
   viewData() {
+
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-
+      
       for (var i = 0; i < this.images.length; i++) {
         var object = this.images[i];
         this.addMarkerList(object);
       }
+
+      console.log("viewData Loaded!");
+      console.log(this.images);
+
     });
   }
 
-  addInfoWindowList(marker, obj){
-        let infoWindow = new google.maps.InfoWindow({
-          content: '<div>' + '<h3>' + obj.store + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
-            + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
-        });
+  addInfoWindowList(marker, obj) {
+    let infoWindow = new google.maps.InfoWindow({
+      content: '<div>' + '<h3>' + obj.store + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
+        + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
+    });
 
-        google.maps.event.addListener(marker, 'click', () => {
-          infoWindow.open(map, marker);
-        })
-      }
+    google.maps.event.addListener(marker, 'click', () => {
+      infoWindow.open(map, marker);
+    })
+  }
 
-  addMarkerList(obj){
-        let marker = new google.maps.Marker({
-          map: map,
-          position: {
-            lat: obj.lat,
-            lng: obj.lng
-          },
-          icon: 'assets/imgs/shirt2.png'
-        });
-        this.addInfoWindowList(marker, obj);
-      }
+  addMarkerList(obj) {
+    let marker = new google.maps.Marker({
+      map: map,
+      position: {
+        lat: obj.lat,
+        lng: obj.lng
+      },
+      icon: 'assets/imgs/shirt2.png'
+    });
+    this.addInfoWindowList(marker, obj);
+  }
 
 
 
   showLoading(text) {
-        this.loading = this.loadingCtrl.create({
-          content: text
-        });
-        this.loading.present();
-      }
+    this.loading = this.loadingCtrl.create({
+      content: text
+    });
+    this.loading.present();
+  }
+
+  // reloadImages() {
+  //   this.imgLoading = this.loadingCtrl.create({
+  //     content: 'loading images...'
+  //   });
+  //   this.imgLoading.present();
+
+  //   this.imagesProvider.getImages().subscribe(data => {
+  //     console.log("reloaded images!");
+  //     this.images = data;
+  //     console.log(this.images.color);
+  //     this.imgLoading.dismiss();
+  //   });
+  // }
+
+  moreList() {
+    this.navCtrl.push(PicHttpPage);
+  }
+
 }
 
 
