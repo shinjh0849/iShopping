@@ -1,5 +1,5 @@
 {
-  "name": "iShopping",
+  "name": "ishopping",
   "version": "0.0.1",
   "author": "Ionic Framework",
   "homepage": "http://ionicframework.com/",
@@ -90,5 +90,14 @@
       "android",
       "ios"
     ]
+  },
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/shinjh0849/iShopping.git"
+  },
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/shinjh0849/iShopping/issues"
   }
 }
