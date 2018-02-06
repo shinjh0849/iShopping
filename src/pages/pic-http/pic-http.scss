@@ -13,5 +13,30 @@ page-pic-http {
         margin-right: auto;
         margin-top: 5%;
       }
+
+      .card {
+        width: 33%;
+        float: left;
+        height: 20%;
+        padding: 1px;
+        border-bottom: 0px;
+      }
+    
+      .item-ios.item-block .item-inner{
+        border-bottom: 0px;
+      }
+    
+      .moreButton {
+        color: #000;
+        background-color: #fff;
+      }
+      .full-image {
+        width: 100%;
+      }
+    
+      .item-inner {
+        overflow: visible;
+      }
+      
       
 }

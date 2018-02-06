@@ -37,6 +37,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
+import { SettingsPage } from '../pages/settings/settings';
 
 
 
@@ -58,7 +59,8 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
     RegisterPage,
     TabsPage,
     TesttodoPage, 
-    HomeTestPage
+    HomeTestPage,
+    SettingsPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
     RegisterPage,
     TabsPage,
     TesttodoPage,
-    HomeTestPage
+    HomeTestPage,
+    SettingsPage
   ],
   providers: [
     StatusBar,

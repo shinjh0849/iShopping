@@ -18,22 +18,22 @@
   </ion-navbar>
 </ion-header>
 <ion-content>
-  <ion-card text-center class="hide-card">
-    <img src="http://placehold.it/300x200" class="custom-avatar" />
-    <h2>{{username}}</h2>
-    <p>즐거운 쇼핑 하세영</p>
-  </ion-card>
-
-  <hr>
+ 
 
 
-  <ion-list>
+
     <ion-list-header>
-      내가 촬영한 의류
+      내가 본 상품 리스트
     </ion-list-header>
     <h3 [hidden]="images.length !== 0" text-center>No Images found!</h3>
 
-    <ion-item-sliding *ngFor="let img of images">
+    <ion-item class="card" *ngFor="let img of images; let i = index" >
+
+        <img class="full-image" [src]="img.url" />
+        <h2> {{img.store}} 매장 </h2>
+    </ion-item>
+
+    <!-- <ion-item-sliding *ngFor="let img of images">
 
       <ion-item tappable (click)="openImage(img)">
         <ion-thumbnail item-start>
@@ -53,6 +53,6 @@
       </ion-item-options>
 
     </ion-item-sliding>
-  </ion-list>
+  </ion-list> -->
 
 </ion-content>

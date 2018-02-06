@@ -12,6 +12,7 @@ import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { PicHttpPage } from '../pic-http/pic-http';
+import { SettingsPage } from '../settings/settings';
 
 
 declare let IndoorAtlas: any;
@@ -362,6 +363,9 @@ export class MapPage {
     this.navCtrl.push(PicHttpPage);
   }
 
+  goSettings() {
+    this.navCtrl.push(SettingsPage);
+  }
 }
 
 
