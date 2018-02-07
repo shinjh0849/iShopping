@@ -44,6 +44,7 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
 
 
 
+
 @NgModule({
   declarations: [
     MyApp,
@@ -58,7 +59,8 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
     RegisterPage,
     TabsPage,
     TesttodoPage, 
-    HomeTestPage
+    HomeTestPage,
+
   ],
   imports: [
     BrowserModule,
@@ -80,7 +82,8 @@ import { NavController } from 'ionic-angular/navigation/nav-controller';
     RegisterPage,
     TabsPage,
     TesttodoPage,
-    HomeTestPage
+    HomeTestPage,
+
   ],
   providers: [
     StatusBar,
