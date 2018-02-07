@@ -298,12 +298,12 @@ export class MapPage {
       this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
         this.loading.dismiss();
         alert('uploading image success!');
+        alert(res[0].shape);
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
       })
-    }
-    )
+    })
   }
 
   viewData() {

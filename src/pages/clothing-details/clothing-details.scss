@@ -1,5 +1,12 @@
 page-clothing-details {
-    .img-info {
+    .card {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+        // margin-top: auto;
+        margin-bottom: auto;
+    }
+    .img-info { 
         padding-left: 20px;
         background: #fff;
     }
@@ -20,11 +27,18 @@ page-clothing-details {
         color: color($colors, light);
         font-size: 3rem;
     }
-    .img{
+    .img {
         width: 50%;
         height: 50%;
+        // position: absolute;
+        // top: 50%;
+        // left: 50%;
+        // transform: translate(-50%, -50%);
+        /////////////////////////
         display: block;
         margin-left: auto;
         margin-right: auto;
+        // margin-top: auto;
+        margin-bottom: auto;
     }
 }
