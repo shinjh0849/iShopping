@@ -24,11 +24,13 @@
 
     <h3 class="noImages" [hidden]="images.length !== 0" text-center>No Images found!</h3>
 
-    <ion-item class="card" *ngFor="let img of images; let i = index" >
-
-        <img class="full-image" [src]="img.url" />
-        <h2> {{img.store}} 매장 </h2>
-    </ion-item>
+    <div class="container" *ngFor="let img of images; let i = index" >
+        <ion-thumbnail class="thumbnail">
+          <img class="full-image" [src]="img.url" />
+          <div class="detail-text"> {{img.store}} 매장 </div>
+    
+        </ion-thumbnail>
+      </div>
 
     <!-- <ion-item-sliding *ngFor="let img of images">
 
