@@ -296,11 +296,16 @@ export class MapPage {
       //});
       this.showLoading('uploading image..');
       this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
-        this.loading.dismiss();
+        this.loading.dismiss(); 
         alert('uploading image success!');
+<<<<<<< HEAD
         alert(res[0].shape);
+=======
+        let modal = this.modalCtrl.create('PickModalPage', { });
+        modal.present();
+>>>>>>> 291faf24bd41b9f37f61e3b25581640dcb68c3ec
       }, err => {
-        this.loading.dismiss();
+        this.loading.dismiss(); 
         alert('uploading image failed!');
       })
     })
