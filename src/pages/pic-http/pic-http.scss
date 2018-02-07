@@ -21,6 +21,29 @@ page-pic-http {
         padding: 1px;
         border-bottom: 0px;
       }
+
+      .container {
+        width: 33%;
+        max-width: 33%;
+        height: 20%;
+        float: left;
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+      }
+    
+      .thumbnail {
+        max-height: 20%;
+      }
+    
+      .detail-text {
+        position: absolute;
+        bottom: 1em;
+        color: white;
+        font-size: 0.7em;
+        left: 4px;
+      }
+    
     
       .item-ios.item-block .item-inner{
         border-bottom: 0px;
