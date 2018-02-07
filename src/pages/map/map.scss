@@ -58,4 +58,71 @@ page-map {
         background-size: cover;
         min-height: 20%;
     }
+    .no-scroll .scroll-content{
+      overflow: hidden;
+ }
+ 
+  .scroll {
+    height: 100%
+  }
+  
+  #map {
+    width: 100%;
+    height: 50%;
+  }
+
+  .container {
+    width: 33%;
+    max-width: 33%;
+    height: 22%;
+    float: left;
+    position: relative;
+    text-align: center;
+    overflow: hidden;
+  }
+
+  .thumbnail {
+    max-height: 20%;
+  }
+
+  .detail-text {
+    position: absolute;
+    bottom: 1em;
+    color: white;
+    font-size: 0.7em;
+    left: 4px;
+  }
+
+  .card {
+    width: 33%;
+    float: left;
+    height: 20%;
+    padding: 1px;
+    border-bottom: 0px;
+  }
+
+  .item-ios.item-block .item-inner{
+    border-bottom: 0px;
+  }
+
+  .moreButton {
+    color: #000;
+    background-color: #fff;
+  }
+  .full-image {
+    width: 100%;
+  }
+
+  .item-inner {
+    overflow: visible;
+  }
+  .list-header-md {
+    
+    margin-bottom: 0px;
+  }
+
+  .image-container {
+    background-size: cover;
+    min-height: 20%;
+  }
 }

@@ -24,7 +24,7 @@
 
     <h3 class="noImages" [hidden]="images.length !== 0" text-center>No Images found!</h3>
 
-    <div class="container" *ngFor="let img of images; let i = index" >
+    <div class="container" *ngFor="let img of images; let i = index" (click)="openImage(img)" >
         <ion-thumbnail class="thumbnail">
           <img class="full-image" [src]="img.url" />
           <div class="detail-text"> {{img.store}} 매장 </div>
