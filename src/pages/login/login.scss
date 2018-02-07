@@ -1,7 +1,8 @@
 page-login {
  
     .login-content {
-      background: rgb(230, 230, 230);
+      background: url('../assets/imgs/background.jpg') no-repeat fixed center;
+
    
       .logo-row {
         padding-top: 50px;
@@ -9,7 +10,6 @@ page-login {
       }
    
       .login-box {
-        background: #D1B6E1;
         padding: 20px 20px 0px 20px;
         margin-top: 30px;
       }

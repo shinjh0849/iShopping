@@ -118,7 +118,8 @@ export class AuthServiceProvider {
  
         let headers = new Headers();
         headers.append('Content-Type', 'application/json');
- 
+        console.log('here');
+        
         this.http.post(this.serverAddr.serverURL + '/api/auth/register', JSON.stringify(credentials), {headers: headers})
           .subscribe(res => {
  

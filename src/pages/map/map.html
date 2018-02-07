@@ -24,23 +24,22 @@
   <div #map id="map"></div>
 
   <ion-list-header class="list-header"> 내가 본 상품 리스트 <button class="moreButton" ion-button icon-only item-end (click)="moreList()"> <ion-icon name="arrow-forward"> </ion-icon></button></ion-list-header>
+<ion-grid>
+  <ion-row>
+    <ion-col *ngFor="let img of images; let i = index" [hidden]="i>5"> 
 
-  <ion-item class="card" *ngFor="let img of images; let i = index" [hidden]="i > 4">
+  <div class="image-container" [style.background-image]="img.url">
 
+  </div>
+</ion-col>
+</ion-row>
+</ion-grid>
+  <!-- <ion-item class="card" *ngFor="let img of images; let i = index" [hidden]="i > 4">
+    <ion-thumbnail>
     <img class="full-image" [src]="img.url" />
+  </ion-thumbnail>
     <h2> {{img.store}} 매장 </h2>
-<!--
-    <ion-card-content>
-      <ion-card-title>
-        image {{i}}
-      </ion-card-title>
-      <p>
-        뭐 색깔이나 가격 넣을 수 있겠지..
-      </p>
-    </ion-card-content>
-  -->
-
-  </ion-item>
+  </ion-item> -->
 
   <ion-fab right bottom>
     <button ion-fab (click)="takePicture()">
