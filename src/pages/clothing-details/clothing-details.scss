@@ -1,4 +1,4 @@
-page-preview-modal {
+page-clothing-details {
     .img-info {
         padding-left: 20px;
         background: #fff;
@@ -19,5 +19,12 @@ page-preview-modal {
         background: transparent;
         color: color($colors, light);
         font-size: 3rem;
+    }
+    .img{
+        width: 50%;
+        height: 50%;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
     }
 }

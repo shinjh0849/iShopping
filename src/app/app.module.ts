@@ -45,6 +45,7 @@ import { SettingsPage } from '../pages/settings/settings';
 
 
 
+
 @NgModule({
   declarations: [
     MyApp,

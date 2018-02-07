@@ -13,7 +13,7 @@ import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { PicHttpPage } from '../pic-http/pic-http';
 import { SettingsPage } from '../settings/settings';
-
+import { ClothingDetailsPage } from '../clothing-details/clothing-details';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -25,8 +25,6 @@ var watchID;
 var myLocation: any;
 
 var markers = [];
-
-//화장실쪽 쯤 Geofence 좌표  , 
 
 var maejang1 = [
   { lat: 36.10347, lng: 129.38645 },
@@ -123,7 +121,8 @@ export class MapPage {
     private camera: Camera,
     public geolocation: Geolocation,
     public navCtrl: NavController,
-    public loadingCtrl: LoadingController
+    public loadingCtrl: LoadingController,
+    
   ) {
     this.loadMap();
   }
@@ -275,7 +274,16 @@ export class MapPage {
     this.getMaeJang();
 
     // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {
+    this.camera.getPicture(options).then((imagePath) => {      //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
+      //   modal.present();
+      //   modal.onDidDismiss(data => {
+      //     if (data && data.reload) {
+      //       //this.reloadImages();
+      //     }
+      //   });
+      // }, (err) => {
+      //   console.log('Error: ', err);
+      //});
       //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
       //   modal.present();
       //   modal.onDidDismiss(data => {
@@ -316,7 +324,7 @@ export class MapPage {
   addInfoWindowList(marker, obj) {
     let infoWindow = new google.maps.InfoWindow({
       content: '<div>' + '<h3>' + obj.store + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
-        + '</p>' + 'color:' + obj.color + 'shape:' + obj.shape + '</div>'
+        + '</p>' + 'color: ' + obj.color + ', shape: ' + obj.shape + '</div>'
     });
 
     google.maps.event.addListener(marker, 'click', () => {
@@ -363,8 +371,10 @@ export class MapPage {
     this.navCtrl.push(PicHttpPage);
   }
 
-  goSettings() {
-    this.navCtrl.push(SettingsPage);
+
+  openImage(img) {
+    let modal = this.modalCtrl.create('ClothingDetailsPage', { img: img });
+    modal.present();
   }
 }
 

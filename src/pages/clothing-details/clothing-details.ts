@@ -1,26 +1,29 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
 import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
 import { ServerAddressProvider } from '../../providers/server-address/server-address';
- 
+
 @IonicPage()
 @Component({
-  selector: 'page-preview-modal',
-  templateUrl: 'preview-modal.html',
+  selector: 'page-clothing-details',
+  templateUrl: 'clothing-details.html',
 })
-export class PreviewModalPage {
-  img: any;
-  res: any;
+export class ClothingDetailsPage {
 
-  constructor(public http: Http, public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController, public serverAddr: ServerAddressProvider) {
+  img: any;
+
+  constructor(public serverAddr: ServerAddressProvider, public http: Http, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
     this.img = this.navParams.get('img');
-    //this.getRecomm(this.img);
-    //alert("response: " + this.getRecomm(this.img));
+
     console.log("response: " + this.getRecomm(this.img));
   }
- 
-  close() {
+
+  ionViewDidLoad() {
+    console.log('ionViewDidLoad ClothingDetailsPage');
+  }
+
+
+  close(){
     this.viewCtrl.dismiss();
   }
 
@@ -28,5 +31,4 @@ export class PreviewModalPage {
     console.log('id: ' + img._id);
     return this.http.get(this.serverAddr.serverURL+'/images');
   }
- 
 }
