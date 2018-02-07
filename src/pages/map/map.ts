@@ -299,6 +299,7 @@ export class MapPage {
         this.loading.dismiss();
         alert('uploading image success!');
       }, err => {
+        this.loading.dismiss();
         alert('uploading image failed!');
       })
     }

@@ -26,7 +26,7 @@
 
     <ion-item class="card" *ngFor="let img of images; let i = index" >
 
-        <img class="full-image" [src]="img.url" />
+        <img class="full-image" [src]="img.url" (click)="openImage(img)"/>
         <h2> {{img.store}} 매장 </h2>
     </ion-item>
 

@@ -59,7 +59,7 @@ export class PicHttpPage {
   }
  
   openImage(img) {
-    let modal = this.modalCtrl.create('PreviewModalPage', { img: img });
+    let modal = this.modalCtrl.create('ClothingDetailsPage', { img: img });
     modal.present();
   }
  
