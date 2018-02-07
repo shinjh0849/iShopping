@@ -23,23 +23,29 @@
 
   <div #map id="map"></div>
 
-  <ion-list-header class="list-header"> 내가 본 상품 리스트 <button class="moreButton" ion-button icon-only item-end (click)="moreList()"> <ion-icon name="arrow-forward"> </ion-icon></button></ion-list-header>
-<ion-grid>
+  <ion-list-header class="list-header"> 내가 본 상품 리스트
+    <button class="moreButton" ion-button icon-only item-end (click)="moreList()">
+      <ion-icon name="arrow-forward"> </ion-icon>
+    </button>
+  </ion-list-header>
+  <!-- <ion-grid>
   <ion-row>
     <ion-col *ngFor="let img of images; let i = index" [hidden]="i>5"> 
 
-  <div class="image-container" [style.background-image]="img.url">
+  <div class="image-container" [style.background-image]="'url('+img.url+')'">
 
   </div>
 </ion-col>
 </ion-row>
-</ion-grid>
-  <!-- <ion-item class="card" *ngFor="let img of images; let i = index" [hidden]="i > 4">
-    <ion-thumbnail>
-    <img class="full-image" [src]="img.url" />
-  </ion-thumbnail>
-    <h2> {{img.store}} 매장 </h2>
-  </ion-item> -->
+</ion-grid> -->
+
+  <div class="container" *ngFor="let img of images; let i = index" [hidden]="i > 4">
+    <ion-thumbnail class="thumbnail">
+      <img class="full-image" [src]="img.url" />
+      <div class="detail-text"> {{img.store}} 매장 </div>
+  
+    </ion-thumbnail>
+    </div>
 
   <ion-fab right bottom>
     <button ion-fab (click)="takePicture()">
