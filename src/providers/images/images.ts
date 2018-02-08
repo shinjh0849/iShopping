@@ -25,41 +25,50 @@ export class ImagesProvider {
     console.log('Hello ImagesProvider Provider');
   }
 
+// URI /api/stores
+
+  // 매장 전체 목록 받아옴 (화면에 매장 위치 띄우기 위한 용도임)
+  getStores() {
+    return this.http.get(this.serverAddr.serverURL + '/api/stores').map(res => res.json());
+  }
+
+  // 찍은 옷 정보 가져올 때 쓴다. (clothing-details page) 컬렉션 선택 위해서 store id와 select_id 사용함.
+  getStoreDB(img){
+    return this.http.get(this.serverAddr.serverURL + '/api/stores/' + img.store_id + '/clothes/' + img.select_id).map(res => res.json());
+  }
+
+// URI api/users/user_id/match
+
+  // 5개 목록 받아올때 쓴다.
+  getChoice(store_id) {
+    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match/' + store_id).map(res => res.json());
+  }
+
+  // 5개의 매장 디비 사진 중 선택된 디비를 저장하는 과정 
   selectImages(select) {
     let headers = new Headers();
     headers.append('Content-Type', 'application/json');
 
     return this.http.post(
-      this.serverAddr.serverURL + '/api/users/'
-      + this.auth._id + '/match/' + select._id,
-      JSON.stringify(select),
-      { headers: headers })
+      this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match/' + select._id, JSON.stringify(select), { headers: headers })
       .subscribe(res => {
         console.log(res.json());
       });
   }
+  
+// URI api/users/user_id/images
 
-  getStores() {
-    return this.http.get(this.serverAddr.serverURL + '/api/stores').map(res => res.json());
-  }
-
-  getStoreDB(img){
-    return this.http.get(this.serverAddr.serverURL + '/api/stores/' + img.store + '/clothes/' + img.select_id).map(res => res.json());
-  }
-
+  // 유저의 전체 이미지 목록 받아올 때 사용.
   getImages() {
-    //console.log(this.serverAddr.serverURL);
     return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images').map(res => res.json());
   }
 
+  // 선택된 이미지 삭제 시 사용.
   deleteImage(img) {
     return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
   }
 
-  getChoice(storeName) {
-    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match/' + storeName).map(res => res.json());
-  }
-
+  // 사진 업로드하는 과정
   uploadImage(img, desc, curLat, curLng, store) {
 
     // Destination URL

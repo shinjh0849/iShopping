@@ -12,7 +12,7 @@ export class SelectModalPage {
 
   images: any = [];
   res: any;
-  store: string;
+  store_id: string;
 
   constructor(
     private viewCtrl: ViewController,
@@ -21,8 +21,8 @@ export class SelectModalPage {
     public http: Http,
     public imagesProvider: ImagesProvider
   ) {
-    this.store = this.navParams.get("storeName");
-    this.imagesProvider.getChoice(this.store).subscribe(data => {
+    this.store_id = this.navParams.get("store_id");
+    this.imagesProvider.getChoice(this.store_id).subscribe(data => {
       this.images = data;
     });
   }

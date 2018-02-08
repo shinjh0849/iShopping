@@ -295,15 +295,15 @@ export class MapPage {
     };
 
     //Gets the current store in strings
-    this.getMaeJang();
+    //this.getMaeJang();
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
       this.showLoading('uploading image..');
-      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
+      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c0464e67bac4f9e03a6ef').then(res => {
         this.loading.dismiss();
         alert('uploading image success!');
-        this.openModal(myLocation);
+        this.openModal('5a7c0464e67bac4f9e03a6ef');
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
@@ -311,8 +311,8 @@ export class MapPage {
     })
   }
 
-  openModal(storeName) {
-    let modal = this.modalCtrl2.create('SelectModalPage', { storeName: storeName });
+  openModal(store_id) {
+    let modal = this.modalCtrl2.create('SelectModalPage', { store_id: store_id });
     modal.present();
   }
 
