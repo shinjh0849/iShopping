@@ -34,9 +34,10 @@
     "@ionic-native/status-bar": "4.4.0",
     "@ionic/storage": "2.0.0",
     "android-versions": "^1.3.0",
-    "cordova-android": "7.0.0",
+    "cordova-android": "^7.0.0",
     "cordova-ios": "4.5.4",
     "cordova-plugin-camera": "^4.0.1",
+    "cordova-plugin-compat": "^1.2.0",
     "cordova-plugin-device": "^1.1.7",
     "cordova-plugin-file": "^5.0.0",
     "cordova-plugin-file-transfer": "^1.7.0",
@@ -49,6 +50,7 @@
     "cordova-plugin-nativestorage": "^2.2.2",
     "cordova-plugin-splashscreen": "^4.1.0",
     "cordova-plugin-whitelist": "^1.3.3",
+    "es6-promise-plugin": "^4.2.2",
     "indooratlas-api": "^1.0.0",
     "ionic-angular": "3.9.2",
     "ionic-native": "^2.9.0",
@@ -87,7 +89,6 @@
       "cordova-plugin-nativestorage": {}
     },
     "platforms": [
-      "android",
       "ios"
     ]
   },
