@@ -1,7 +1,11 @@
 import { Injectable } from '@angular/core';
 import 'rxjs/add/operator/map';
-import { Http } from '@angular/http';
-import { FileTransfer, FileUploadOptions, FileTransferObject } from '@ionic-native/file-transfer';
+import { Http, Headers } from '@angular/http';
+import { 
+  FileTransfer, 
+  FileUploadOptions, 
+  FileTransferObject
+} from '@ionic-native/file-transfer';
 import { ServerAddressProvider } from '../server-address/server-address';
 import { AuthServiceProvider } from '../auth-service/auth-service';
 
@@ -21,6 +25,28 @@ export class ImagesProvider {
     console.log('Hello ImagesProvider Provider');
   }
 
+  selectImages(select) {
+    let headers = new Headers();
+    headers.append('Content-Type', 'application/json');
+
+    return this.http.post(
+      this.serverAddr.serverURL + '/api/users/'
+      + this.auth._id + '/match/' + select._id,
+      JSON.stringify(select),
+      { headers: headers })
+      .subscribe(res => {
+        console.log(res.json());
+      });
+  }
+
+  getStores() {
+    return this.http.get(this.serverAddr.serverURL + '/api/stores').map(res => res.json());
+  }
+
+  getStoreDB(img){
+    return this.http.get(this.serverAddr.serverURL + '/api/stores/' + img.store + '/clothes/' + img.select_id).map(res => res.json());
+  }
+
   getImages() {
     //console.log(this.serverAddr.serverURL);
     return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images').map(res => res.json());
@@ -30,8 +56,8 @@ export class ImagesProvider {
     return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
   }
 
-  getChoice(){
-    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match').map(res => res.json());
+  getChoice(storeName) {
+    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match/' + storeName).map(res => res.json());
   }
 
   uploadImage(img, desc, curLat, curLng, store) {

@@ -7,22 +7,11 @@
     </ion-item>
 
     <!-- 사진 띄우는 부분 -->
-    <div class="container" *ngFor="let img of images; let i = index" (click)="close()">
+    <div class="container" *ngFor="let img of images; let i = index">
       <ion-thumbnail class="thumbnail">
-        <img class="full-image" [src]="img.url" />
+        <img class="full-image" [src]="img.url" (click)="select(img)"/>
         <div class="detail-text"> {{img.name}} </div>
       </ion-thumbnail>
-
-      <ion-card class="card">
-        <ion-card-content class="img-info" *ngIf="img.desc">
-          <div class="desc-text">"{{ img.desc }}"</div>
-          <p>
-            <ion-icon name="calendar" item-left *ngIf="img.created"></ion-icon>
-            {{ img.created | date: 'short' }}
-          </p>
-          <p> 매장: {{ img.store }} </p>
-        </ion-card-content>
-      </ion-card>
     </div>
 
     

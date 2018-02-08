@@ -11,9 +11,8 @@ import { ImagesProvider } from '../../providers/images/images';
 export class SelectModalPage {
 
   images: any = [];
-
   res: any;
-
+  store: string;
 
   constructor(
     private viewCtrl: ViewController,
@@ -22,8 +21,8 @@ export class SelectModalPage {
     public http: Http,
     public imagesProvider: ImagesProvider
   ) {
-
-    this.imagesProvider.getChoice().subscribe(data => {
+    this.store = this.navParams.get("storeName");
+    this.imagesProvider.getChoice(this.store).subscribe(data => {
       this.images = data;
     });
   }
@@ -34,6 +33,12 @@ export class SelectModalPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad SelectModalPage');
+  }
+
+  select(img){
+    this.imagesProvider.selectImages(img);
+    alert(img.name + '이(가) 선택 되셨습니다하하핳');
+    this.viewCtrl.dismiss();
   }
 
 }

@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, ViewController } from 'ionic-angular';
-import { Http } from '@angular/http';
 import { ServerAddressProvider } from '../../providers/server-address/server-address';
+import { ImagesProvider } from '../../providers/images/images';
 
 @IonicPage()
 @Component({
@@ -11,30 +11,29 @@ import { ServerAddressProvider } from '../../providers/server-address/server-add
 export class ClothingDetailsPage {
 
   img: any;
+  storeImg: any = [] ;
 
   constructor(
     public serverAddr: ServerAddressProvider, 
-    public http: Http, 
     private viewCtrl: ViewController, 
     public navCtrl: NavController, 
-    public navParams: NavParams
+    public navParams: NavParams,
+    public imagesProvider: ImagesProvider
   ) {
     this.img = this.navParams.get('img');
 
-    console.log("response: " + this.getRecomm(this.img));
+    this.imagesProvider.getStoreDB(this.img).subscribe(data => {
+      this.storeImg = data;
+      console.log("storeimg: " + this.storeImg);
+    })
   }
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad ClothingDetailsPage');
   }
 
-
   close(){
     this.viewCtrl.dismiss();
   }
 
-  getRecomm(img) {
-    console.log('id: ' + img._id);
-    return this.http.get(this.serverAddr.serverURL+'/images');
-  }
 }
