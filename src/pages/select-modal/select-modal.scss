@@ -1,0 +1,52 @@
+page-select-modal {
+    .card {
+        display: block;
+        margin-left: auto;
+        margin-right: auto; // margin-top: auto;
+        margin-bottom: auto;
+    }
+    .img-info {
+        padding-left: 20px;
+        background: #fff;
+    }
+    .desc-text {
+        font-weight: 500;
+        font-size: larger;
+        padding-bottom: 15px;
+        color: color($colors, dark);
+    }
+    .content-ios {
+        background: rgba(44, 39, 45, 0.84) !important;
+    }
+    .content-md {
+        background: rgba(44, 39, 45, 0.84) !important;
+    }
+    .close-fake {
+        background: transparent;
+        color: color($colors, light);
+        font-size: 3rem;
+    }
+
+    .container {
+        width: 33%;
+        max-width: 33%;
+        height: 22%;
+        float: left;
+        position: relative;
+        text-align: center;
+        overflow: hidden;
+    }
+    .full-image {
+        width: 100%;
+    }
+    .detail-text {
+        position: absolute;
+        bottom: 1em;
+        color: white;
+        font-size: 0.7em;
+        left: 4px;
+    }
+    .thumbnail {
+        max-height: 20%;
+    }
+}

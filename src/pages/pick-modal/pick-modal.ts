@@ -2,12 +2,6 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { ViewController } from 'ionic-angular/navigation/view-controller';
 
-/**
- * Generated class for the PickModalPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
@@ -16,12 +10,13 @@ import { ViewController } from 'ionic-angular/navigation/view-controller';
 })
 export class PickModalPage {
 
+  images: any;
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private viewCtrl: ViewController) {
+    this.images = this.navParams.get('res');
+    alert('ionViewDidLoad PickModalPage!! ㅗ,.ㅗ');
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad PickModalPage');
-  }
 
   close() {
     this.viewCtrl.dismiss();

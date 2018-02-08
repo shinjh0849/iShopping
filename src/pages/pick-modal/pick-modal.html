@@ -1,7 +1,24 @@
-
 <ion-content>
-  <ion-item (click)="close()">
-    <ion-icon name="close"></ion-icon>
-  </ion-item>
-  가나다라마 
+  <div class="image-modal transparent">
+    <ion-item class="close-fake" no-lines (click)="close()">
+      <ion-icon name="close"></ion-icon>
+    </ion-item>
+
+    <div *ngFor="let img of images; let i = index" (click)="openImage(img)">
+      <ion-thumbnail>
+        <img [src]="img.url" />
+        <div> {{img.store}} 매장 </div>
+      </ion-thumbnail>
+    </div>
+
+    <ion-card>
+      <ion-card-content class="img-info" *ngIf="img.desc">
+        <div class="desc-text">"{{ img.desc }}"</div>
+        <p>
+          <ion-icon name="calendar" item-left *ngIf="img.created"></ion-icon>
+          {{ img.created | date: 'short' }}
+        </p>
+      </ion-card-content>
+    </ion-card>
+  </div>
 </ion-content>

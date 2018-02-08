@@ -1,5 +1,5 @@
 import { Component, ViewChild, ElementRef, } from '@angular/core';
-import { NavController, ModalController, Loading } from 'ionic-angular';
+import { NavController, ModalController, Loading, Modal } from 'ionic-angular';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
@@ -106,9 +106,13 @@ var markImage = {
 
 export class MapPage {
 
+  modalla: any;
   @ViewChild('map') mapElement: ElementRef;
 
   images: any = [];
+
+  choochun: any = [];
+
   showimg: any = [];
   loading: Loading;
   imgLoading: Loading;
@@ -118,11 +122,12 @@ export class MapPage {
     public auth: AuthServiceProvider,
     public navParams: NavParams,
     private modalCtrl: ModalController,
+    private modalCtrl2: ModalController,
     private camera: Camera,
     public geolocation: Geolocation,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-    
+
   ) {
     this.loadMap();
   }
@@ -274,45 +279,29 @@ export class MapPage {
     this.getMaeJang();
 
     // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {      //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
-      //   modal.present();
-      //   modal.onDidDismiss(data => {
-      //     if (data && data.reload) {
-      //       //this.reloadImages();
-      //     }
-      //   });
-      // }, (err) => {
-      //   console.log('Error: ', err);
-      //});
-      //   let modal = this.modalCtrl.create('UploadModalPage', { data: imagePath });
-      //   modal.present();
-      //   modal.onDidDismiss(data => {
-      //     if (data && data.reload) {
-      //       //this.reloadImages();
-      //     }
-      //   });
-      // }, (err) => {
-      //   console.log('Error: ', err);
-      //});
+    this.camera.getPicture(options).then((imagePath) => {    
       this.showLoading('uploading image..');
       this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
-        this.loading.dismiss(); 
+        this.loading.dismiss();
         alert('uploading image success!');
-        alert(res[0].shape);
-        let modal = this.modalCtrl.create('PickModalPage', { });
-        modal.present();
+        this.openModal();
       }, err => {
-        this.loading.dismiss(); 
+        this.loading.dismiss();
         alert('uploading image failed!');
       })
     })
+  }
+  
+  openModal() {
+    let modal = this.modalCtrl2.create('SelectModalPage');
+    modal.present();
   }
 
   viewData() {
 
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
-      
+
       for (var i = 0; i < this.images.length; i++) {
         var object = this.images[i];
         this.addMarkerList(object);
@@ -356,19 +345,6 @@ export class MapPage {
     this.loading.present();
   }
 
-  // reloadImages() {
-  //   this.imgLoading = this.loadingCtrl.create({
-  //     content: 'loading images...'
-  //   });
-  //   this.imgLoading.present();
-
-  //   this.imagesProvider.getImages().subscribe(data => {
-  //     console.log("reloaded images!");
-  //     this.images = data;
-  //     console.log(this.images.color);
-  //     this.imgLoading.dismiss();
-  //   });
-  // }
 
   moreList() {
     this.navCtrl.push(PicHttpPage);
