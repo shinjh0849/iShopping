@@ -18,7 +18,8 @@ import { ClothingDetailsPage } from '../clothing-details/clothing-details';
 declare let IndoorAtlas: any;
 declare var google;
 var map: any;
-
+var polygon: any;
+var stores: any = [];
 var curLat: number;
 var curLng: number;
 var watchID;
@@ -26,39 +27,40 @@ var myLocation: any;
 
 var markers = [];
 
-var maejang1 = [
-  { lat: 36.10347, lng: 129.38645 },
-  { lat: 36.10347, lng: 129.38653 },
-  { lat: 36.10339, lng: 129.38653 },
-  { lat: 36.10339, lng: 129.38645 },
-  { lat: 36.10347, lng: 129.38645 },
-];
+// var maejang1 = [
+//   { lat: 36.10347, lng: 129.38645 },
+//   { lat: 36.10347, lng: 129.38653 },
+//   { lat: 36.10339, lng: 129.38653 },
+//   { lat: 36.10339, lng: 129.38645 },
+//   { lat: 36.10347, lng: 129.38645 },
+// ];
 
-var maejang2 = [
-  { lat: 36.10341, lng: 129.38665 },
-  { lat: 36.10341, lng: 129.38673 },
-  { lat: 36.10333, lng: 129.38673 },
-  { lat: 36.10333, lng: 129.38665 },
-  { lat: 36.10341, lng: 129.38665 },
-];
+// var maejang2 = [
+//   { lat: 36.10341, lng: 129.38665 },
+//   { lat: 36.10341, lng: 129.38673 },
+//   { lat: 36.10333, lng: 129.38673 },
+//   { lat: 36.10333, lng: 129.38665 },
+//   { lat: 36.10341, lng: 129.38665 },
+// ];
 
-var polygon1 = new google.maps.Polygon({
-  paths: maejang1,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 2,
-  fillColor: '#FF0000',
-  fillOpacity: 0.35
-});
 
-var polygon2 = new google.maps.Polygon({
-  paths: maejang2,
-  strokeColor: '#FF0000',
-  strokeOpacity: 0.8,
-  strokeWeight: 2,
-  fillColor: '#FF0000',
-  fillOpacity: 0.35
-});
+// var polygon1 = new google.maps.Polygon({
+//   paths: maejang1,
+//   strokeColor: '#FF0000',
+//   strokeOpacity: 0.8,
+//   strokeWeight: 2,
+//   fillColor: '#FF0000',
+//   fillOpacity: 0.35
+// });
+
+// var polygon2 = new google.maps.Polygon({
+//   paths: maejang2,
+//   strokeColor: '#FF0000',
+//   strokeOpacity: 0.8,
+//   strokeWeight: 2,
+//   fillColor: '#FF0000',
+//   fillOpacity: 0.35
+// });
 
 // Adds a marker to the map and push to the array.
 function addMarker(latitude, longitude) {
@@ -71,6 +73,17 @@ function addMarker(latitude, longitude) {
     icon: 'assets/icon/mapCursor.png'
   });
   markers.push(marker);
+}
+
+function getPoly(){
+  polygon = new google.maps.Polygon({
+    paths: stores[0].coords,
+    strokeColor: '#FF0000',
+    strokeOpacity: 0.8,
+    strokeWeight: 2,
+    fillColor: '#FF0000',
+    fillOpacity: 0.35
+  });
 }
 
 function setMapOnAll(map) {
@@ -109,7 +122,10 @@ export class MapPage {
   modalla: any;
   @ViewChild('map') mapElement: ElementRef;
 
+  //어레이!! tq
   images: any = [];
+  
+  storeCoords: any = [];
 
   choochun: any = [];
 
@@ -143,7 +159,7 @@ export class MapPage {
   }
 
   ionViewDidEnter() {
-    this.viewData();
+    this.init();
     this.watchPosition();
     //this.reloadImages();
   }
@@ -177,10 +193,11 @@ export class MapPage {
     }, (err) => {
       alert('loadMap, getcurrentPosition failed: ' + err);
     }).then(() => {
-      polygon1.setMap(map);
-      polygon2.setMap(map);
+      // for (var i = 0; i < this.polygon.length; i++) {
+      //   this.polygon[i].setMap(map);
+      // }
+      polygon.setMap(map);
     })
-
   }
 
   clearWatch() {
@@ -250,15 +267,17 @@ export class MapPage {
   }
 
   getMaeJang() {
+
+    // 이부분 매우 수정해야됨
     this.showLoading('finding maejang..');
-    if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
+    if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon)) {
       myLocation = 'Mae Jang 1';
     }
-    else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon2)) {
+    else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon)) {
       myLocation = 'Mae Jang 2';
     }
     else {
-      myLocation = '찾을수 없는 매장';
+      myLocation = 'uniqlo';
     }
 
     this.loading.dismiss();
@@ -279,25 +298,47 @@ export class MapPage {
     this.getMaeJang();
 
     // Get the data of an image
-    this.camera.getPicture(options).then((imagePath) => {    
+    this.camera.getPicture(options).then((imagePath) => {
       this.showLoading('uploading image..');
       this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, myLocation).then(res => {
         this.loading.dismiss();
         alert('uploading image success!');
-        this.openModal();
+        this.openModal(myLocation);
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
       })
     })
   }
-  
-  openModal() {
-    let modal = this.modalCtrl2.create('SelectModalPage');
+
+  openModal(storeName) {
+    let modal = this.modalCtrl2.create('SelectModalPage', { storeName: storeName });
     modal.present();
   }
 
-  viewData() {
+  init() {
+
+    this.imagesProvider.getStores().subscribe(data => {
+      stores = data;
+      console.log('' + stores[0].coords);
+
+      // for (var i = 0; i < this.stores.length; i++) {
+
+      //   this.polygon[i] = new google.maps.Polygon({
+      //     paths: this.stores[i].coords,
+      //     strokeColor: '#FF0000',
+      //     strokeOpacity: 0.8,
+      //     strokeWeight: 2,
+      //     fillColor: '#FF0000',
+      //     fillOpacity: 0.35
+      //   });
+
+      // }
+
+      getPoly();
+    });
+
+    console.log('' + polygon);
 
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
@@ -307,7 +348,7 @@ export class MapPage {
         this.addMarkerList(object);
       }
 
-      console.log("viewData Loaded!");
+      console.log("init Loaded!");
       console.log(this.images);
 
     });

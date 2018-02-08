@@ -39,9 +39,9 @@
 </ion-row>
 </ion-grid> -->
 
-  <div class="container" *ngFor="let img of images; let i = index" [hidden]="i > 5" (click)="openImage(img)">
+  <div class="container" *ngFor="let img of images; let i = index" [hidden]="i > 5">
     <ion-thumbnail class="thumbnail">
-      <img class="full-image" [src]="img.url" />
+      <img class="full-image" [src]="img.url" (click)="openImage(img)"/>
       <div class="detail-text"> {{img.store}} 매장 </div>
     </ion-thumbnail>
   </div>

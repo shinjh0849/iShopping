@@ -1,21 +1,20 @@
 <ion-content>
-  <div class="image-modal transparent">
+
+  <div class="image-modal transparent" *ngFor="let sImg of storeImg">
     <ion-item class="close-fake" no-lines (click)="close()">
       <ion-icon name="close"></ion-icon>
     </ion-item>
     <div class="img">
       <img [src]="img.url" class="fullscreen-image transparent" (click)="close()">
     </div>
-    <ion-card class="card">
       <ion-card-content class="img-info" *ngIf="img.desc">
-        <div class="desc-text">"{{ img.desc }}"</div>
-
+        <div class="desc-text">{{ sImg.name }}</div>
         <ion-icon name="calendar" item-left *ngIf="img.created"></ion-icon>
         {{ img.created | date: 'short' }}
-        <p> shape: {{ img.shape }}, color: {{ img.color }} </p>
-
+        <p> Shape: {{ img.shape }}, Color: {{ img.color }} </p>
         <p> 매장: {{ img.store }} </p>
+        <p> Price: {{ sImg.price }} </p>
       </ion-card-content>
-    </ion-card>
   </div>
+
 </ion-content>
