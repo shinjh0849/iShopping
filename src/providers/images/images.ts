@@ -30,6 +30,10 @@ export class ImagesProvider {
     return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
   }
 
+  getChoice(){
+    return this.http.get(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/match').map(res => res.json());
+  }
+
   uploadImage(img, desc, curLat, curLng, store) {
 
     // Destination URL

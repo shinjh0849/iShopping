@@ -12,7 +12,13 @@ export class ClothingDetailsPage {
 
   img: any;
 
-  constructor(public serverAddr: ServerAddressProvider, public http: Http, private viewCtrl: ViewController, public navCtrl: NavController, public navParams: NavParams) {
+  constructor(
+    public serverAddr: ServerAddressProvider, 
+    public http: Http, 
+    private viewCtrl: ViewController, 
+    public navCtrl: NavController, 
+    public navParams: NavParams
+  ) {
     this.img = this.navParams.get('img');
 
     console.log("response: " + this.getRecomm(this.img));
