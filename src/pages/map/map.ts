@@ -2,24 +2,22 @@ import { Component, ViewChild, ElementRef, } from '@angular/core';
 import { NavController, ModalController, Loading, Modal } from 'ionic-angular';
 import { NavParams } from 'ionic-angular/navigation/nav-params';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
-
 import { Geolocation } from '@ionic-native/geolocation';
 import { Camera, CameraOptions } from '@ionic-native/camera';
-
 import { ImagesProvider } from '../../providers/images/images';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-
 import { HomePage } from '../home/home';
 import { LoginPage } from '../login/login';
 import { PicHttpPage } from '../pic-http/pic-http';
 import { SettingsPage } from '../settings/settings';
 import { ClothingDetailsPage } from '../clothing-details/clothing-details';
 
+
 declare let IndoorAtlas: any;
 declare var google;
+
 var map: any;
-var polygon: any;
-var stores: any = [];
+
 var curLat: number;
 var curLng: number;
 var watchID;
@@ -27,40 +25,40 @@ var myLocation: any;
 
 var markers = [];
 
-// var maejang1 = [
-//   { lat: 36.10347, lng: 129.38645 },
-//   { lat: 36.10347, lng: 129.38653 },
-//   { lat: 36.10339, lng: 129.38653 },
-//   { lat: 36.10339, lng: 129.38645 },
-//   { lat: 36.10347, lng: 129.38645 },
-// ];
+var maejang1 = [
+  { lat: 36.10347, lng: 129.38645 },
+  { lat: 36.10347, lng: 129.38653 },
+  { lat: 36.10339, lng: 129.38653 },
+  { lat: 36.10339, lng: 129.38645 },
+  { lat: 36.10347, lng: 129.38645 },
+];
 
-// var maejang2 = [
-//   { lat: 36.10341, lng: 129.38665 },
-//   { lat: 36.10341, lng: 129.38673 },
-//   { lat: 36.10333, lng: 129.38673 },
-//   { lat: 36.10333, lng: 129.38665 },
-//   { lat: 36.10341, lng: 129.38665 },
-// ];
+var maejang2 = [
+  { lat: 36.10341, lng: 129.38665 },
+  { lat: 36.10341, lng: 129.38673 },
+  { lat: 36.10333, lng: 129.38673 },
+  { lat: 36.10333, lng: 129.38665 },
+  { lat: 36.10341, lng: 129.38665 },
+];
 
 
-// var polygon1 = new google.maps.Polygon({
-//   paths: maejang1,
-//   strokeColor: '#FF0000',
-//   strokeOpacity: 0.8,
-//   strokeWeight: 2,
-//   fillColor: '#FF0000',
-//   fillOpacity: 0.35
-// });
+var polygon1 = new google.maps.Polygon({
+  paths: maejang1,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
 
-// var polygon2 = new google.maps.Polygon({
-//   paths: maejang2,
-//   strokeColor: '#FF0000',
-//   strokeOpacity: 0.8,
-//   strokeWeight: 2,
-//   fillColor: '#FF0000',
-//   fillOpacity: 0.35
-// });
+var polygon2 = new google.maps.Polygon({
+  paths: maejang2,
+  strokeColor: '#FF0000',
+  strokeOpacity: 0.8,
+  strokeWeight: 2,
+  fillColor: '#FF0000',
+  fillOpacity: 0.35
+});
 
 // Adds a marker to the map and push to the array.
 function addMarker(latitude, longitude) {
@@ -75,16 +73,6 @@ function addMarker(latitude, longitude) {
   markers.push(marker);
 }
 
-function getPoly(){
-  polygon = new google.maps.Polygon({
-    paths: stores[0].coords,
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35
-  });
-}
 
 function setMapOnAll(map) {
   for (var i = 0; i < markers.length; i++) {
@@ -124,7 +112,7 @@ export class MapPage {
 
   //어레이!! tq
   images: any = [];
-  
+
   storeCoords: any = [];
 
   choochun: any = [];
@@ -196,7 +184,8 @@ export class MapPage {
       // for (var i = 0; i < this.polygon.length; i++) {
       //   this.polygon[i].setMap(map);
       // }
-      polygon.setMap(map);
+      polygon1.setMap(map);
+      polygon2.setMap(map);
     })
   }
 
@@ -270,10 +259,10 @@ export class MapPage {
 
     // 이부분 매우 수정해야됨
     this.showLoading('finding maejang..');
-    if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon)) {
+    if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
       myLocation = 'Mae Jang 1';
     }
-    else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon)) {
+    else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon2)) {
       myLocation = 'Mae Jang 2';
     }
     else {
@@ -318,27 +307,27 @@ export class MapPage {
 
   init() {
 
-    this.imagesProvider.getStores().subscribe(data => {
-      stores = data;
-      console.log('' + stores[0].coords);
+    // this.imagesProvider.getStores().subscribe(data => {
+    //   stores = data;
+    //   console.log('' + stores[0].coords);
 
-      // for (var i = 0; i < this.stores.length; i++) {
+    //   for (var i = 0; i < this.stores.length; i++) {
 
-      //   this.polygon[i] = new google.maps.Polygon({
-      //     paths: this.stores[i].coords,
-      //     strokeColor: '#FF0000',
-      //     strokeOpacity: 0.8,
-      //     strokeWeight: 2,
-      //     fillColor: '#FF0000',
-      //     fillOpacity: 0.35
-      //   });
+    //     this.polygon[i] = new google.maps.Polygon({
+    //       paths: this.stores[i].coords,
+    //       strokeColor: '#FF0000',
+    //       strokeOpacity: 0.8,
+    //       strokeWeight: 2,
+    //       fillColor: '#FF0000',
+    //       fillOpacity: 0.35
+    //     });
 
-      // }
+    //   }
 
-      getPoly();
-    });
+    //   getPoly(stores);
+    // });
 
-    console.log('' + polygon);
+    // console.log('' + polygon);
 
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
@@ -377,8 +366,6 @@ export class MapPage {
     this.addInfoWindowList(marker, obj);
   }
 
-
-
   showLoading(text) {
     this.loading = this.loadingCtrl.create({
       content: text
@@ -386,11 +373,9 @@ export class MapPage {
     this.loading.present();
   }
 
-
   moreList() {
     this.navCtrl.push(PicHttpPage);
   }
-
 
   openImage(img) {
     let modal = this.modalCtrl.create('ClothingDetailsPage', { img: img });
