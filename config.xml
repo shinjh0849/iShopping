@@ -78,7 +78,6 @@
     </platform>
     <allow-navigation href="*" />
     <content src="index.html" />
-    <engine name="android" spec="7.0.0" />
     <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
     <plugin name="cordova-plugin-file-transfer" spec="^1.7.0" />
