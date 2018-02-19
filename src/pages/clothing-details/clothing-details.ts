@@ -12,6 +12,7 @@ export class ClothingDetailsPage {
 
   img: any;
   storeImg: any = [] ;
+  stores: any = [];
 
   constructor(
     public serverAddr: ServerAddressProvider, 

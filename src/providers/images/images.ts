@@ -69,7 +69,7 @@ export class ImagesProvider {
   }
 
   // 사진 업로드하는 과정
-  uploadImage(img, desc, curLat, curLng, store) {
+  uploadImage(img, desc, curLat, curLng, store_id) {
 
     // Destination URL
     let url = this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images';
@@ -81,7 +81,7 @@ export class ImagesProvider {
       fileKey: 'image',
       chunkedMode: false,
       mimeType: 'multipart/form-data',
-      params: { 'desc': desc, 'lat': curLat, 'lng': curLng, 'store': store }
+      params: { 'desc': desc, 'lat': curLat, 'lng': curLng, 'store_id': store_id }
     };
 
     const fileTransfer: FileTransferObject = this.transfer.create();
