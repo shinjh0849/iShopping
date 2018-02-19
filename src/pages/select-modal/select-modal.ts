@@ -21,7 +21,7 @@ export class SelectModalPage {
     public http: Http,
     public imagesProvider: ImagesProvider
   ) {
-    this.store_id = this.navParams.get("store_id");
+    this.store_id = this.navParams.get('store_id');
     this.imagesProvider.getChoice(this.store_id).subscribe(data => {
       this.images = data;
     });
