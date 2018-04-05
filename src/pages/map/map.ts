@@ -26,11 +26,11 @@ var myLocation: any;
 var markers = [];
 
 var maejang1 = [
-  { lat: 36.10347, lng: 129.38645 },
-  { lat: 36.10347, lng: 129.38653 },
-  { lat: 36.10339, lng: 129.38653 },
-  { lat: 36.10339, lng: 129.38645 },
-  { lat: 36.10347, lng: 129.38645 },
+  { lat: 36.10357, lng: 129.38620 },
+  { lat: 36.10357, lng: 129.38638 },
+  { lat: 36.10342, lng: 129.38638 },
+  { lat: 36.10342, lng: 129.38620 },
+  { lat: 36.10357, lng: 129.38620 },
 ];
 
 var maejang2 = [
@@ -138,7 +138,7 @@ export class MapPage {
 
   ionViewDidLoad() {
     try {
-      IndoorAtlas.fetchFloorPlanWithId('425f8c06-b1ac-4859-ab03-97976b785ec8', this.successCallback, this.onError);
+      IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
     }
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
@@ -149,7 +149,6 @@ export class MapPage {
   ionViewDidEnter() {
     this.init();
     this.watchPosition();
-    //this.reloadImages();
   }
 
   ionViewDidLeave() {
