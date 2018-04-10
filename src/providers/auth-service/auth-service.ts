@@ -1,5 +1,4 @@
 import { Injectable } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
 import { Http, Headers } from '@angular/http';
 import 'rxjs/add/operator/map';
 import { ServerAddressProvider } from '../server-address/server-address';

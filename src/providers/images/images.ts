@@ -9,10 +9,7 @@ import {
 import { ServerAddressProvider } from '../server-address/server-address';
 import { AuthServiceProvider } from '../auth-service/auth-service';
 
-declare let IndoorAtlas: any;
 
-var curLat: number;
-var curLng: number;
 
 @Injectable()
 export class ImagesProvider {
