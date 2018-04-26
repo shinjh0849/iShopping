@@ -86,6 +86,7 @@ export class ImagesProvider {
 
     const fileTransfer: FileTransferObject = this.transfer.create();
 
+    console.log("uplode image");
     // Use the FileTransfer to upload the image
     return fileTransfer.upload(targetPath, url, options);
   }

@@ -34,7 +34,7 @@ import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
 import { Camera } from '@ionic-native/camera';
 import { GoogleMaps } from '@ionic-native/google-maps';
-import { Geofence } from '@ionic-native/geofence';
+//import { Geofence } from '@ionic-native/geofence';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { SettingsPage } from '../pages/settings/settings';
@@ -95,7 +95,7 @@ import { SettingsPage } from '../pages/settings/settings';
     FilePath,
     FileTransfer,
     GoogleMaps,
-    Geofence,
+    //Geofence,
     Geolocation,
 
     ClothesProvider,

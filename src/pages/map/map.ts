@@ -138,7 +138,7 @@ export class MapPage {
 
   ionViewDidLoad() {
     try {
-      IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
+      //IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
     }
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
@@ -148,11 +148,11 @@ export class MapPage {
 
   ionViewDidEnter() {
     this.init();
-    this.watchPosition();
+    //this.watchPosition();
   }
 
   ionViewDidLeave() {
-    this.clearWatch();
+    //this.clearWatch();
   }
 
   public logout() {
@@ -287,15 +287,27 @@ export class MapPage {
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
-      this.showLoading('uploading image..');
-      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c0464e67bac4f9e03a6ef').then(res => {
-        this.loading.dismiss();
-        alert('uploading image success!');
-        this.openModal('5a7c0464e67bac4f9e03a6ef');
+      curLat = 36.103081;
+      curLng = 129.388436;
+      //this.showLoading('uploading image..');
+      let LoadCtrl = this.loadingCtrl.create({
+        content: 'uploading image..'
+      });
+      LoadCtrl.present();
+      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c10d53e57f0ee8c48f8de').then(res => {
+        console.log("uploaded img" + res);
+        LoadCtrl.dismiss();
+
+        LoadCtrl.onDidDismiss(res => {
+          //alert('uploading image success!');
+          console.log('uploading image success!');
+          this.openModal('5a7c10d53e57f0ee8c48f8de');
+        })
+
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
-      })
+      });
     })
   }
 
