@@ -351,7 +351,6 @@ export class MapPage {
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
-<<<<<<< HEAD
       curLat = 36.103081;
       curLng = 129.388436;
       //this.showLoading('uploading image..');
@@ -369,13 +368,6 @@ export class MapPage {
           this.openModal('5a7c10d53e57f0ee8c48f8de');
         })
 
-=======
-      this.showLoading('uploading image..');
-      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c10d53e57f0ee8c48f8de').then(res => {
-        this.loading.dismiss();
-        alert('uploading image success!');
-        this.openModal('5a7c10d53e57f0ee8c48f8de');
->>>>>>> JihoShin
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
