@@ -11,9 +11,9 @@ import { ImagesProvider } from '../../providers/images/images';
 export class ClothingDetailsPage {
 
   img: any;
-  storeImg: any = [] ;
-  stores: any = [];
-
+  storeImg: any = [];
+  storeDB: any ;
+  recomm: any = [];
   constructor(
     public serverAddr: ServerAddressProvider, 
     private viewCtrl: ViewController, 
@@ -23,10 +23,24 @@ export class ClothingDetailsPage {
   ) {
     this.img = this.navParams.get('img');
 
-    this.imagesProvider.getStoreDB(this.img).subscribe(data => {
+    this.imagesProvider.getDetailDB(this.img).subscribe(data => {
       this.storeImg = data;
-      console.log("storeimg: " + this.storeImg);
+      //console.log("DATA: " + this.storeImg[0].store_id);
+      
+      this.imagesProvider.getStoreDB(this.storeImg[0].store_id).subscribe(res => {
+        this.storeDB = res;
+        console.log("bbbbb");
+      })
     })
+
+    // 화면에 버튼 만들어놓고 하면 좋을듯, 1: 형태만, 2:색깔만, 3:둘다
+    this.imagesProvider.getRecommend(this.img, 1).subscribe(data => {
+      this.recomm = data;
+      console.log('recomm'+ this.recomm);
+    })
+
+    
+    
   }
 
   ionViewDidLoad() {

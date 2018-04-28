@@ -25,6 +25,17 @@ export class ImagesProvider {
     console.log('Hello ImagesProvider Provider');
   }
 
+// URI /api/clothes
+
+  // 선택된 의류 정보를 받아온다. (Detail page에서 사용)
+  getDetailDB(img) {
+    return this.http.get(this.serverAddr.serverURL + '/api/clothes/' + img.select_id).map(res => res.json());
+  }
+
+  getRecommend(img, choice_num) {
+    return this.http.get(this.serverAddr.serverURL + '/api/clothes/' + img.select_id + '/recommend/' + choice_num).map(res=>res.json());
+  }
+
 // URI /api/stores
 
   // 매장 전체 목록 받아옴 (화면에 매장 위치 띄우기 위한 용도임)
@@ -32,9 +43,9 @@ export class ImagesProvider {
     return this.http.get(this.serverAddr.serverURL + '/api/stores').map(res => res.json());
   }
 
-  // 찍은 옷 정보 가져올 때 쓴다. (clothing-details page) 컬렉션 선택 위해서 store id와 select_id 사용함.
-  getStoreDB(img){
-    return this.http.get(this.serverAddr.serverURL + '/api/stores/' + img.store_id + '/clothes/' + img.select_id).map(res => res.json());
+  // 선택된 특정 매장 정보를 받아온다. (Detail page에서 store id 보내는 것)
+  getStoreDB(store_id){
+    return this.http.get(this.serverAddr.serverURL + '/api/stores/' + store_id).map(res => res.json());
   }
 
 // URI api/users/user_id/match
