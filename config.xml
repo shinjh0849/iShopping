@@ -78,8 +78,11 @@
         <splash height="2732" src="resources/ios/splash/Default@2x~universal~anyany.png" width="2732" />
     </platform>
     <allow-navigation href="*" />
-    <content src="index.html" />
+    <content original-src="index.html" src="http://172.17.218.250:8100" />
     <allow-navigation href="http://172.17.218.22:8100" />
+    <allow-navigation href="http://172.17.219.13:8100" />
+    <allow-navigation href="http://172.17.218.250:8100" />
+    <engine name="android" spec="^6.2.3" />
     <engine name="ios" spec="4.5.4" />
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
@@ -91,7 +94,7 @@
         <variable name="GEOLOCATION_USAGE_DESCRIPTION" value="To locate you" />
     </plugin>
     <plugin name="cordova-plugin-googlemaps" spec="^2.1.1">
-        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyAw-4D96TGRXCygIEp_d6hSv9CVdNUFkWw" />
+        <variable name="API_KEY_FOR_ANDROID" value="AIzaSyD2n31JGTSvzljDFJATaPppO7Rnr-mTSIs" />
     </plugin>
     <plugin name="cordova-plugin-indooratlas" spec="git+https://github.com/IndoorAtlas/cordova-plugin.git" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />

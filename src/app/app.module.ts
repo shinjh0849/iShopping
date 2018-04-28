@@ -27,8 +27,6 @@ import { ServerAddressProvider } from '../providers/server-address/server-addres
 import { HistorysProvider } from '../providers/historys/historys';
 
 //native plugins
-import { SplashScreen } from '@ionic-native/splash-screen';
-import { StatusBar } from '@ionic-native/status-bar';
 import { File } from '@ionic-native/file';
 import { FileTransfer } from '@ionic-native/file-transfer';
 import { FilePath } from '@ionic-native/file-path';
@@ -87,8 +85,6 @@ import { SettingsPage } from '../pages/settings/settings';
     SettingsPage
   ],
   providers: [
-    StatusBar,
-    SplashScreen,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     Camera,
     File,
@@ -97,7 +93,6 @@ import { SettingsPage } from '../pages/settings/settings';
     GoogleMaps,
     Geofence,
     Geolocation,
-
     ClothesProvider,
     ImagesProvider,
     AuthServiceProvider,
