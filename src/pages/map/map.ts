@@ -17,6 +17,7 @@ declare let IndoorAtlas: any;
 declare var google;
 
 var map: any;
+var floorplanURL: any;
 
 var curLat: number;
 var curLng: number;
@@ -99,6 +100,46 @@ var markImage = {
   anchor: new google.maps.Point(0, 32)
 };
 
+function setMapOverlay (floorplan) {
+  // Needed to calculate the coordinates for floorplan that has not yet been rotated
+  var center = floorplan.center;
+  var pixelsToMeters = floorplan.pixelsToMeters;
+  var heightForCoordinates = floorplan.bitmapHeight / 2;
+  var widthForCoordinates = floorplan.bitmapWidth / 2;
+
+  // Amount of meters of how much the coordinates have to be moved from the centre.
+  var metersHorizontal = widthForCoordinates * pixelsToMeters;
+  var metersVertical = heightForCoordinates * pixelsToMeters;
+
+  // This function returns the length of one degree of latitude and same for longitude for the given latitude
+  var metersPerLatLonDegree = calculateMetersPerLatLonDegree(center[1]);
+
+  // Amounts of how much the coordinates need to be moved from the centre
+  var longitudes = metersHorizontal / metersPerLatLonDegree.metersPerLongitudeDegree;
+  var latitudes = metersVertical / metersPerLatLonDegree.metersPerLatitudeDegree;
+
+  // Calculate the new south-west and north-east coordinates
+  var swCoords = new google.maps.LatLng({ lat: center[1] - latitudes, lng: center[0] - longitudes });
+  var neCoords = new google.maps.LatLng({ lat: center[1] + latitudes, lng: center[0] + longitudes });
+
+  // Get the bound of the unrotated image
+  var bounds = new google.maps.LatLngBounds(swCoords, neCoords);
+
+  // Options for custom class GroundOverlayEX
+  var options = {
+    // Rotates image counter-clockwise and floorplan.bearing has rotation clockwise therefore 360-[degrees] is needed
+    rotate: 360 - floorplan.bearing
+  };
+}
+
+  function calculateMetersPerLatLonDegree (latitude) {
+    var EARTH_RADIUS_METERS = 6.371e6;
+    var METERS_PER_LAT_DEGREE = EARTH_RADIUS_METERS * Math.PI / 180.0;
+    var METERS_PER_LONG_DEGREE = METERS_PER_LAT_DEGREE * Math.cos(latitude / 180.0 * Math.PI);
+
+    var metersPerLatLonDegree = { metersPerLatitudeDegree: METERS_PER_LAT_DEGREE, metersPerLongitudeDegree: METERS_PER_LONG_DEGREE };
+    return metersPerLatLonDegree;
+  }
 
 @Component({
   selector: 'page-map',
@@ -131,20 +172,27 @@ export class MapPage {
     public geolocation: Geolocation,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-
-  ) {
-    this.loadMap();
-  }
+  ) {}
 
   ionViewDidLoad() {
+    this.fetchFloor;
+    this.loadMap();
+ 
+    console.log('auth token: ' + this.auth.token);
+  }
+
+  ionViewWillEnter(){
+    
+  }
+
+  fetchFloor = new Promise(() => {
     try {
       //IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
     }
     catch (e) {
       alert('indoor floorplan fetch catch error: ' + e);
     }
-    console.log('auth token: ' + this.auth.token);
-  }
+  });
 
   ionViewDidEnter() {
     this.init();
@@ -167,6 +215,7 @@ export class MapPage {
 
 
   loadMap() {
+    var IAoverlay;
     this.geolocation.getCurrentPosition().then((position) => {
       let latLng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
 
@@ -175,6 +224,19 @@ export class MapPage {
         zoom: 18,
         mapTypeId: google.maps.MapTypeId.ROADMAP
       }
+
+      //lat: 36.10357, lng: 129.38620
+      let overlayBounds = {
+        north: 36.1000,
+        south: 36.0000,
+        east: 129.3000,
+        west: 129.2000
+      };
+
+      IAoverlay = new google.maps.GroundOverlay(
+        floorplanURL,
+        overlayBounds);
+      console.log("@@@@@@@@@@@@:" + floorplanURL);
 
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
@@ -185,6 +247,7 @@ export class MapPage {
       // }
       polygon1.setMap(map);
       polygon2.setMap(map);
+      IAoverlay.setMap(map)
     })
   }
 
@@ -247,8 +310,9 @@ export class MapPage {
 
   successCallback(floorplan) {
     console.log('Floor plan url:' + floorplan.url);
+    floorplanURL = floorplan.url;
+    // setMapOverlay(floorplan);
   }
-
 
   onSuccess() {
     console.log('IndoorAtlas was successfully initialized');
@@ -287,6 +351,7 @@ export class MapPage {
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
+<<<<<<< HEAD
       curLat = 36.103081;
       curLng = 129.388436;
       //this.showLoading('uploading image..');
@@ -304,6 +369,13 @@ export class MapPage {
           this.openModal('5a7c10d53e57f0ee8c48f8de');
         })
 
+=======
+      this.showLoading('uploading image..');
+      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c10d53e57f0ee8c48f8de').then(res => {
+        this.loading.dismiss();
+        alert('uploading image success!');
+        this.openModal('5a7c10d53e57f0ee8c48f8de');
+>>>>>>> JihoShin
       }, err => {
         this.loading.dismiss();
         alert('uploading image failed!');
@@ -347,10 +419,8 @@ export class MapPage {
         var object = this.images[i];
         this.addMarkerList(object);
       }
-
       console.log("init Loaded!");
-      console.log(this.images);
-
+      // console.log(this.images);
     });
   }
 
@@ -392,6 +462,8 @@ export class MapPage {
     let modal = this.modalCtrl.create('ClothingDetailsPage', { img: img });
     modal.present();
   }
+
+  
 }
 
 

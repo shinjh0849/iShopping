@@ -1,8 +1,6 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, IonicPage, LoadingController } from 'ionic-angular';
+import { NavController, LoadingController } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
-import { HomePage } from '../home/home';
-import { LoginPage } from '../login/login';
  
 //@IonicPage()
 @Component({
@@ -19,7 +17,7 @@ export class RegisterPage {
  
   loading: any;
   
-  constructor(private nav: NavController, private auth: AuthServiceProvider, private alertCtrl: AlertController, public loadingCtrl: LoadingController) { 
+  constructor(private nav: NavController, private auth: AuthServiceProvider, public loadingCtrl: LoadingController) { 
   }
 
   register(){

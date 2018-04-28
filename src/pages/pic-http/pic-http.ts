@@ -1,8 +1,7 @@
 import { ImagesProvider } from './../../providers/images/images';
 import { Component } from '@angular/core';
 import { NavController, ModalController, ActionSheetController, LoadingController, Loading } from 'ionic-angular';
-import { Camera, CameraOptions } from '@ionic-native/camera';
-import { Http } from '@angular/http';
+import { Camera } from '@ionic-native/camera';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { LoginPage } from '../login/login';
  

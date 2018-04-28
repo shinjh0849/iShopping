@@ -1,7 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
 import { Nav, Platform } from 'ionic-angular';
-import { StatusBar } from '@ionic-native/status-bar';
-import { SplashScreen } from '@ionic-native/splash-screen';
 import { HomePage } from '../pages/home/home';
 import { ClothesProvider } from '../providers/clothes/clothes';
 import { LoginPage } from '../pages/login/login';
@@ -15,6 +13,7 @@ import { VariableAst } from '@angular/compiler';
 
 declare let IndoorAtlas: any;
 
+
 @Component({
   templateUrl: 'app.html',
   providers: [ClothesProvider]
@@ -27,29 +26,25 @@ export class MyApp {
   username = '';
   //pages: Array<{ title: string, component: any }>;
 
-  constructor(private auth: AuthServiceProvider, platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen) {
+  constructor(private auth: AuthServiceProvider, platform: Platform) {
     console.log("app component ts constructor");
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
-      statusBar.styleDefault();
-      splashScreen.hide();
-
       try {
-        /*
-        IndoorAtlas.initialize(this.onSuccess, this.onError, {
+        
+        IndoorAtlas.initialize(this.initOnSuccess, this.onError, {
           key: '7c7a357e-cb5d-4e5c-a7f9-8062a371488d',
           secret: 'sYAbkVh3rn/zMujKQJSPxgBLCRxhEaA+aV6WviRiag21xRNACmQpitf6zKOSQtAD3BJj0sQazilwq85I1QXLRei5YXCjjVFY7oJePaisI7U0Cv7DHJ4QvOaaHW0nqw=='
         })
-        */
+        
         
         console.log("platform ready!");
       }
       catch (e) {
-        alert('catch error: ' + e);
+        alert('IA Init error\n' + e);
       }
     });
-
 
     
     this.username = auth.getEmail();
@@ -57,7 +52,7 @@ export class MyApp {
   }
 
   // onSuccess Callback
-  onSuccess() {
+  initOnSuccess() {
     console.log('IndoorAtlas was successfully initialized');
     // alert('IndoorAtlas was successfully initialized');
   };
@@ -71,5 +66,4 @@ export class MyApp {
   openPage(page) {
     this.nav.setRoot(page.component);
   }
-
 }

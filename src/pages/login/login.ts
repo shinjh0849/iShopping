@@ -1,10 +1,8 @@
 import { Component } from '@angular/core';
-import { NavController, AlertController, LoadingController, Loading, IonicPage } from 'ionic-angular';
+import { NavController, AlertController, LoadingController, Loading } from 'ionic-angular';
 import { AuthServiceProvider } from '../../providers/auth-service/auth-service';
 import { RegisterPage } from '../register/register';
 import { HomePage } from '../home/home';
-import { TabsPage } from '../tabs/tabs';
-import { TesttodoPage } from '../testtodo/testtodo';
 import { MapPage } from '../map/map';
  
 //@IonicPage()
@@ -92,11 +90,11 @@ export class LoginPage {
   showError(text) {
     //this.loading.dismiss();
  
-    let alert = this.alertCtrl.create({
-      title: 'Fail',
-      subTitle: text,
-      buttons: ['OK']
-    }).present();
+    // let alert = this.alertCtrl.create({
+    //   title: 'Fail',
+    //   subTitle: text,
+    //   buttons: ['OK']
+    // }).present();
 
     
   }
