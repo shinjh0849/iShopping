@@ -18,6 +18,7 @@ declare var google;
 
 var map: any;
 var floorplanURL: any;
+var Gfloorplan: any;
 
 var curLat: number;
 var curLng: number;
@@ -187,10 +188,10 @@ export class MapPage {
 
   fetchFloor = new Promise(() => {
     try {
-      //IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
+      IndoorAtlas.fetchFloorPlanWithId('57e330aa-95f5-4246-ada8-4bc388fc2a1b', this.successCallback, this.onError);
     }
     catch (e) {
-      alert('indoor floorplan fetch catch error: ' + e);
+      console.log('indoor floorplan fetch catch error: ' + e);
     }
   });
 
@@ -236,11 +237,16 @@ export class MapPage {
       IAoverlay = new google.maps.GroundOverlay(
         floorplanURL,
         overlayBounds);
-      console.log("@@@@@@@@@@@@:" + floorplanURL);
+      console.log("@@@@@@@@@@@@:" + Gfloorplan.url);
+      console.log("bottomLeft: " + Gfloorplan.bottomLeft);
+      console.log("center: " + Gfloorplan.center);
+      console.log("topLeft: " + Gfloorplan.topLeft);
+      console.log("topRight: " + Gfloorplan.topRight);
+
 
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
     }, (err) => {
-      alert('loadMap, getcurrentPosition failed: ' + err);
+      console.log('loadMap, getcurrentPosition failed: ' + err);
     }).then(() => {
       // for (var i = 0; i < this.polygon.length; i++) {
       //   this.polygon[i].setMap(map);
@@ -256,7 +262,7 @@ export class MapPage {
       IndoorAtlas.clearWatch(watchID);
     }
     catch (e) {
-      alert('indoor clearwatch catch code: ' + e);
+      console.log('indoor clearwatch catch code: ' + e);
     }
 
   }
@@ -266,7 +272,7 @@ export class MapPage {
       IndoorAtlas.getCurrentPosition(this.onGetPositionSuccess, this.onError)
     }
     catch (e) {
-      alert('indoor getpostion catch code: ' + e);
+      console.log('indoor getpostion catch code: ' + e);
     }
   }
 
@@ -275,7 +281,7 @@ export class MapPage {
       watchID = IndoorAtlas.watchPosition(this.onWatchPositionSuccess, this.onError)
     }
     catch (e) {
-      alert('indoor watch catch code: ' + e);
+      console.log('indoor watch catch code: ' + e);
     }
   }
 
@@ -304,12 +310,13 @@ export class MapPage {
   }
 
   onError(error) {
-    alert('Code: ' + error.code + '\n' +
+    console.log('Code: ' + error.code + '\n' +
       'Message: ' + error.message);
   }
 
   successCallback(floorplan) {
     console.log('Floor plan url:' + floorplan.url);
+    Gfloorplan = floorplan;
     floorplanURL = floorplan.url;
     // setMapOverlay(floorplan);
   }
@@ -363,14 +370,13 @@ export class MapPage {
         LoadCtrl.dismiss();
 
         LoadCtrl.onDidDismiss(res => {
-          //alert('uploading image success!');
           console.log('uploading image success!');
           this.openModal('5a7c10d53e57f0ee8c48f8de');
         })
 
       }, err => {
         this.loading.dismiss();
-        alert('uploading image failed!');
+        console.log('uploading image failed!');
       });
     })
   }

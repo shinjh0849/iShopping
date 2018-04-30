@@ -42,7 +42,7 @@ export class MyApp {
         console.log("platform ready!");
       }
       catch (e) {
-        alert('IA Init error\n' + e);
+        console.log('IA Init error\n' + e);
       }
     });
 
@@ -54,7 +54,6 @@ export class MyApp {
   // onSuccess Callback
   initOnSuccess() {
     console.log('IndoorAtlas was successfully initialized');
-    // alert('IndoorAtlas was successfully initialized');
   };
 
   // onError Callback receives a PositionError object
