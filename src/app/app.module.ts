@@ -36,13 +36,7 @@ import { GoogleMaps } from '@ionic-native/google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { SettingsPage } from '../pages/settings/settings';
-
-
-
-
-
-
-
+import { ContentDrawerComponent } from '../components/content-drawer/content-drawer';
 
 @NgModule({
   declarations: [
@@ -59,7 +53,8 @@ import { SettingsPage } from '../pages/settings/settings';
     TabsPage,
     TesttodoPage, 
     HomeTestPage,
-    SettingsPage
+    SettingsPage,
+    ContentDrawerComponent
   ],
   imports: [
     BrowserModule,

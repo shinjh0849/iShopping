@@ -11,7 +11,7 @@ import { LoginPage } from '../login/login';
 import { PicHttpPage } from '../pic-http/pic-http';
 import { SettingsPage } from '../settings/settings';
 import { ClothingDetailsPage } from '../clothing-details/clothing-details';
-
+import { Slides } from 'ionic-angular';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -163,6 +163,7 @@ export class MapPage {
   loading: Loading;
   imgLoading: Loading;
 
+
   constructor(
     private imagesProvider: ImagesProvider,
     public auth: AuthServiceProvider,
@@ -178,7 +179,6 @@ export class MapPage {
   ionViewDidLoad() {
     this.fetchFloor;
     this.loadMap();
- 
     console.log('auth token: ' + this.auth.token);
   }
 
