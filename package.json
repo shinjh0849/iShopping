@@ -38,7 +38,6 @@
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-file-transfer": "^1.7.0",
         "cordova-plugin-filepath": "^1.1.0",
-        "cordova-plugin-geofence": "^0.7.0",
         "cordova-plugin-geolocation": "^4.0.1",
         "cordova-plugin-googlemaps": "^2.1.1",
         "cordova-plugin-indooratlas": "git+https://github.com/IndoorAtlas/cordova-plugin.git",
@@ -79,8 +78,7 @@
                 "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
             },
             "cordova-plugin-file": {},
-            "cordova-plugin-nativestorage": {},
-            "cordova-plugin-geofence": {}
+            "cordova-plugin-nativestorage": {}
         },
         "dependencies": {
             "@angular/common": "5.0.3",
@@ -168,6 +166,9 @@
         "license": "ISC",
         "bugs": {
             "url": "https://github.com/shinjh0849/iShopping/issues"
-        }
+        },
+        "platforms": [
+            "android"
+        ]
     }
 }
