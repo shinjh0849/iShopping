@@ -51,7 +51,6 @@
     <allow-navigation href="*" />
     <content src="index.html" />
     <allow-navigation href="http://172.17.219.57:8100" />
-    <engine name="android" spec="^6.2.3" />
     <plugin name="cordova-plugin-camera" spec="^4.0.1" />
     <plugin name="cordova-plugin-device" spec="^1.1.7" />
     <plugin name="cordova-plugin-file" spec="^5.0.0" />
@@ -64,8 +63,11 @@
         <variable name="API_KEY_FOR_ANDROID" value="AIzaSyCuOTtRpCgvzZdxolyCJHTXvu3NpJq6pSs" />
         <variable name="API_KEY_FOR_IOS" value="(API_KEY_FOR_IOS)" />
     </plugin>
-    <plugin name="cordova-plugin-indooratlas" spec="git+https://github.com/IndoorAtlas/cordova-plugin.git" />
     <plugin name="cordova-plugin-ionic-webview" spec="^1.1.16" />
     <plugin name="cordova-plugin-whitelist" spec="^1.3.3" />
     <plugin name="ionic-plugin-keyboard" spec="^2.2.1" />
+    <plugin name="cordova-plugin-compat" spec="^1.2.0" />
+    <allow-navigation href="http://172.17.218.143:8100" />
+    <plugin name="cordova-plugin-indooratlas" spec="https://github.com/IndoorAtlas/cordova-plugin.git" />
+    <engine name="android" spec="^7.0.0" />
 </widget>

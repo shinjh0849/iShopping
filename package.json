@@ -31,9 +31,10 @@
         "@ionic-native/native-storage": "^4.5.3",
         "@ionic/storage": "2.0.0",
         "android-versions": "^1.3.0",
-        "cordova-android": "^6.2.3",
+        "cordova-android": "^7.0.0",
         "cordova-ios": "4.5.4",
         "cordova-plugin-camera": "^4.0.1",
+        "cordova-plugin-compat": "^1.2.0",
         "cordova-plugin-device": "^1.1.7",
         "cordova-plugin-file": "^5.0.0",
         "cordova-plugin-file-transfer": "^1.7.0",
@@ -68,7 +69,6 @@
             "cordova-plugin-whitelist": {},
             "cordova-plugin-device": {},
             "cordova-plugin-ionic-webview": {},
-            "cordova-plugin-indooratlas": {},
             "cordova-plugin-googlemaps": {
                 "API_KEY_FOR_ANDROID": "AIzaSyCuOTtRpCgvzZdxolyCJHTXvu3NpJq6pSs",
                 "API_KEY_FOR_IOS": "(API_KEY_FOR_IOS)"
@@ -76,7 +76,9 @@
             "cordova-plugin-geolocation": {
                 "GEOLOCATION_USAGE_DESCRIPTION": "To locate you"
             },
-            "cordova-plugin-file": {}
+            "cordova-plugin-file": {},
+            "cordova-plugin-compat": {},
+            "cordova-plugin-indooratlas": {}
         },
         "dependencies": {
             "@angular/common": "5.0.3",
