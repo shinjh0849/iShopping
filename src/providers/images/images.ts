@@ -72,8 +72,8 @@ export class ImagesProvider {
   }
 
   // 선택된 이미지 삭제 시 사용.
-  deleteImage(img) {
-    return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img._id);
+  deleteImage(img_id) {
+    return this.http.delete(this.serverAddr.serverURL + '/api/users/' + this.auth._id + '/images/' + img_id); // 원래 img를 받아 img._id를 파싱함
   }
 
   // 사진 업로드하는 과정

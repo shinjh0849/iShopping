@@ -11,6 +11,7 @@ import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { VariableAst } from '@angular/compiler';
 
 import { ImageLoaderConfig } from 'ionic-image-loader';
+import { SelectModalPage } from '../pages/select-modal/select-modal';
 
 declare let IndoorAtlas: any;
 
@@ -22,7 +23,7 @@ declare let IndoorAtlas: any;
 
 export class MyApp {
   @ViewChild(Nav) nav: Nav;
-  rootPage: any = LoginPage;
+  rootPage: any = LoginPage; 
 
   username = '';
   //pages: Array<{ title: string, component: any }>;

@@ -39,6 +39,8 @@ import { SettingsPage } from '../pages/settings/settings';
 import { ContentDrawerComponent } from '../components/content-drawer/content-drawer';
 import { ScrollableTabs } from '../components/scrollable-tabs';
 import { IonicImageLoader } from 'ionic-image-loader';
+import { SelectModalPage } from '../pages/select-modal/select-modal';
+//import { SelectModalPage } from '../pages/select-modal/select-modal';
 
 @NgModule({
   declarations: [
@@ -56,7 +58,8 @@ import { IonicImageLoader } from 'ionic-image-loader';
     TesttodoPage, 
     HomeTestPage,
     SettingsPage,
-    ContentDrawerComponent
+    ContentDrawerComponent,
+    //SelectModalPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +83,8 @@ import { IonicImageLoader } from 'ionic-image-loader';
     TabsPage,
     TesttodoPage,
     HomeTestPage,
-    SettingsPage
+    SettingsPage,
+    //SelectModalPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
