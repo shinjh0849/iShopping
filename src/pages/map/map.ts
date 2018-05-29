@@ -348,8 +348,6 @@ export class MapPage {
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
-      curLat = 36.103081;
-      curLng = 129.388436;
       //this.showLoading('uploading image..');
       let LoadCtrl = this.loadingCtrl.create({
         content: 'uploading image..'
