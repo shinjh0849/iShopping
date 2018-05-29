@@ -1,4 +1,12 @@
 .ios, .md {
+    .ion-title {
+        position: absolute;
+        text-align: center;
+    }
+
+    .setting-icon {
+        text-align: end;
+    }
     page-map {
      ::-webkit-scrollbar {
         display: none;
@@ -8,6 +16,11 @@
         overflow: hidden;
     }
     
+    .no-image {
+        text-align: center;
+        size: 1 rem;
+        width: 100%;
+    }
     .scroll {
         height: 100%
     }
@@ -73,12 +86,12 @@
         min-height: 20%;
     }
 
-    .detail-text {
+    .cloth-name {
         position: absolute;
         bottom: 1em;
         color: white;
-        font-size: 0.7em;
-        left: 4px;
+        font-size: 0.8em;
+        left: 1em;
     }
 
     content-drawer {
@@ -97,6 +110,9 @@
     }
     .card {
         margin: 0px;
+    }
+    .ion-slides {
+        height: auto;
     }
     }
 }

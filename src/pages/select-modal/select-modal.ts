@@ -30,6 +30,7 @@ export class SelectModalPage {
   }
 
   close() {
+    this.imagesProvider.selectImages("0");
     this.viewCtrl.dismiss();
   }
 
@@ -48,7 +49,7 @@ export class SelectModalPage {
   
   select(img){
     this.imagesProvider.selectImages(img);
-    this.presentAlert(img.name + '이(가) 선택 되셨습니다하하핳');
+    this.presentAlert(img.name + '이(가) 선택되었습니다!');
     this.viewCtrl.dismiss();
   }
 

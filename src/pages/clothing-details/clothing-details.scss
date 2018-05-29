@@ -1,4 +1,8 @@
+.md, .ios {
 page-clothing-details {
+    .image-modal {
+        display: block !important;
+    }
     .card {
         display: block;
         margin-left: auto;
@@ -13,18 +17,29 @@ page-clothing-details {
     .desc-text {
         font-weight: 500;
         font-size: larger;
-        padding-bottom: 15px;
         color: color($colors, dark);
     }
-    .content-ios {
-        background: rgba(44, 39, 45, 0.84) !important;
+    .date-text {
+        width: 100%;
+        font-size: 0.6rem;
+        text-align: center;
+        padding-bottom: 8px;
     }
-    .content-md {
-        background: rgba(44, 39, 45, 0.84) !important;
+    .full-image {
+        width: 100%;
+        object-fit: cover;
+        max-height: 15rem;
+      }
+
+    .recommendation {
+        padding-top: 15px;
+    }
+    .content {
+        background:transparent !important;
     }
     .close-fake {
         background: transparent;
-        color: color($colors, light);
+        color: color($colors, dark);
         font-size: 3rem;
     }
     .img {
@@ -41,4 +56,45 @@ page-clothing-details {
         // margin-top: auto;
         margin-bottom: auto;
     }
+
+    .image-modal {
+        display: inline-block;
+        margin: 1rem;
+        background: rgba(255, 255, 255, 0.9) !important;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        min-height: 90%;
+        border-radius: 14px;
+    }
+
+    .container {
+        height: 22%;
+        text-align: center;
+        overflow-x: scroll;
+    }
+    .full-image {
+        width: 100%;
+    }
+    .detail-text {
+        position: absolute;
+        bottom: 1em;
+        color: white;
+        font-size: 0.7em;
+        left: 4px;
+    }
+    .thumbnail {
+        max-width: 28%;
+        float: left;
+        position: relative;
+    }
+    .delete {
+        padding: 15px;
+        text-align: right;
+    }
+    .store-name {
+        color: gray;
+    }
+}
+
 }

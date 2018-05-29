@@ -34,7 +34,7 @@ export class ClothingDetailsPage {
     })
 
     // 화면에 버튼 만들어놓고 하면 좋을듯, 1: 형태만, 2:색깔만, 3:둘다
-    this.imagesProvider.getRecommend(this.img, 1).subscribe(data => {
+    this.imagesProvider.getRecommend(this.img, 3).subscribe(data => {
       this.recomm = data;
       console.log('recomm'+ this.recomm);
     })

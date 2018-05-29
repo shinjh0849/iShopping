@@ -1,20 +1,55 @@
+<head ng-app>
+  <script src="angular.js"></script>
+  <script src="i18n/angular-locale_ko-kr.js"></script>
+</head>
 <ion-content>
 
-  <div class="image-modal transparent" *ngFor="let sImg of storeImg">
+  <div class="image-modal transparent" display="block" *ngFor="let sImg of storeImg">
     <ion-item class="close-fake" no-lines (click)="close()">
       <ion-icon name="close"></ion-icon>
     </ion-item>
+
+    <div class="date-text">
+      {{ img.created | date: "yyyy/MM/dd" }}
+      <br> {{ img.created | date: "HH:mm" }}
+    </div>
     <div class="img">
       <img [src]="img.url" class="fullscreen-image transparent" (click)="close()">
     </div>
-      <ion-card-content class="img-info" *ngIf="img.desc">
-        <div class="desc-text">{{ sImg.name }}</div>
-        <ion-icon name="calendar" item-left *ngIf="img.created"></ion-icon>
-        {{ img.created | date: 'short' }}
-        <p> Shape: {{ img.shape }}, Color: {{ img.color }} </p>
-        <p *ngFor="let sdb of storeDB"> 매장: {{ sdb.name }} </p>
-        <p> Price: {{ sImg.price }} </p>
-      </ion-card-content>
+    <ion-card-content class="img-info" *ngIf="img.desc">
+      <div class="store-name" *ngFor="let sdb of storeDB"> {{sdb.name}}</div>
+      <div class="desc-text">{{ sImg.name }}</div>
+      {{ sImg.price | currency :"KRW":0 }} 원
+      <br>
+      <div class="recommendation"> 이런 옷은 어떠세요? </div>
+
+<!--
+      <div class="container">
+        <div class="thumbnail" *ngFor="let rec of recomm; let i = index" [hidden]="i>2">
+          <img class="full-image" [src]="rec.url" />
+          <div class="detail-text"> {{rec.name}} </div>
+        </div>
+      </div>
+    -->
+    <ion-slides pager="true">
+        <p class="no-image" [hidden]="recomm.length !== 0" text-center>
+          추천 상품이 없어요 ㅠㅠ
+        </p>
+        <ion-slide *ngFor="let rec of recomm; let i=index">
+          <img class="full-image" [src]="rec.url" />
+          <h3 class="cloth-name"> {{img.name}} </h3>
+        </ion-slide>
+      </ion-slides>
+
+
+
+
+    </ion-card-content>
+
+
+    <div class="delete" color="danger">
+      <ion-icon name="trash" color="danger" (click)="deleteImg"> </ion-icon>
+    </div>
   </div>
 
 </ion-content>

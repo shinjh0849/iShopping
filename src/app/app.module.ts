@@ -37,6 +37,8 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { NavController } from 'ionic-angular/navigation/nav-controller';
 import { SettingsPage } from '../pages/settings/settings';
 import { ContentDrawerComponent } from '../components/content-drawer/content-drawer';
+import { ScrollableTabs } from '../components/scrollable-tabs';
+import { IonicImageLoader } from 'ionic-image-loader';
 
 @NgModule({
   declarations: [
@@ -61,6 +63,7 @@ import { ContentDrawerComponent } from '../components/content-drawer/content-dra
     IonicModule.forRoot(MyApp),
     HttpModule,
     //IonicStorageModule.forRoot()
+    IonicImageLoader.forRoot()
   ],
   bootstrap: [IonicApp],
   entryComponents: [
