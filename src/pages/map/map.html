@@ -5,12 +5,16 @@
     </button>
     <ion-title>
       <B>iShopping</B>
+      <!--
+      <ion-buttons end>
+        <button ion-button (click)="goSettings()">
+          <ion-icon name="settings"></ion-icon>
+        </button>
+      </ion-buttons>
+    -->
     </ion-title>
-    <ion-buttons end>
-      <button ion-button (click)="goSettings()">
-        <ion-icon name="settings"></ion-icon>
-      </button>
-    </ion-buttons>
+
+
   </ion-navbar>
 </ion-header>
 
@@ -20,7 +24,7 @@
 
 
   <ion-list-header class="list-header"> 내가 본 상품 리스트
-    <button class="moreButton" icon-only item-end (click)="moreList()">
+    <button class="moreButton" [hidden]="images.length == 0" icon-only item-end (click)="moreList()">
       <ion-icon name="arrow-forward"> </ion-icon>
     </button>
   </ion-list-header>
@@ -48,14 +52,15 @@
   </ion-slides> -->
 
 
-<ion-slides>
-  <ion-slide *ngFor="let img of images">
+  <ion-slides pager="true">
+    <p class="no-image" [hidden]="images.length !== 0" text-center>
+      아직 촬영된 사진이 없네요 ;)
+    </p>
+    <ion-slide *ngFor="let img of images">
       <img class="full-image" [src]="img.url" (click)="openImage(img)" />
-      <ion-card-content>
-        <h3 class="cloth-name"> {{img.desc}} </h3>
-      </ion-card-content> 
+      <h3 class="cloth-name"> {{img.desc}} </h3>
     </ion-slide>
-</ion-slides>
+  </ion-slides>
 
   <ion-fab right bottom>
     <button ion-fab (click)="takePicture()">

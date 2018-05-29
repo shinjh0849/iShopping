@@ -11,7 +11,7 @@ import { LoginPage } from '../login/login';
 import { PicHttpPage } from '../pic-http/pic-http';
 import { SettingsPage } from '../settings/settings';
 import { ClothingDetailsPage } from '../clothing-details/clothing-details';
-import { Slides } from 'ionic-angular';
+import { Slides, Events } from 'ionic-angular';
 
 declare let IndoorAtlas: any;
 declare var google;
@@ -130,6 +130,9 @@ export class MapPage {
   loading: Loading;
   imgLoading: Loading;
 
+  jsonData = null;
+
+  @ViewChild(Slides) slides: Slides;
 
   constructor(
     private imagesProvider: ImagesProvider,
@@ -141,17 +144,24 @@ export class MapPage {
     public geolocation: Geolocation,
     public navCtrl: NavController,
     public loadingCtrl: LoadingController,
-  ) { }
+    public events: Events,
+  ) {
+    events.subscribe('photo:updated', (data) => {
+      this.init();
+    });
+  }
 
   ionViewDidLoad() {
     this.fetchFloor;
     this.loadMap();
 
     console.log('auth token: ' + this.auth.token);
+    this.slides.pager = true;
+    this.slides.paginationType = "fraction";
   }
 
   ionViewWillEnter() {
-
+    this.init();
   }
 
   fetchFloor = new Promise(() => {
@@ -207,7 +217,6 @@ export class MapPage {
       // console.log("bottomLeft: " + Gfloorplan.bottomLeft);
       // console.log("center: " + Gfloorplan.center);
       // console.log("topLeft: " + Gfloorplan.topLeft);
-
 
 
       map = new google.maps.Map(this.mapElement.nativeElement, mapOptions);
@@ -351,6 +360,7 @@ export class MapPage {
         LoadCtrl.onDidDismiss(res => {
           console.log('uploading image success!');
           this.openModal('5a7c10d53e57f0ee8c48f8de');
+          this.events.publish('photo:updated', {});
         })
 
       }, err => {
@@ -388,7 +398,6 @@ export class MapPage {
     // });
 
     // console.log('' + polygon);
-
     this.imagesProvider.getImages().subscribe(data => {
       this.images = data;
 
@@ -400,6 +409,7 @@ export class MapPage {
       // console.log(this.images);
     });
   }
+
 
   addInfoWindowList(marker, obj) {
     let infoWindow = new google.maps.InfoWindow({

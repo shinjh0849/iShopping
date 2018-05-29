@@ -1,5 +1,5 @@
 import { Component, ViewChild } from '@angular/core';
-import { Nav, Platform } from 'ionic-angular';
+import { Nav, Platform, Events } from 'ionic-angular';
 import { HomePage } from '../pages/home/home';
 import { ClothesProvider } from '../providers/clothes/clothes';
 import { LoginPage } from '../pages/login/login';
@@ -9,6 +9,8 @@ import { PicHttpPage } from '../pages/pic-http/pic-http';
 import { HomeTestPage } from '../pages/home-test/home-test';
 import { AuthServiceProvider } from '../providers/auth-service/auth-service';
 import { VariableAst } from '@angular/compiler';
+
+import { ImageLoaderConfig } from 'ionic-image-loader';
 
 declare let IndoorAtlas: any;
 
@@ -25,9 +27,14 @@ export class MyApp {
   username = '';
   //pages: Array<{ title: string, component: any }>;
 
-  constructor(private auth: AuthServiceProvider, platform: Platform) {
+  constructor(private auth: AuthServiceProvider, platform: Platform, private imageLoaderConfig: ImageLoaderConfig, public events: Events) {
     console.log("app component ts constructor");
     platform.ready().then(() => {
+
+      this.imageLoaderConfig.enableDebugMode();
+      this.imageLoaderConfig.enableFallbackAsPlaceholder(true);
+      this.imageLoaderConfig.setFallbackUrl('assets/imgs/logo.png');
+      this.imageLoaderConfig.setMaximumCacheAge(24 * 60 * 60 * 1000);
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.private alertCtrl: AlertController, 
       try {
@@ -44,6 +51,8 @@ export class MyApp {
 
 
     this.username = auth.getEmail();
+
+    
 
   }
 

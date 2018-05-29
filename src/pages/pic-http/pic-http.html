@@ -6,14 +6,7 @@
 -->
 <ion-header>
   <ion-navbar color="primary">
-    <ion-buttons end> 
-      <button ion-button (click)="filter()">
-        <ion-icon name="funnel"></ion-icon>
-      </button>
-      <button ion-button (click)="refresh()">
-        <ion-icon name="refresh"></ion-icon>
-      </button>
-    </ion-buttons>
+
     <ion-title>
       내가 본 상품
     </ion-title>
@@ -22,7 +15,9 @@
 </ion-header>
 <ion-content>
 
-    <h3 class="noImages" [hidden]="images.length !== 0" text-center>No Images found!</h3>
+    <h3 class="noImages" [hidden]="images.length !== 0" text-center>
+      아직 촬영된 사진이 없네요 ;)
+    </h3>
 
     <!-- 되는부분 
       <div class="container" *ngFor="let img of images; let i = index"  >
@@ -36,9 +31,9 @@
 
     <ion-card *ngFor="let img of images">
       <img class="full-image" [src]="img.url" (click)="openImage(img)" />
-      <!-- <ion-card-content>
-        <h3 class="cloth-name"> 의류 이름 </h3> <div class="additional-text"> 추가 메세지 </div>
-      </ion-card-content> -->
+      <ion-card-content class="cloth-name-card">
+        <div class="cloth-name">   {{img.desc}} </div>
+      </ion-card-content> 
     </ion-card>
 
 

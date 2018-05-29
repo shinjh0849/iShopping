@@ -7,6 +7,9 @@
 
     <!-- 사진 띄우는 부분 -->
     <div class="container" *ngFor="let img of images; let i = index">
+        <p class="no-image" [hidden]="images.length !== 0" text-center>
+            이 옷을 찾을 수 없어요! 
+          </p>
       <ion-thumbnail class="thumbnail">
         <img class="full-image" [src]="img.url" (click)="select(img)"/>
         <div class="detail-text"> {{img.name}} </div>
