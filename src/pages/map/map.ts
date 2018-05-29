@@ -413,8 +413,7 @@ export class MapPage {
 
   addInfoWindowList(marker, obj) {
     let infoWindow = new google.maps.InfoWindow({
-      content: '<div>' + '<h3>' + obj.store + '</h3>' + '<p><img src="' + obj.url + '" height="50" width="50" >'
-        + '</p>' + 'color: ' + obj.color + ', shape: ' + obj.shape + '</div>'
+      content: '<div>' + '<p><img src="' + obj.url + '" height="50" width="50" (click)="openImage(obj)">' + '</p>' + '</div>'
     });
 
     google.maps.event.addListener(marker, 'click', () => {
