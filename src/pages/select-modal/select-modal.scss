@@ -1,4 +1,16 @@
-page-select-modal {
+.ios, .md {
+    page-select-modal {
+        .image-modal { 
+            display: block !important;
+        }
+        .bigtext {
+            margin: 1rem;
+            margin-top: 3rem;
+            text-align: center;
+        }
+        .empty-box {
+            height: 30rem;
+        }
     .card {
         display: block;
         margin-left: auto;
@@ -15,11 +27,17 @@ page-select-modal {
         padding-bottom: 15px;
         color: color($colors, dark);
     }
-    .content-ios {
-        background: rgba(44, 39, 45, 0.84) !important;
+    .content {
+        background:transparent !important;
     }
-    .content-md {
-        background: rgba(44, 39, 45, 0.84) !important;
+    .image-modal {
+        display: inline-block;
+        margin: 1rem;
+        background: rgba(255, 255, 255, 0.9) !important;
+        border-style: solid;
+        border-width: 3px;
+        border-color: black;
+        border-radius: 14px;
     }
     .close-fake {
         background: transparent;
@@ -40,13 +58,20 @@ page-select-modal {
         width: 100%;
     }
     .detail-text {
-        position: absolute;
-        bottom: 1em;
-        color: white;
+        position: inherit;
+        bottom: 2rem;
+        color: black;
         font-size: 0.7em;
         left: 4px;
+        margin-bottom: 1rem;
     }
+
     .thumbnail {
         max-height: 20%;
     }
+    .buttons {
+        text-align: center;
+        margin-bottom: 3rem;
+    }
+}
 }

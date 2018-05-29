@@ -134,6 +134,8 @@ export class MapPage {
 
   jsonData = null;
 
+  img: any;
+
   @ViewChild(Slides) slides: Slides;
 
   constructor(
@@ -354,13 +356,15 @@ export class MapPage {
       });
       LoadCtrl.present();
       this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c10d53e57f0ee8c48f8de').then(res => {
-        console.log("uploaded img" + res);
+        console.log("ABC: "+ res.response);
+        this.img = res.response;
         LoadCtrl.dismiss();
 
         LoadCtrl.onDidDismiss(res => {
           console.log('uploading image success!');
-          this.openModal('5a7c10d53e57f0ee8c48f8de');
-          this.events.publish('photo:updated', {});
+          this.openModal('5a7c10d53e57f0ee8c48f8de', this.img );
+          console.log("this img id:" + this.img);
+          //this.events.publish('photo:updated', {});
         })
 
       }, err => {
@@ -370,9 +374,10 @@ export class MapPage {
     })
   }
 
-  openModal(store_id) {
-    let modal = this.modalCtrl2.create('SelectModalPage', { store_id: store_id });
+  openModal(store_id, img_id) {
+    let modal = this.modalCtrl2.create('SelectModalPage', { store_id: store_id, img_id: img_id});
     modal.present();
+    console.log("openModal Function");
   }
 
   init() {

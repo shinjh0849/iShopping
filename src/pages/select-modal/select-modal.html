@@ -1,21 +1,23 @@
 <ion-content>
 
-  <div class="image-modal transparent">
-    <ion-item class="close-fake" no-lines (click)="close()">
-      <ion-icon name="close"></ion-icon>
-    </ion-item>
+  <div class="image-modal transparent" display="block">
 
+    <div class="bigtext"> 촬영한 옷이 이 옷이 맞나요? </div>
     <!-- 사진 띄우는 부분 -->
     <div class="container" *ngFor="let img of images; let i = index">
-        <p class="no-image" [hidden]="images.length !== 0" text-center>
+        <!-- <p [hidden]="images.length !== 0" text-center>
             이 옷을 찾을 수 없어요! 
-          </p>
+          </p> -->
       <ion-thumbnail class="thumbnail">
         <img class="full-image" [src]="img.url" (click)="select(img)"/>
         <div class="detail-text"> {{img.name}} </div>
       </ion-thumbnail>
     </div>
 
+    <div class="empty-box"> </div>
+    <div class="buttons">
+    <button ion-button (click)="cancelButton()"> 취소 </button>
+  </div>
   </div>
 
 </ion-content>

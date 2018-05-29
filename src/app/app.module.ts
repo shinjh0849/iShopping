@@ -56,7 +56,8 @@ import { ScrollableTabs } from '../components/scrollable-tabs';
     TesttodoPage, 
     HomeTestPage,
     SettingsPage,
-    ContentDrawerComponent
+    ContentDrawerComponent,
+    //SelectModalPage
   ],
   imports: [
     BrowserModule,
@@ -80,7 +81,8 @@ import { ScrollableTabs } from '../components/scrollable-tabs';
     TabsPage,
     TesttodoPage,
     HomeTestPage,
-    SettingsPage
+    SettingsPage,
+    //SelectModalPage
   ],
   providers: [
     {provide: ErrorHandler, useClass: IonicErrorHandler},
