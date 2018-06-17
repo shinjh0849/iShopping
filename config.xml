@@ -94,8 +94,8 @@
     <plugin name="cordova-plugin-compat" spec="^1.2.0" />
     <allow-navigation href="http://172.17.218.143:8100" />
     <plugin name="cordova-plugin-indooratlas" spec="https://github.com/IndoorAtlas/cordova-plugin.git" />
-    <engine name="android" spec="^7.0.0" />
     <preference name="SplashScreen" value="screen" />
     <preference name="SplashShowOnlyFirstTime" value="false" />
     <preference name="SplashScreenDelay" value="3000" />
+    <engine name="android" spec="^7.0.0" />
 </widget>

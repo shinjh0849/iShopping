@@ -317,20 +317,17 @@ export class MapPage {
     console.log('IndoorAtlas was successfully initialized');
   }
 
-  getMaeJang() {
-
-    // 이부분 매우 수정해야됨
-    this.showLoading('finding maejang..');
+  getStoreLocation() {
+    this.showLoading('finding store..');
     if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
-      myLocation = 'Mae Jang 1';
+      myLocation = 'Store 1';
     }
     else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon2)) {
-      myLocation = 'Mae Jang 2';
+      myLocation = 'Store 2';
     }
     else {
-      myLocation = 'uniqlo';
+      myLocation = 'Invalid Store';
     }
-
     this.loading.dismiss();
   }
 
@@ -346,7 +343,7 @@ export class MapPage {
     };
 
     //Gets the current store in strings
-    //this.getMaeJang();
+    //this.getStoreLocation(;
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
