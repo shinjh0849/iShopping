@@ -32,7 +32,6 @@ export class MyApp {
     public events: Events) {
     console.log("app component ts constructor");
     platform.ready().then(() => {
-
       // this.imageLoaderConfig.enableDebugMode();
       // this.imageLoaderConfig.enableFallbackAsPlaceholder(true);
       // this.imageLoaderConfig.setFallbackUrl('assets/imgs/logo.png');

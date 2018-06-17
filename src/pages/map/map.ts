@@ -319,10 +319,8 @@ export class MapPage {
     console.log('IndoorAtlas was successfully initialized');
   }
 
-  getMaeJang() {
-
-    // 이부분 매우 수정해야됨
-    this.showLoading('finding maejang..');
+  getStoreLocation() {
+    // this.showLoading('finding store..');
     if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
       this.maejang_id = '5ae675567d0b98e5674ac60f';
       myLocation = '5ae675567d0b98e5674ac60f';
@@ -335,8 +333,7 @@ export class MapPage {
       this.maejang_id = '5a7c10d53e57f0ee8c48f8de';
       myLocation = '5a7c10d53e57f0ee8c48f8de';
     }
-
-    this.loading.dismiss();
+    // this.loading.dismiss();
   }
 
   public takePicture() {
@@ -351,7 +348,7 @@ export class MapPage {
     };
 
     //Gets the current store in strings
-    this.getMaeJang();
+    this.getStoreLocation();
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
@@ -446,12 +443,12 @@ export class MapPage {
     this.addInfoWindowList(marker, obj);
   }
 
-  showLoading(text) {
-    this.loading = this.loadingCtrl.create({
-      content: text
-    });
-    this.loading.present();
-  }
+  // showLoading(text) {
+  //   this.loading = this.loadingCtrl.create({
+  //     content: text
+  //   });
+  //   this.loading.present();
+  // }
 
   moreList() {
     this.navCtrl.push(PicHttpPage);
