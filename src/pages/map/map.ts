@@ -136,6 +136,8 @@ export class MapPage {
 
   img: any;
 
+  maejang_id: string;
+
   @ViewChild(Slides) slides: Slides;
 
   constructor(
@@ -322,13 +324,16 @@ export class MapPage {
     // 이부분 매우 수정해야됨
     this.showLoading('finding maejang..');
     if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon1)) {
-      myLocation = 'Mae Jang 1';
+      this.maejang_id = '5ae675567d0b98e5674ac60f';
+      myLocation = '5ae675567d0b98e5674ac60f';
     }
     else if (google.maps.geometry.poly.containsLocation(new google.maps.LatLng(curLat, curLng), polygon2)) {
-      myLocation = 'Mae Jang 2';
+      this.maejang_id = '5a7c10d53e57f0ee8c48f8de';
+      myLocation= '5a7c10d53e57f0ee8c48f8de';
     }
     else {
-      myLocation = 'uniqlo';
+      this.maejang_id = '5a7c10d53e57f0ee8c48f8de';
+      myLocation = '5a7c10d53e57f0ee8c48f8de';
     }
 
     this.loading.dismiss();
@@ -346,7 +351,7 @@ export class MapPage {
     };
 
     //Gets the current store in strings
-    //this.getMaeJang();
+    this.getMaeJang();
 
     // Get the data of an image
     this.camera.getPicture(options).then((imagePath) => {
@@ -355,14 +360,17 @@ export class MapPage {
         content: 'uploading image..'
       });
       LoadCtrl.present();
-      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, '5a7c10d53e57f0ee8c48f8de').then(res => {
+      this.imagesProvider.uploadImage(imagePath, "desc", curLat, curLng, this.maejang_id).then(res => {
         console.log("ABC: "+ res.response);
         this.img = res.response;
         LoadCtrl.dismiss();
+        console.log("aa" + this.maejang_id);
+        console.log("bb" + myLocation);
+
 
         LoadCtrl.onDidDismiss(res => {
           console.log('uploading image success!');
-          this.openModal('5a7c10d53e57f0ee8c48f8de', this.img );
+          this.openModal(this.maejang_id, this.img );
           console.log("this img id:" + this.img);
           //this.events.publish('photo:updated', {});
         })
